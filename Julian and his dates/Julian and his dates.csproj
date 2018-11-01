@@ -110,6 +110,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1497103996_Jordanian-Dinar.ico" />
+    <None Include="Properties\Bleep-SoundBible.com-1927126940.wav" />
+    <None Include="Properties\Beep-SoundBible.com-923660219.wav" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

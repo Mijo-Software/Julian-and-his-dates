@@ -76,6 +76,7 @@
       this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
       this.logoPictureBox.TabIndex = 12;
       this.logoPictureBox.TabStop = false;
+      this.logoPictureBox.Click += new System.EventHandler(this.logoPictureBox_Click);
       // 
       // labelProductName
       // 
@@ -156,14 +157,14 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(278, 178);
       this.Controls.Add(this.tableLayoutPanel);
-      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "AboutBoxForm";
       this.Padding = new System.Windows.Forms.Padding(9);
       this.ShowIcon = false;
       this.ShowInTaskbar = false;
-      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "About";
       this.tableLayoutPanel.ResumeLayout(false);
       this.tableLayoutPanel.PerformLayout();

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -98,6 +95,13 @@ namespace Julian_and_his_dates
         return ((AssemblyCompanyAttribute)attributes[0]).Company;
       }
     }
+
     #endregion
+
+    private void logoPictureBox_Click(object sender, EventArgs e)
+    {
+      System.Media.SoundPlayer sound = new System.Media.SoundPlayer(Properties.Resources.bleep);
+      sound.Play();
+    }
   }
 }

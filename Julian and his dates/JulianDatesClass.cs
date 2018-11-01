@@ -92,4 +92,3 @@ class JulianDatesClass
     return calcJulianDate(date) - 2451544.5;
   }
 }
-
