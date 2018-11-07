@@ -117,11 +117,128 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="strCnesJulianDateText" xml:space="preserve">
+    <value>The CNES Julian Date (CNES JD) was introduced by the Centre national d'études spatiales (CNES) (English: National Centre for Space Studies). This is the format used in CNES products like MSLA data files. The starting point of CNES JD was on 0h Jan 1, 1950 and is computed by CCNES JD = JD − 2433282.5.</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="beep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="picInformation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>information.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picSoundGray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sound_gray.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="strTruncatedJulianDateText" xml:space="preserve">
+    <value>The Truncated Julian Day (TJD) was introduced by NASA/Goddard in 1979 as part of a parallel grouped binary time code (PB-5) 'designed specifically, although not exclusively, for spacecraft applications.' TJD was a 4-digit day count from MJD 40000, which was May 24, 1968, represented as a 14-bit binary number. Since this code was limited to four digits, TJD recycled to zero on MJD 50000, or October 10, 1995, 'which gives a long ambiguity period of 27.4 years'. (NASA codes PB-1—PB-4 used a 3-digit day-of-year count.) Only whole days are represented. Time of day is expressed by a count of seconds of a day, plus optional milliseconds, microseconds and nanoseconds in separate fields. Later PB-5J was introduced which increased the TJD field to 16 bits, allowing values up to 65535, which will occur in the year 2147. There are five digits recorded after TJD 9999.</value>
+  </data>
+  <data name="wavBleep" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Bleep-SoundBible.com-1927126940.wav;System.IO.MemoryStream, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="strCopiedToClipboard" xml:space="preserve">
+    <value>Copied to clipboard.</value>
+  </data>
+  <data name="strUtcTimeText" xml:space="preserve">
+    <value>Coordinated Universal Time (French: Temps universel coordonné), abbreviated to UTC, is the primary time standard by which the world regulates clocks and time. It is within about 1 second of mean solar time at 0° longitude; it does not observe daylight saving time. It is one of several closely related successors to Greenwich Mean Time (GMT). For most purposes, UTC is considered interchangeable with GMT, but GMT is no longer precisely defined by the scientific community.</value>
+  </data>
+  <data name="picSoundNone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sound_none.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picSoundMute" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sound_mute.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="strMillenniumJulianDateText" xml:space="preserve">
+    <value>The Millennium Julian Date (Millennium JD) is my own created modified Julian Date. The starting point was the Third Millennium on 0h Jan 1, 2000 and is computed by Millennium JD = JD − 2451544.5.</value>
+  </data>
+  <data name="strDublinJulianDateText" xml:space="preserve">
+    <value>The Dublin Julian Date (DJD) is the number of days that has elapsed since the epoch of the solar and lunar ephemerides used from 1900 through 1983, Newcomb's Tables of the Sun and Ernest W. Brown's Tables of the Motion of the Moon (1919). This epoch was noon UT on January 0, 1900, which is the same as noon UT on December 31, 1899. The DJD was defined by the International Astronomical Union at their meeting in Dublin, Ireland, in 1955.</value>
+  </data>
+  <data name="strUnixtimeText" xml:space="preserve">
+    <value>Unix time (also known as POSIX time or epoch time) is a system for describing instants in time, defined as the number of seconds that have elapsed since 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970, minus the number of leap seconds that have taken place since then.] It is used widely in Unix-like and many other operating systems and file formats. Because the same timestamp can refer to two distinct instants of time around a leap second, it is neither a linear measure of time nor a true representation of UTC. The 32-bit representation of Unix time will end after the completion of 2,147,483,647 (2^31 - 1) seconds from the beginning (00:00:00 1 January 1970), i.e., on 19 January, 2038 03:14:08 GMT. This is referred to as the "Year 2038 problem" where the 32-bit Unix time will overflow and will take the actual count to negative. Unix time is computed by (JD − 2440587.5) × 86400</value>
+  </data>
+  <data name="strModifiedJulianDateText" xml:space="preserve">
+    <value>The Modified Julian Date (MJD) was introduced by the Smithsonian Astrophysical Observatory in 1957 to record the orbit of Sputnik via an IBM 704 (36-bit machine) and using only 18 bits until August 7, 2576. MJD is the epoch of VAX/VMS and its successor OpenVMS, using 63-bit date/time, which allows times to be stored up to July 31, 31086, 02:48:05.47.[15] The MJD has a starting point of midnight on November 17, 1858 and is computed by MJD = JD - 2400000.5</value>
+  </data>
+  <data name="strJulianDateText" xml:space="preserve">
+    <value>The Julian Date is based on the Julian Period proposed by Joseph Scaliger, a classical scholar, in 1583, at the time of the Gregorian calendar reform. A few centuries later in his book 'Outlines of Astronomy', first published in 1849, the astronomer John Herschel added the counting of days elapsed from the beginning of the Julian Period. Astronomers adopted Herschel's 'days of the Julian period' in the late nineteenth century, but used the meridian of Greenwich instead of Alexandria, after the former was adopted as the Prime Meridian after the International Meridian Conference in Washington in 1884. This has now become the standard system of Julian days numbers. The French mathematician and astronomer Pierre-Simon Laplace first expressed the time of day as a decimal fraction added to calendar dates in his book, Traité de Mécanique Céleste, in 1799. Other astronomers added fractions of the day to the Julian day number to create Julian Dates, which are typically used by astronomers to date astronomical observations, thus eliminating the complications resulting from using standard calendar periods like eras, years, or months. They were first introduced into variable star work by Edward Charles Pickering, of the Harvard College Observatory, in 1890.</value>
+  </data>
+  <data name="strMarsSolDateText" xml:space="preserve">
+    <value>The term sol is used by planetary astronomers to refer to the duration of a solar day on Mars. A mean Martian solar day, or "sol", is 24 hours, 39 minutes, and 35.244 seconds.
+
+When a spacecraft lander begins operations on Mars, the passing Martian days (sols) are tracked using a simple numerical count. The two Viking missions, Mars Phoenix and the Mars Science Laboratory rover Curiosity count the sol on which each lander touched down as "Sol 0"; Mars Pathfinder and the two Mars Exploration Rovers instead defined touchdown as "Sol 1".
+
+Although lander missions have twice occurred in pairs, no effort was made to synchronize the sol counts of the two landers within each pair. Thus, for example, although Spirit and Opportunity were sent to operate simultaneously on Mars, each counted its landing date as "Sol 1", putting their calendars approximately 21 sols out of sync. Spirit and Opportunity differ in longitude by 179 degrees, so when it is daylight for one it is night for the other, and they carried out activities independently while both were operational.
+
+On Earth, astronomers often use Julian Dates – a simple sequential count of days – for timekeeping purposes. A proposed counterpart on Mars is the Mars Sol Date (MSD), which is a running count of sols since December 29, 1873 (coincidentally the birth date of astronomer Carl Otto Lampland). Another proposal suggests a start date (or epoch) in the year 1608 (invention of the telescope). Either choice is intended to ensure that all historically recorded events related to Mars occur after it. The Mars Sol Date is defined mathematically as MSD = (Julian Date using International Atomic Time - 2451549.5 + k)/1.02749125 + 44796.0, where k is a small correction of approximately 0.00014 d (or 12 s) due to uncertainty in the exact geographical position of the prime meridian at Airy-0 crater.</value>
+  </data>
+  <data name="strCcsdsJulianDateText" xml:space="preserve">
+    <value>The CCSDS Julian Date (CCSDS JD) was introduced by the Consultative Committee for Space Data Systems (CCSDS). This is the format used in TOPEX/POSEIDON altimetry. The starting point of CCSDS JD was on 0h Jan 1, 1958 and is computed by CCSDS JD = JD − 2436204.5.</value>
+  </data>
+  <data name="picSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>sound.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="strInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="strChronologicalModifiedJulianDateText" xml:space="preserve">
+    <value>The Chronological Modified Julian Date (CMJD) describes the days elapsed since November 17, 1858 in the timezone of interest. CMJD = MJD + 0.5 + Zoff, where Zoff is the timezone offset in fractional days. This was devised by Peter Meyer, and described in http://www.hermetic.ch/cal_stud/cjd.htm.</value>
+  </data>
+  <data name="wavBeep" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Beep-SoundBible.com-923660219.wav;System.IO.MemoryStream, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="bleep" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Bleep-SoundBible.com-1927126940.wav;System.IO.MemoryStream, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="strLilianDateText" xml:space="preserve">
+    <value>The Lilian day number (LD) is a count of days of the Gregorian calendar and not defined relative to the Julian Date. It is an integer applied to a whole day; day 1 was October 15, 1582, which was the day the Gregorian calendar went into effect. The original paper defining it makes no mention of the time zone, and no mention of time-of-day. It was named for Aloysius Lilius, the principal author of the Gregorian calendar. The Lilian Date is computed by LD = floor (JD − 2299159.5).</value>
+  </data>
+  <data name="strReducedJulianDateText" xml:space="preserve">
+    <value>The Reduced Julian Date (RJD) is similar to the MJD. The starting point was on 12h Nov 16, 1858 and is computed byRJD = JD − 2451544.</value>
+  </data>
+  <data name="strLopJulianDateText" xml:space="preserve">
+    <value>The LOP Julian Date (LOP JD) was introduced by the Laboratoire d'Oceanographie Physique (LOP) in Paris, France. The starting point of LOP JD was on 0h Jan 1, 1992 and is computed by LOP JD = JD − 2448622.5.</value>
+  </data>
+  <data name="strChronologicalJulianDateText" xml:space="preserve">
+    <value>The Chronological Julian Date (CJD) describes the days elapsed since -4713-11-24T00 in the timezone of interest. CJD = JD + 0.5 + Zoff, where Zoff is the timezone offset in fractional days. This was devised by Peter Meyer, and described in http://www.hermetic.ch/cal_stud/cjd.htm.</value>
+  </data>
+  <data name="strRataDieText" xml:space="preserve">
+    <value>Rata Die (RD) is a system for assigning numbers to calendar days (optionally with time of day), independent of any calendar, for the purposes of calendrical calculations. It was named (after the Latin ablative feminine singular for "from a fixed date") by Howard Jacobson. The same system (including the same epoch) was used earlier, e.g., the REXX programming language since about 1980: The base date of 1 January 0001 is determined by extending the current Gregorian calendar backward (365 days each year, with an extra day every year that is divisible by 4 except century years that are not divisible by 400). Rata Die is computed by RD = floor (JD − 1721424.5).</value>
+  </data>
+  <data name="strAlarmOn" xml:space="preserve">
+    <value>Alarm ON</value>
+  </data>
+  <data name="strAlarmOff" xml:space="preserve">
+    <value>Alarm OFF</value>
+  </data>
+  <data name="strLocalTimeText" xml:space="preserve">
+    <value>Universal Time (UT) is a time standard based on Earth's rotation. It is a modern continuation of Greenwich Mean Time (GMT), i.e., the mean solar time on the Prime Meridian at Greenwich, London, UK. In fact, the expression "Universal Time" is ambiguous (when accuracy of better than a few seconds is required), as there are several versions of it, the most commonly used being Coordinated Universal Time (UTC) and UT1. All of these versions of UT, except for UTC, are based on Earth's rotation relative to distant celestial objects (stars and quasars), but with a scaling factor and other adjustments to make them closer to solar time. UTC is based on International Atomic Time, with leap seconds added to keep it within 0.9 second of UT1.</value>
+  </data>
+  <data name="wavCameraFlashing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Camera Flashing-SoundBible.com-262232073.wav;System.IO.MemoryStream, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="picCamera" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>camera.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="strApplicationMaximizedText" xml:space="preserve">
+    <value>Maximized</value>
+  </data>
+  <data name="strApplicationMaximizedTitle" xml:space="preserve">
+    <value>Application is running in foreground</value>
+  </data>
+  <data name="strApplicationMinimizedText" xml:space="preserve">
+    <value>Minimized</value>
+  </data>
+  <data name="strApplicationMinimizedTitle" xml:space="preserve">
+    <value>Application is running in background</value>
+  </data>
+  <data name="strApplicationNotOnTop" xml:space="preserve">
+    <value>Not on &amp;top</value>
+  </data>
+  <data name="strApplicationOnTop" xml:space="preserve">
+    <value>Always on &amp;top</value>
+  </data>
+  <data name="strJdSwitched" xml:space="preserve">
+    <value>Julian Date switched to next number.</value>
+  </data>
+  <data name="wavBlop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Blop-Mark_DiAngelo-79054334.wav;System.IO.MemoryStream, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="strScreenshotSavedTo" xml:space="preserve">
+    <value>The screenshot is saved in the picture directory:</value>
   </data>
 </root>

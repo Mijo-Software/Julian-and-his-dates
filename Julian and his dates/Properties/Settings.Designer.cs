@@ -22,5 +22,97 @@ namespace Julian_and_his_dates.Properties {
                 return defaultInstance;
             }
         }
+        
+        /// <summary>
+        /// Darkmode flag
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsDescriptionAttribute("Darkmode flag")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isDarkmodeEnabled {
+            get {
+                return ((bool)(this["isDarkmodeEnabled"]));
+            }
+            set {
+                this["isDarkmodeEnabled"] = value;
+            }
+        }
+        
+        /// <summary>
+        /// Background color of the application
+        /// </summary>
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.SettingsDescriptionAttribute("Background color of the application")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control")]
+        public global::System.Drawing.Color BackgroundColor {
+            get {
+                return ((global::System.Drawing.Color)(this["BackgroundColor"]));
+            }
+            set {
+                this["BackgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int userTicks {
+            get {
+                return ((int)(this["userTicks"]));
+            }
+            set {
+                this["userTicks"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
+        public global::System.Drawing.Color ForegroundColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ForegroundColor"]));
+            }
+            set {
+                this["ForegroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isAutomaticRefreshing {
+            get {
+                return ((bool)(this["isAutomaticRefreshing"]));
+            }
+            set {
+                this["isAutomaticRefreshing"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isAlarmEnabled {
+            get {
+                return ((bool)(this["isAlarmEnabled"]));
+            }
+            set {
+                this["isAlarmEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isStayOnTop {
+            get {
+                return ((bool)(this["isStayOnTop"]));
+            }
+            set {
+                this["isStayOnTop"] = value;
+            }
+        }
     }
 }

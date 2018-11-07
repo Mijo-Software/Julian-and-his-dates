@@ -19,7 +19,7 @@ namespace Julian_and_his_dates.Properties {
     // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
     // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
     // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,20 +61,361 @@ namespace Julian_and_his_dates.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.IO.UnmanagedMemoryStream ähnlich wie System.IO.MemoryStream.
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream beep {
+        internal static System.Drawing.Bitmap picCamera {
             get {
-                return ResourceManager.GetStream("beep", resourceCulture);
+                object obj = ResourceManager.GetObject("picCamera", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap picInformation {
+            get {
+                object obj = ResourceManager.GetObject("picInformation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap picSound {
+            get {
+                object obj = ResourceManager.GetObject("picSound", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap picSoundGray {
+            get {
+                object obj = ResourceManager.GetObject("picSoundGray", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap picSoundMute {
+            get {
+                object obj = ResourceManager.GetObject("picSoundMute", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap picSoundNone {
+            get {
+                object obj = ResourceManager.GetObject("picSoundNone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alarm OFF ähnelt.
+        /// </summary>
+        internal static string strAlarmOff {
+            get {
+                return ResourceManager.GetString("strAlarmOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alarm ON ähnelt.
+        /// </summary>
+        internal static string strAlarmOn {
+            get {
+                return ResourceManager.GetString("strAlarmOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Maximized ähnelt.
+        /// </summary>
+        internal static string strApplicationMaximizedText {
+            get {
+                return ResourceManager.GetString("strApplicationMaximizedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Application is running in foreground ähnelt.
+        /// </summary>
+        internal static string strApplicationMaximizedTitle {
+            get {
+                return ResourceManager.GetString("strApplicationMaximizedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Minimized ähnelt.
+        /// </summary>
+        internal static string strApplicationMinimizedText {
+            get {
+                return ResourceManager.GetString("strApplicationMinimizedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Application is running in background ähnelt.
+        /// </summary>
+        internal static string strApplicationMinimizedTitle {
+            get {
+                return ResourceManager.GetString("strApplicationMinimizedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Not on &amp;top ähnelt.
+        /// </summary>
+        internal static string strApplicationNotOnTop {
+            get {
+                return ResourceManager.GetString("strApplicationNotOnTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Always on &amp;top ähnelt.
+        /// </summary>
+        internal static string strApplicationOnTop {
+            get {
+                return ResourceManager.GetString("strApplicationOnTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The CCSDS Julian Date (CCSDS JD) was introduced by the Consultative Committee for Space Data Systems (CCSDS). This is the format used in TOPEX/POSEIDON altimetry. The starting point of CCSDS JD was on 0h Jan 1, 1958 and is computed by CCSDS JD = JD − 2436204.5. ähnelt.
+        /// </summary>
+        internal static string strCcsdsJulianDateText {
+            get {
+                return ResourceManager.GetString("strCcsdsJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Chronological Julian Date (CJD) describes the days elapsed since -4713-11-24T00 in the timezone of interest. CJD = JD + 0.5 + Zoff, where Zoff is the timezone offset in fractional days. This was devised by Peter Meyer, and described in http://www.hermetic.ch/cal_stud/cjd.htm. ähnelt.
+        /// </summary>
+        internal static string strChronologicalJulianDateText {
+            get {
+                return ResourceManager.GetString("strChronologicalJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Chronological Modified Julian Date (CMJD) describes the days elapsed since November 17, 1858 in the timezone of interest. CMJD = MJD + 0.5 + Zoff, where Zoff is the timezone offset in fractional days. This was devised by Peter Meyer, and described in http://www.hermetic.ch/cal_stud/cjd.htm. ähnelt.
+        /// </summary>
+        internal static string strChronologicalModifiedJulianDateText {
+            get {
+                return ResourceManager.GetString("strChronologicalModifiedJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The CNES Julian Date (CNES JD) was introduced by the Centre national d&apos;études spatiales (CNES) (English: National Centre for Space Studies). This is the format used in CNES products like MSLA data files. The starting point of CNES JD was on 0h Jan 1, 1950 and is computed by CCNES JD = JD − 2433282.5. ähnelt.
+        /// </summary>
+        internal static string strCnesJulianDateText {
+            get {
+                return ResourceManager.GetString("strCnesJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Copied to clipboard. ähnelt.
+        /// </summary>
+        internal static string strCopiedToClipboard {
+            get {
+                return ResourceManager.GetString("strCopiedToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Dublin Julian Date (DJD) is the number of days that has elapsed since the epoch of the solar and lunar ephemerides used from 1900 through 1983, Newcomb&apos;s Tables of the Sun and Ernest W. Brown&apos;s Tables of the Motion of the Moon (1919). This epoch was noon UT on January 0, 1900, which is the same as noon UT on December 31, 1899. The DJD was defined by the International Astronomical Union at their meeting in Dublin, Ireland, in 1955. ähnelt.
+        /// </summary>
+        internal static string strDublinJulianDateText {
+            get {
+                return ResourceManager.GetString("strDublinJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Information ähnelt.
+        /// </summary>
+        internal static string strInformation {
+            get {
+                return ResourceManager.GetString("strInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Julian Date switched to next number. ähnelt.
+        /// </summary>
+        internal static string strJdSwitched {
+            get {
+                return ResourceManager.GetString("strJdSwitched", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Julian Date is based on the Julian Period proposed by Joseph Scaliger, a classical scholar, in 1583, at the time of the Gregorian calendar reform. A few centuries later in his book &apos;Outlines of Astronomy&apos;, first published in 1849, the astronomer John Herschel added the counting of days elapsed from the beginning of the Julian Period. Astronomers adopted Herschel&apos;s &apos;days of the Julian period&apos; in the late nineteenth century, but used the meridian of Greenwich instead of Alexandria, after the former was ad [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string strJulianDateText {
+            get {
+                return ResourceManager.GetString("strJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Lilian day number (LD) is a count of days of the Gregorian calendar and not defined relative to the Julian Date. It is an integer applied to a whole day; day 1 was October 15, 1582, which was the day the Gregorian calendar went into effect. The original paper defining it makes no mention of the time zone, and no mention of time-of-day. It was named for Aloysius Lilius, the principal author of the Gregorian calendar. The Lilian Date is computed by LD = floor (JD − 2299159.5). ähnelt.
+        /// </summary>
+        internal static string strLilianDateText {
+            get {
+                return ResourceManager.GetString("strLilianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Universal Time (UT) is a time standard based on Earth&apos;s rotation. It is a modern continuation of Greenwich Mean Time (GMT), i.e., the mean solar time on the Prime Meridian at Greenwich, London, UK. In fact, the expression &quot;Universal Time&quot; is ambiguous (when accuracy of better than a few seconds is required), as there are several versions of it, the most commonly used being Coordinated Universal Time (UTC) and UT1. All of these versions of UT, except for UTC, are based on Earth&apos;s rotation relative to distant [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string strLocalTimeText {
+            get {
+                return ResourceManager.GetString("strLocalTimeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The LOP Julian Date (LOP JD) was introduced by the Laboratoire d&apos;Oceanographie Physique (LOP) in Paris, France. The starting point of LOP JD was on 0h Jan 1, 1992 and is computed by LOP JD = JD − 2448622.5. ähnelt.
+        /// </summary>
+        internal static string strLopJulianDateText {
+            get {
+                return ResourceManager.GetString("strLopJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The term sol is used by planetary astronomers to refer to the duration of a solar day on Mars. A mean Martian solar day, or &quot;sol&quot;, is 24 hours, 39 minutes, and 35.244 seconds.
+        ///
+        ///When a spacecraft lander begins operations on Mars, the passing Martian days (sols) are tracked using a simple numerical count. The two Viking missions, Mars Phoenix and the Mars Science Laboratory rover Curiosity count the sol on which each lander touched down as &quot;Sol 0&quot;; Mars Pathfinder and the two Mars Exploration Rovers instead [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string strMarsSolDateText {
+            get {
+                return ResourceManager.GetString("strMarsSolDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Millennium Julian Date (Millennium JD) is my own created modified Julian Date. The starting point was the Third Millennium on 0h Jan 1, 2000 and is computed by Millennium JD = JD − 2451544.5. ähnelt.
+        /// </summary>
+        internal static string strMillenniumJulianDateText {
+            get {
+                return ResourceManager.GetString("strMillenniumJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Modified Julian Date (MJD) was introduced by the Smithsonian Astrophysical Observatory in 1957 to record the orbit of Sputnik via an IBM 704 (36-bit machine) and using only 18 bits until August 7, 2576. MJD is the epoch of VAX/VMS and its successor OpenVMS, using 63-bit date/time, which allows times to be stored up to July 31, 31086, 02:48:05.47.[15] The MJD has a starting point of midnight on November 17, 1858 and is computed by MJD = JD - 2400000.5 ähnelt.
+        /// </summary>
+        internal static string strModifiedJulianDateText {
+            get {
+                return ResourceManager.GetString("strModifiedJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rata Die (RD) is a system for assigning numbers to calendar days (optionally with time of day), independent of any calendar, for the purposes of calendrical calculations. It was named (after the Latin ablative feminine singular for &quot;from a fixed date&quot;) by Howard Jacobson. The same system (including the same epoch) was used earlier, e.g., the REXX programming language since about 1980: The base date of 1 January 0001 is determined by extending the current Gregorian calendar backward (365 days each year, with [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string strRataDieText {
+            get {
+                return ResourceManager.GetString("strRataDieText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Reduced Julian Date (RJD) is similar to the MJD. The starting point was on 12h Nov 16, 1858 and is computed byRJD = JD − 2451544. ähnelt.
+        /// </summary>
+        internal static string strReducedJulianDateText {
+            get {
+                return ResourceManager.GetString("strReducedJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The screenshot is saved in the picture directory: ähnelt.
+        /// </summary>
+        internal static string strScreenshotSavedTo {
+            get {
+                return ResourceManager.GetString("strScreenshotSavedTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Truncated Julian Day (TJD) was introduced by NASA/Goddard in 1979 as part of a parallel grouped binary time code (PB-5) &apos;designed specifically, although not exclusively, for spacecraft applications.&apos; TJD was a 4-digit day count from MJD 40000, which was May 24, 1968, represented as a 14-bit binary number. Since this code was limited to four digits, TJD recycled to zero on MJD 50000, or October 10, 1995, &apos;which gives a long ambiguity period of 27.4 years&apos;. (NASA codes PB-1—PB-4 used a 3-digit day-of-year [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string strTruncatedJulianDateText {
+            get {
+                return ResourceManager.GetString("strTruncatedJulianDateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Unix time (also known as POSIX time or epoch time) is a system for describing instants in time, defined as the number of seconds that have elapsed since 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970, minus the number of leap seconds that have taken place since then.] It is used widely in Unix-like and many other operating systems and file formats. Because the same timestamp can refer to two distinct instants of time around a leap second, it is neither a linear measure of time nor a tru [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string strUnixtimeText {
+            get {
+                return ResourceManager.GetString("strUnixtimeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Coordinated Universal Time (French: Temps universel coordonné), abbreviated to UTC, is the primary time standard by which the world regulates clocks and time. It is within about 1 second of mean solar time at 0° longitude; it does not observe daylight saving time. It is one of several closely related successors to Greenwich Mean Time (GMT). For most purposes, UTC is considered interchangeable with GMT, but GMT is no longer precisely defined by the scientific community. ähnelt.
+        /// </summary>
+        internal static string strUtcTimeText {
+            get {
+                return ResourceManager.GetString("strUtcTimeText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.IO.UnmanagedMemoryStream ähnlich wie System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream bleep {
+        internal static System.IO.UnmanagedMemoryStream wavBeep {
             get {
-                return ResourceManager.GetStream("bleep", resourceCulture);
+                return ResourceManager.GetStream("wavBeep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.IO.UnmanagedMemoryStream ähnlich wie System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream wavBleep {
+            get {
+                return ResourceManager.GetStream("wavBleep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.IO.UnmanagedMemoryStream ähnlich wie System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream wavBlop {
+            get {
+                return ResourceManager.GetStream("wavBlop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.IO.UnmanagedMemoryStream ähnlich wie System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream wavCameraFlashing {
+            get {
+                return ResourceManager.GetStream("wavCameraFlashing", resourceCulture);
             }
         }
     }
