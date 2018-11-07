@@ -1,94 +1,108 @@
 ﻿using System;
+using System.Globalization;
 
 class JulianDatesClass
 {
-  public static double calcJulianDate()
+  private const double
+    doubleJulianDateCoefficient = 2415018.5,
+    doubleModifiedJulianDateCoefficient = 2400000.5,
+    doubleReducedJulianDateCoefficient = 2400000,
+    doubleTruncatedJulianDateCoefficient = 2440000.5,
+    doubleDublinJulianDateCoefficient = 2415020,
+    doubleCnesJulianDateCoefficient = 2433282.5,
+    doubleCcsdsJulianDateCoefficient = 2436204.5,
+    doubleLopJulianDateCoefficient = 2448622.5,
+    doubleMillenniumJulianDateCoefficient = 2451544.5,
+    doubleLilianDateCoefficient = 2299159.5,
+    doubleRataDieCoefficient = 1721424.5,
+    doubleMarsSolDateCoefficient = 2405522,
+    doubleRatioRotationAxisEarthMars = 1.02749,
+    doubleUnixtimeCoefficient = 2440587.5;
+
+  private const int
+    intSecondsOfDay = 86400;
+
+	public static double CalcJulianDate() => DateTime.Now.ToOADate() + doubleJulianDateCoefficient;
+
+	public static double CalcJulianDate(DateTime date) => date.ToOADate() + doubleJulianDateCoefficient;
+
+	public static double CalcModifiedJulianDate() => CalcJulianDate() - doubleModifiedJulianDateCoefficient;
+
+	public static double CalcModifiedJulianDate(DateTime date) => CalcJulianDate(date: date) - doubleModifiedJulianDateCoefficient;
+
+	public static double CalcReducedJulianDate() => CalcJulianDate() - doubleReducedJulianDateCoefficient;
+
+	public static double CalcReducedJulianDate(DateTime date) => CalcJulianDate(date: date) - doubleReducedJulianDateCoefficient;
+
+	public static double CalcTruncatedJulianDate() => Math.Floor(CalcJulianDate() - doubleTruncatedJulianDateCoefficient);
+
+	public static double CalcTruncatedJulianDate(DateTime date) => Math.Floor(CalcJulianDate(date: date) - doubleTruncatedJulianDateCoefficient);
+
+	public static double CalcDublinJulianDate() => CalcJulianDate() - doubleDublinJulianDateCoefficient;
+
+	public static double CalcDublinJulianDate(DateTime date) => CalcJulianDate(date: date) - doubleDublinJulianDateCoefficient;
+
+	public static double CalcCnesJulianDate() => CalcJulianDate() - doubleCnesJulianDateCoefficient;
+
+	public static double CalcCnesJulianDate(DateTime date) => CalcJulianDate(date: date) - doubleCnesJulianDateCoefficient;
+
+	public static double CalcCcsdsJulianDate() => CalcJulianDate() - doubleCcsdsJulianDateCoefficient;
+
+	public static double CalcCcsdsJulianDate(DateTime date) => CalcJulianDate(date: date) - doubleCcsdsJulianDateCoefficient;
+
+	public static double CalcLopJulianDate() => CalcJulianDate() - doubleLopJulianDateCoefficient;
+
+	public static double CalcLopJulianDate(DateTime date) => CalcJulianDate(date: date) - doubleLopJulianDateCoefficient;
+
+	public static double CalcMillenniumJulianDate() => CalcJulianDate() - doubleMillenniumJulianDateCoefficient;
+
+	public static double CalcMillenniumJulianDate(DateTime date) => CalcJulianDate(date: date) - doubleMillenniumJulianDateCoefficient;
+
+	public static double CalcChronologicalJulianDate()
   {
-    return DateTime.Now.ToOADate() + 2415018.5;
+    TimeZone zone = TimeZone.CurrentTimeZone;
+    DaylightTime time = zone.GetDaylightChanges(DateTime.Today.Year);
+    //System.Windows.Forms.MessageBox.Show((time.Delta.Hours * (24 / 100)).ToString());
+    //double a = time.Delta.Hours / 24.0;
+    return CalcJulianDate() + 0.5 + (time.Delta.Hours / 24.0);
   }
 
-  public static double calcJulianDate(DateTime date)
+  public static double CalcChronologicalJulianDate(DateTime date)
   {
-    return date.ToOADate() + 2415018.5;
+    TimeZone zone = TimeZone.CurrentTimeZone;
+    DaylightTime time = zone.GetDaylightChanges(DateTime.Today.Year);
+    return CalcJulianDate(date: date) + 0.5 + (time.Delta.Hours / 24.0);
   }
 
-  public static double calcModifiedJulianDate()
+  public static double calcChronologicalModifiedJulianDate()
   {
-    return calcJulianDate() - 2400000.5;
+    TimeZone zone = TimeZone.CurrentTimeZone;
+    DaylightTime time = zone.GetDaylightChanges(DateTime.Today.Year);
+    //System.Windows.Forms.MessageBox.Show((time.Delta.Hours * (24 / 100)).ToString());
+    //double a = time.Delta.Hours / 24.0;
+    return CalcJulianDate() - doubleModifiedJulianDateCoefficient + 0.5 + (time.Delta.Hours / 24.0);
   }
 
-  public static double calcModifiedJulianDate(DateTime date)
+  public static double CalcChronologicalModifiedJulianDate(DateTime date)
   {
-    return calcJulianDate(date) - 2400000.5;
+    TimeZone zone = TimeZone.CurrentTimeZone;
+    DaylightTime time = zone.GetDaylightChanges(DateTime.Today.Year);
+    return CalcJulianDate(date: date) - doubleModifiedJulianDateCoefficient + 0.5 + (time.Delta.Hours / 24.0);
   }
 
-  public static double calcReducedJulianDate()
-  {
-    return calcJulianDate() - 2400000;
-  }
+	public static double CalcLilianDate() => Math.Floor(CalcJulianDate() - doubleLilianDateCoefficient);
 
-  public static double calcReducedJulianDate(DateTime date)
-  {
-    return calcJulianDate(date) - 2400000;
-  }
+	public static double CalcLilianDate(DateTime date) => Math.Floor(CalcJulianDate(date: date) - doubleLilianDateCoefficient);
 
-  public static double calcTruncatedJulianDate()
-  {
-    return Math.Floor(calcJulianDate() - 2440000.5);
-  }
+	public static double CalcRataDie() => Math.Floor(CalcJulianDate() - doubleRataDieCoefficient);
 
-  public static double calcTruncatedJulianDate(DateTime date)
-  {
-    return Math.Floor(calcJulianDate(date) - 2440000.5);
-  }
+	public static double CalcRataDie(DateTime date) => Math.Floor(CalcJulianDate(date: date) - doubleRataDieCoefficient);
 
-  public static double calcDublinJulianDate()
-  {
-    return calcJulianDate() - 2415020;
-  }
+	public static double CalcMarsSolDate() => (CalcJulianDate() - doubleMarsSolDateCoefficient) / doubleRatioRotationAxisEarthMars;
 
-  public static double calcDublinJulianDate(DateTime date)
-  {
-    return calcJulianDate(date) - 2415020;
-  }
+	public static double CalcMarsSolDate(DateTime date) => (CalcJulianDate(date: date) - doubleMarsSolDateCoefficient) / doubleRatioRotationAxisEarthMars;
 
-  public static double calcCnesJulianDate()
-  {
-    return calcJulianDate() - 2433282.5;
-  }
+	public static double CalcUnixtime() => (CalcJulianDate() - doubleUnixtimeCoefficient) * intSecondsOfDay;
 
-  public static double calcCnesJulianDate(DateTime date)
-  {
-    return calcJulianDate(date) - 2433282.5;
-  }
-
-  public static double calcCcsdsJulianDate()
-  {
-    return calcJulianDate() - 2436204.5;
-  }
-
-  public static double calcCcsdsJulianDate(DateTime date)
-  {
-    return calcJulianDate(date) - 2436204.5;
-  }
-
-  public static double calcLopJulianDate()
-  {
-    return calcJulianDate() - 2448622.5;
-  }
-
-  public static double calcLopJulianDate(DateTime date)
-  {
-    return calcJulianDate(date) - 2448622.5;
-  }
-
-  public static double calcMilleniumJulianDate()
-  {
-    return calcJulianDate() - 2451544.5;
-  }
-
-  public static double calcMilleniumJulianDate(DateTime date)
-  {
-    return calcJulianDate(date) - 2451544.5;
-  }
+	public static double CalcUnixtime(DateTime date) => (CalcJulianDate(date: date) - doubleUnixtimeCoefficient) * intSecondsOfDay;
 }

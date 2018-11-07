@@ -100,8 +100,12 @@ namespace Julian_and_his_dates
 
     private void logoPictureBox_Click(object sender, EventArgs e)
     {
-      System.Media.SoundPlayer sound = new System.Media.SoundPlayer(Properties.Resources.bleep);
+      System.Media.SoundPlayer sound = new System.Media.SoundPlayer(Properties.Resources.wavBleep);
       sound.Play();
+    }
+
+    private void AboutBoxForm_Load(object sender, EventArgs e)
+    {
     }
   }
 }
