@@ -330,6 +330,15 @@ namespace Julian_and_his_dates.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Out of range: 0001-9999 ähnelt.
+        /// </summary>
+        internal static string strOutOfYearRange {
+            get {
+                return ResourceManager.GetString("strOutOfYearRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Rata Die (RD) is a system for assigning numbers to calendar days (optionally with time of day), independent of any calendar, for the purposes of calendrical calculations. It was named (after the Latin ablative feminine singular for &quot;from a fixed date&quot;) by Howard Jacobson. The same system (including the same epoch) was used earlier, e.g., the REXX programming language since about 1980: The base date of 1 January 0001 is determined by extending the current Gregorian calendar backward (365 days each year, with [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string strRataDieText {
@@ -339,7 +348,7 @@ namespace Julian_and_his_dates.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The Reduced Julian Date (RJD) is similar to the MJD. The starting point was on 12h Nov 16, 1858 and is computed byRJD = JD − 2451544. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die The Reduced Julian Date (RJD) is similar to the MJD. The starting point was on 12h Nov 16, 1858 and is computed by RJD = JD − 2451544. ähnelt.
         /// </summary>
         internal static string strReducedJulianDateText {
             get {
@@ -348,7 +357,7 @@ namespace Julian_and_his_dates.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The screenshot is saved in the picture directory: ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die The screenshot was saved in the picture directory: ähnelt.
         /// </summary>
         internal static string strScreenshotSavedTo {
             get {
