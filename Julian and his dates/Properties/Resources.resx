@@ -188,7 +188,7 @@ On Earth, astronomers often use Julian Dates – a simple sequential count of da
     <value>The Lilian day number (LD) is a count of days of the Gregorian calendar and not defined relative to the Julian Date. It is an integer applied to a whole day; day 1 was October 15, 1582, which was the day the Gregorian calendar went into effect. The original paper defining it makes no mention of the time zone, and no mention of time-of-day. It was named for Aloysius Lilius, the principal author of the Gregorian calendar. The Lilian Date is computed by LD = floor (JD − 2299159.5).</value>
   </data>
   <data name="strReducedJulianDateText" xml:space="preserve">
-    <value>The Reduced Julian Date (RJD) is similar to the MJD. The starting point was on 12h Nov 16, 1858 and is computed byRJD = JD − 2451544.</value>
+    <value>The Reduced Julian Date (RJD) is similar to the MJD. The starting point was on 12h Nov 16, 1858 and is computed by RJD = JD − 2451544.</value>
   </data>
   <data name="strLopJulianDateText" xml:space="preserve">
     <value>The LOP Julian Date (LOP JD) was introduced by the Laboratoire d'Oceanographie Physique (LOP) in Paris, France. The starting point of LOP JD was on 0h Jan 1, 1992 and is computed by LOP JD = JD − 2448622.5.</value>
@@ -239,6 +239,9 @@ On Earth, astronomers often use Julian Dates – a simple sequential count of da
     <value>Blop-Mark_DiAngelo-79054334.wav;System.IO.MemoryStream, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="strScreenshotSavedTo" xml:space="preserve">
-    <value>The screenshot is saved in the picture directory:</value>
+    <value>The screenshot was saved in the picture directory:</value>
+  </data>
+  <data name="strOutOfYearRange" xml:space="preserve">
+    <value>Out of range: 0001-9999</value>
   </data>
 </root>

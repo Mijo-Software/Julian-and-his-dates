@@ -9,74 +9,69 @@ namespace Julian_and_his_dates
 	///  Initialize the form.
 	/// </summary>
 	public partial class JulianandhisdatesForm : Form
-  {
-    double doubleOldJD = 0.999999999999999999999999, doubleNewJD;
-    bool boolFirstRun = true;
-    bool boolIsAlarmEnabled = true;
-    int intDefaultTick = 20;
-		Color
-			colorWhiteFont = Color.WhiteSmoke,
-			colorDarkBackground = Color.FromArgb(29, 32, 41);
+	{
+		private double doubleOldJD = 0.999999999999999999999999, doubleNewJD;
+		private bool boolFirstRun = true;
+		private bool boolIsAlarmEnabled = true;
+		private readonly int intDefaultTick = 20;
+		private readonly Color colorWhiteFont = Color.WhiteSmoke;
+		private readonly Color colorDarkBackground = Color.FromArgb(29, 32, 41);
 
 		/// <summary>
 		///  Initialize the form.
 		/// </summary>
-		public JulianandhisdatesForm()
-    {
-      InitializeComponent();
-    }
+		public JulianandhisdatesForm() => InitializeComponent();
 
 		private static Properties.Settings GetDefault() => Properties.Settings.Default;
 
 		private void UpdateDateInformations()
-    {
-      labelLocalTime.Text = DateTime.Now.ToString();
-      labelUtcTime.Text = DateTime.UtcNow.ToString();
-      labelJulianDate.Text = JulianDatesClass.CalcJulianDate().ToString();
-      labelModifiedJulianDate.Text = JulianDatesClass.CalcModifiedJulianDate().ToString();
-      labelReducedJulianDate.Text = JulianDatesClass.CalcReducedJulianDate().ToString();
-      labelTruncatedJulianDate.Text = JulianDatesClass.CalcTruncatedJulianDate().ToString();
-      labelDublinJulianDate.Text = JulianDatesClass.CalcDublinJulianDate().ToString();
-      labelCnesJulianDate.Text = JulianDatesClass.CalcCnesJulianDate().ToString();
-      labelCcsdsJulianDate.Text = JulianDatesClass.CalcCcsdsJulianDate().ToString();
-      labelLopJulianDate.Text = JulianDatesClass.CalcLopJulianDate().ToString();
-      labelMillenniumJulianDate.Text = JulianDatesClass.CalcMillenniumJulianDate().ToString();
-      labelChronologicalJulianDate.Text = JulianDatesClass.CalcChronologicalJulianDate().ToString();
-      labelChronologicalModifiedJulianDate.Text = JulianDatesClass.calcChronologicalModifiedJulianDate().ToString();
-      labelLilianDate.Text = JulianDatesClass.CalcLilianDate().ToString();
-      labelRataDie.Text = JulianDatesClass.CalcRataDie().ToString();
-      labelMarsSolDate.Text = JulianDatesClass.CalcMarsSolDate().ToString();
-      labelUnixtime.Text = JulianDatesClass.CalcUnixtime().ToString();
-    }
+		{
+			labelLocalTime.Text = DateTime.Now.ToString();
+			labelUtcTime.Text = DateTime.UtcNow.ToString();
+			labelJulianDate.Text = JulianDates.CalculateJulianDate().ToString();
+			labelModifiedJulianDate.Text = JulianDates.CalculateModifiedJulianDate().ToString();
+			labelReducedJulianDate.Text = JulianDates.CalculateReducedJulianDate().ToString();
+			labelTruncatedJulianDate.Text = JulianDates.CalculateTruncatedJulianDate().ToString();
+			labelDublinJulianDate.Text = JulianDates.CalculateDublinJulianDate().ToString();
+			labelCnesJulianDate.Text = JulianDates.CalculateCnesJulianDate().ToString();
+			labelCcsdsJulianDate.Text = JulianDates.CalculateCcsdsJulianDate().ToString();
+			labelLopJulianDate.Text = JulianDates.CalculateLopJulianDate().ToString();
+			labelMillenniumJulianDate.Text = JulianDates.CalculateMillenniumJulianDate().ToString();
+			labelChronologicalJulianDate.Text = JulianDates.CalculateChronologicalJulianDate().ToString();
+			labelChronologicalModifiedJulianDate.Text = JulianDates.CalculateChronologicalModifiedJulianDate().ToString();
+			labelLilianDate.Text = JulianDates.CalculateLilianDate().ToString();
+			labelRataDie.Text = JulianDates.CalculateRataDie().ToString();
+			labelMarsSolDate.Text = JulianDates.CalculateMarsSolDate().ToString();
+			labelUnixtime.Text = JulianDates.CalculateUnixTime().ToString();
+		}
 
-    /// <summary>
-    /// Saves an image of the screen to the specified path.
-    /// 
-    /// </summary>
-    /// <param name="location">Path, where output file will be saved at.</param>
-    /// <returns>Path of the successfully saved image or errormessage</returns>
-
-    public string ScreenToPicture(string location)
-    {
-      try
-      {
-        Size currentScreenSize = new Size(Size.Width, Size.Height);
-        Bitmap screenToBitmap = new Bitmap(Size.Width, Size.Height);
-        Graphics gGraphics = Graphics.FromImage(image: screenToBitmap);
-        gGraphics.CopyFromScreen(this.Location, new Point(0, 0), blockRegionSize: currentScreenSize);
-        screenToBitmap.Save(filename: location);
-        return location;
-      }
-      catch (Exception ex)
-      {
-        return ex.Message;
-      }
-    }
+		/// <summary>
+		/// Saves an image of the screen to the specified path.
+		/// 
+		/// </summary>
+		/// <param name="location">Path, where output file will be saved at.</param>
+		/// <returns>Path of the successfully saved image or errormessage</returns>
+		public string ScreenToPicture(string location)
+		{
+			try
+			{
+				Size currentScreenSize = new Size(width: Size.Width, height: Size.Height);
+				Bitmap screenToBitmap = new Bitmap(width: Size.Width, height: Size.Height);
+				Graphics gGraphics = Graphics.FromImage(image: screenToBitmap);
+				gGraphics.CopyFromScreen(upperLeftSource: Location, upperLeftDestination: new Point(0, 0), blockRegionSize: currentScreenSize);
+				screenToBitmap.Save(filename: location);
+				return location;
+			}
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+		}
 
 		private void JulianandhisdatesForm_Load(object sender, EventArgs e)
 		{
-			this.BackColor = GetDefault().BackgroundColor;
-			this.ForeColor = GetDefault().ForegroundColor;
+			BackColor = GetDefault().BackgroundColor;
+			ForeColor = GetDefault().ForegroundColor;
 			labelUtcTimeText.ForeColor = GetDefault().ForegroundColor;
 			labelLocalTimeText.ForeColor = GetDefault().ForegroundColor;
 			labelJulianDateText.ForeColor = GetDefault().ForegroundColor;
@@ -120,12 +115,12 @@ namespace Julian_and_his_dates
 			if (checkBoxStayOnTop.Checked)
 			{
 				checkBoxStayOnTop.Text = Properties.Resources.strApplicationNotOnTop;
-				this.TopMost = true;
+				TopMost = true;
 			}
 			else
 			{
 				checkBoxStayOnTop.Text = Properties.Resources.strApplicationOnTop;
-				this.TopMost = false;
+				TopMost = false;
 			}
 			numericUpDownRefreshRate.Value = timer.Interval;
 			boolIsAlarmEnabled = GetDefault().isAlarmEnabled;
@@ -145,62 +140,65 @@ namespace Julian_and_his_dates
 		}
 
 		private void Timer_Tick(object sender, EventArgs e)
-    {
-      UpdateDateInformations();
-      doubleNewJD = JulianDatesClass.CalcJulianDate();
-      doubleNewJD = doubleNewJD - Math.Truncate(d: doubleNewJD);
-      if (doubleNewJD < doubleOldJD)
-      {
-        doubleOldJD = doubleNewJD;
-        if (boolFirstRun == true)
+		{
+			UpdateDateInformations();
+			doubleNewJD = JulianDates.CalculateJulianDate();
+			doubleNewJD -= Math.Truncate(d: doubleNewJD);
+			if (doubleNewJD < doubleOldJD)
+			{
+				doubleOldJD = doubleNewJD;
+				if (boolFirstRun == true)
 				{
 					boolFirstRun = false;
-				} else {
-          SoundPlayer sound = new SoundPlayer(Properties.Resources.wavBleep);
-          sound.Play();
-          notifyIcon.BalloonTipText = JulianDatesClass.CalcJulianDate().ToString();
-          notifyIcon.BalloonTipTitle = Properties.Resources.strJdSwitched;
-          notifyIcon.ShowBalloonTip(500);
-        }
-      }
-    }
+				}
+				else
+				{
+					using (SoundPlayer sound = new SoundPlayer(stream: Properties.Resources.wavBleep))
+					{
+						sound.Play();
+					}
+					notifyIcon.BalloonTipText = JulianDates.CalculateJulianDate().ToString();
+					notifyIcon.BalloonTipTitle = Properties.Resources.strJdSwitched;
+					notifyIcon.ShowBalloonTip(timeout: 500);
+				}
+			}
+		}
+
+		private void CopyToClipboard(string strText)
+		{
+			Clipboard.SetText(text: strText);
+			MessageBox.Show(text: Properties.Resources.strCopiedToClipboard, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		}
 
 		private void ButtonRefresh_Click(object sender, EventArgs e) => UpdateDateInformations();
 
-		private void CheckBoxAutomaticRefresh_CheckedChanged(object sender, EventArgs e)
-    {
-      if (checkBoxAutomaticRefresh.Checked)
-      {
-        buttonRefresh.Enabled = false;
-        timer.Enabled = true;
-      } else {
-        buttonRefresh.Enabled = true;
-        timer.Enabled = false;
-      }
-    }
+		private void ButtonInfo_Click(object sender, EventArgs e)
+		{
+			bool boolMainWindowWasOnTop = false;
+			if (TopMost == true) { TopMost = false; boolMainWindowWasOnTop = true; }
+			using (AboutBoxForm about = new AboutBoxForm())
+			{
+				if (checkBoxDarkLightMode.Checked == true)
+				{
+					about.BackColor = colorDarkBackground;
+					about.ForeColor = colorWhiteFont;
+				}
+				about.ShowDialog();
+			}
+			if (boolMainWindowWasOnTop == true)
+			{
+				TopMost = true;
+			}
+		}
 
-    private void ButtonInfo_Click(object sender, EventArgs e)
-    {
-      bool boolMainWindowWasOnTop = false;
-      if (this.TopMost == true) { this.TopMost = false; boolMainWindowWasOnTop = true; }
-      AboutBoxForm about = new AboutBoxForm();
-      if (checkBoxDarkLightMode.Checked == true)
-      {
-				about.BackColor = colorDarkBackground;
-        about.ForeColor = colorWhiteFont;
-      }
-      about.ShowDialog();
-      if (boolMainWindowWasOnTop == true) this.TopMost = true;
-    }
-
-    private void ButtonMinimizeToTray_Click(object sender, EventArgs e)
-    {
-      this.Hide();
-      notifyIcon.Visible = true;
-      notifyIcon.BalloonTipText = Properties.Resources.strApplicationMinimizedText;
-      notifyIcon.BalloonTipTitle = Properties.Resources.strApplicationMinimizedTitle;
-      notifyIcon.ShowBalloonTip(500);
-    }
+		private void ButtonMinimizeToTray_Click(object sender, EventArgs e)
+		{
+			Hide();
+			notifyIcon.Visible = true;
+			notifyIcon.BalloonTipText = Properties.Resources.strApplicationMinimizedText;
+			notifyIcon.BalloonTipTitle = Properties.Resources.strApplicationMinimizedTitle;
+			notifyIcon.ShowBalloonTip(timeout: 500);
+		}
 
 		private void LabelUtcTimeText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strUtcTimeText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 
@@ -236,110 +234,120 @@ namespace Julian_and_his_dates
 
 		private void LabelUnixtimeText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strUnixtimeText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 
-		private void CopyToClipboard(string strText)
-		{
-			Clipboard.SetText(text: strText);
-			MessageBox.Show(text: Properties.Resources.strCopiedToClipboard, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);	
-		}
+		private void LabelUtcTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelUtcTime.Text);
 
-		private void LabelUtcTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelUtcTime.Text);
+		private void LabelLocalTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelLocalTime.Text);
 
-		private void LabelLocalTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelLocalTime.Text);
+		private void LabelJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelJulianDate.Text);
 
-		private void LabelJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelJulianDate.Text);
+		private void LabelModifiedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelModifiedJulianDate.Text);
 
-		private void LabelModifiedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelModifiedJulianDate.Text);
+		private void LabelReducedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelReducedJulianDate.Text);
 
-		private void LabelReducedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelReducedJulianDate.Text);
+		private void LabelTruncatedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelTruncatedJulianDate.Text);
 
-		private void LabelTruncatedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelTruncatedJulianDate.Text);
+		private void LabelDublinJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelDublinJulianDate.Text);
 
-		private void LabelDublinJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelDublinJulianDate.Text);
+		private void LabelCnesJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelCnesJulianDate.Text);
 
-		private void LabelCnesJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelCnesJulianDate.Text);
+		private void LabelCcsdsJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelCcsdsJulianDate.Text);
 
-		private void LabelCcsdsJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelCcsdsJulianDate.Text);
+		private void LabelLopJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelLopJulianDate.Text);
 
-		private void LabelLopJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelLopJulianDate.Text);
+		private void LabelMillenniumJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelMillenniumJulianDate.Text);
 
-		private void LabelMillenniumJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelMillenniumJulianDate.Text);
+		private void LabelChronologicalJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelChronologicalJulianDate.Text);
 
-		private void LabelChronologicalJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelChronologicalJulianDate.Text);
+		private void LabelChronologicalModifiedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelChronologicalModifiedJulianDate.Text);
 
-		private void LabelChronologicalModifiedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelChronologicalModifiedJulianDate.Text);
+		private void LabelLilianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelLilianDate.Text);
 
-		private void LabelLilianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelLilianDate.Text);
+		private void LabelRataDie_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelRataDie.Text);
 
-		private void LabelRataDie_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelRataDie.Text);
+		private void LabelMarsSolDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelMarsSolDate.Text);
 
-		private void LabelMarsSolDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelMarsSolDate.Text);
-
-		private void LabelUnixtime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(labelUnixtime.Text);
+		private void LabelUnixtime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelUnixtime.Text);
 
 		private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
-    {
-      this.Show();
-      notifyIcon.BalloonTipText = Properties.Resources.strApplicationMaximizedText;
-      notifyIcon.BalloonTipTitle = Properties.Resources.strApplicationMaximizedTitle;
-      notifyIcon.ShowBalloonTip(500);
-      notifyIcon.Visible = false;
-    }
+		{
+			Show();
+			notifyIcon.BalloonTipText = Properties.Resources.strApplicationMaximizedText;
+			notifyIcon.BalloonTipTitle = Properties.Resources.strApplicationMaximizedTitle;
+			notifyIcon.ShowBalloonTip(timeout: 500);
+			notifyIcon.Visible = false;
+		}
 
-    private void CheckBoxStayOnTop_CheckedChanged(object sender, EventArgs e)
-    {
-      if (checkBoxStayOnTop.Checked)
-      {
-        checkBoxStayOnTop.Text = Properties.Resources.strApplicationNotOnTop;
-        this.TopMost = true;
-      } else {
-        checkBoxStayOnTop.Text = Properties.Resources.strApplicationOnTop;
-        this.TopMost = false;
-      }
-    }
+		private void CheckBoxAutomaticRefresh_CheckedChanged(object sender, EventArgs e)
+		{
+			if (checkBoxAutomaticRefresh.Checked)
+			{
+				buttonRefresh.Enabled = false;
+				timer.Enabled = true;
+			}
+			else
+			{
+				buttonRefresh.Enabled = true;
+				timer.Enabled = false;
+			}
+		}
 
-    private void CheckBoxDarkLightMode_CheckedChanged(object sender, EventArgs e)
-    {
-      if (checkBoxDarkLightMode.Checked)
-      { // Enable dark mode
-        this.BackColor = colorDarkBackground;
-				this.ForeColor = colorWhiteFont;
+		private void CheckBoxStayOnTop_CheckedChanged(object sender, EventArgs e)
+		{
+			if (checkBoxStayOnTop.Checked)
+			{
+				checkBoxStayOnTop.Text = Properties.Resources.strApplicationNotOnTop;
+				TopMost = true;
+			}
+			else
+			{
+				checkBoxStayOnTop.Text = Properties.Resources.strApplicationOnTop;
+				TopMost = false;
+			}
+		}
+
+		private void CheckBoxDarkLightMode_CheckedChanged(object sender, EventArgs e)
+		{
+			if (checkBoxDarkLightMode.Checked)
+			{ // Enable dark mode
+				BackColor = colorDarkBackground;
+				ForeColor = colorWhiteFont;
 				statusStrip.BackColor = colorDarkBackground;
-        labelUtcTimeText.ForeColor = colorWhiteFont;
-        labelLocalTimeText.ForeColor = colorWhiteFont;
-        labelJulianDateText.ForeColor = colorWhiteFont;
-        labelModifiedJulianDateText.ForeColor = colorWhiteFont;
-        labelReducedJulianDateText.ForeColor = colorWhiteFont;
-        labelTruncatedJulianDateText.ForeColor = colorWhiteFont;
-        labelDublinJulianDateText.ForeColor = colorWhiteFont;
-        labelCnesJulianDateText.ForeColor = colorWhiteFont;
-        labelCcsdsJulianDateText.ForeColor = colorWhiteFont;
-        labelLopJulianDateText.ForeColor = colorWhiteFont;
-        labelMillenniumJulianDateText.ForeColor = colorWhiteFont;
-        labelChronologicalJulianDateText.ForeColor = colorWhiteFont;
-        labelChronologicalModifiedJulianDateText.ForeColor = colorWhiteFont;
-        labelLilianDateText.ForeColor = colorWhiteFont;
-        labelRataDieText.ForeColor = colorWhiteFont;
-        labelMarsSolDateText.ForeColor = colorWhiteFont;
-        labelUnixtimeText.ForeColor = colorWhiteFont;
-        labelUtcTime.ForeColor = colorWhiteFont;
-        labelLocalTime.ForeColor = colorWhiteFont;
-        labelJulianDate.ForeColor = colorWhiteFont;
-        labelModifiedJulianDate.ForeColor = colorWhiteFont;
-        labelReducedJulianDate.ForeColor = colorWhiteFont;
-        labelTruncatedJulianDate.ForeColor = colorWhiteFont;
-        labelDublinJulianDate.ForeColor = colorWhiteFont;
-        labelCnesJulianDate.ForeColor = colorWhiteFont;
-        labelCcsdsJulianDate.ForeColor = colorWhiteFont;
-        labelLopJulianDate.ForeColor = colorWhiteFont;
-        labelMillenniumJulianDate.ForeColor = colorWhiteFont;
-        labelChronologicalJulianDate.ForeColor = colorWhiteFont;
-        labelChronologicalModifiedJulianDate.ForeColor = colorWhiteFont;
-        labelLilianDate.ForeColor = colorWhiteFont;
-        labelRataDie.ForeColor = colorWhiteFont;
-        labelMarsSolDate.ForeColor = colorWhiteFont;
-        labelUnixtime.ForeColor = colorWhiteFont;
-        labelRefreshRateText.ForeColor = colorWhiteFont;
-        statusStrip.ForeColor = colorWhiteFont;
+				labelUtcTimeText.ForeColor = colorWhiteFont;
+				labelLocalTimeText.ForeColor = colorWhiteFont;
+				labelJulianDateText.ForeColor = colorWhiteFont;
+				labelModifiedJulianDateText.ForeColor = colorWhiteFont;
+				labelReducedJulianDateText.ForeColor = colorWhiteFont;
+				labelTruncatedJulianDateText.ForeColor = colorWhiteFont;
+				labelDublinJulianDateText.ForeColor = colorWhiteFont;
+				labelCnesJulianDateText.ForeColor = colorWhiteFont;
+				labelCcsdsJulianDateText.ForeColor = colorWhiteFont;
+				labelLopJulianDateText.ForeColor = colorWhiteFont;
+				labelMillenniumJulianDateText.ForeColor = colorWhiteFont;
+				labelChronologicalJulianDateText.ForeColor = colorWhiteFont;
+				labelChronologicalModifiedJulianDateText.ForeColor = colorWhiteFont;
+				labelLilianDateText.ForeColor = colorWhiteFont;
+				labelRataDieText.ForeColor = colorWhiteFont;
+				labelMarsSolDateText.ForeColor = colorWhiteFont;
+				labelUnixtimeText.ForeColor = colorWhiteFont;
+				labelUtcTime.ForeColor = colorWhiteFont;
+				labelLocalTime.ForeColor = colorWhiteFont;
+				labelJulianDate.ForeColor = colorWhiteFont;
+				labelModifiedJulianDate.ForeColor = colorWhiteFont;
+				labelReducedJulianDate.ForeColor = colorWhiteFont;
+				labelTruncatedJulianDate.ForeColor = colorWhiteFont;
+				labelDublinJulianDate.ForeColor = colorWhiteFont;
+				labelCnesJulianDate.ForeColor = colorWhiteFont;
+				labelCcsdsJulianDate.ForeColor = colorWhiteFont;
+				labelLopJulianDate.ForeColor = colorWhiteFont;
+				labelMillenniumJulianDate.ForeColor = colorWhiteFont;
+				labelChronologicalJulianDate.ForeColor = colorWhiteFont;
+				labelChronologicalModifiedJulianDate.ForeColor = colorWhiteFont;
+				labelLilianDate.ForeColor = colorWhiteFont;
+				labelRataDie.ForeColor = colorWhiteFont;
+				labelMarsSolDate.ForeColor = colorWhiteFont;
+				labelUnixtime.ForeColor = colorWhiteFont;
+				labelRefreshRateText.ForeColor = colorWhiteFont;
+				statusStrip.ForeColor = colorWhiteFont;
 				checkBoxAutomaticRefresh.BackColor = colorDarkBackground;
 				checkBoxAutomaticRefresh.ForeColor = colorWhiteFont;
 				checkBoxStayOnTop.BackColor = colorDarkBackground;
@@ -357,46 +365,47 @@ namespace Julian_and_his_dates
 				buttonOpenJulianDateConverter.BackColor = colorDarkBackground;
 				buttonOpenJulianDateConverter.ForeColor = colorWhiteFont;
 			}
-			else { //Enable light mode
-        this.BackColor = SystemColors.Control;
-				this.ForeColor = SystemColors.ControlText;
+			else
+			{ //Enable light mode
+				BackColor = SystemColors.Control;
+				ForeColor = SystemColors.ControlText;
 				statusStrip.BackColor = SystemColors.Control;
-        labelUtcTimeText.ForeColor = SystemColors.ControlText;
-        labelLocalTimeText.ForeColor = SystemColors.ControlText;
-        labelJulianDateText.ForeColor = SystemColors.ControlText;
-        labelModifiedJulianDateText.ForeColor = SystemColors.ControlText;
-        labelReducedJulianDateText.ForeColor = SystemColors.ControlText;
-        labelTruncatedJulianDateText.ForeColor = SystemColors.ControlText;
-        labelDublinJulianDateText.ForeColor = SystemColors.ControlText;
-        labelCnesJulianDateText.ForeColor = SystemColors.ControlText;
-        labelCcsdsJulianDateText.ForeColor = SystemColors.ControlText;
-        labelLopJulianDateText.ForeColor = SystemColors.ControlText;
-        labelMillenniumJulianDateText.ForeColor = SystemColors.ControlText;
-        labelChronologicalJulianDateText.ForeColor = SystemColors.ControlText;
-        labelChronologicalModifiedJulianDateText.ForeColor = SystemColors.ControlText;
-        labelLilianDateText.ForeColor = SystemColors.ControlText;
-        labelRataDieText.ForeColor = SystemColors.ControlText;
-        labelMarsSolDateText.ForeColor = SystemColors.ControlText;
-        labelUnixtimeText.ForeColor = SystemColors.ControlText;
-        labelUtcTime.ForeColor = SystemColors.ControlText;
-        labelLocalTime.ForeColor = SystemColors.ControlText;
-        labelJulianDate.ForeColor = SystemColors.ControlText;
-        labelModifiedJulianDate.ForeColor = SystemColors.ControlText;
-        labelReducedJulianDate.ForeColor = SystemColors.ControlText;
-        labelTruncatedJulianDate.ForeColor = SystemColors.ControlText;
-        labelDublinJulianDate.ForeColor = SystemColors.ControlText;
-        labelCnesJulianDate.ForeColor = SystemColors.ControlText;
-        labelCcsdsJulianDate.ForeColor = SystemColors.ControlText;
-        labelLopJulianDate.ForeColor = SystemColors.ControlText;
-        labelMillenniumJulianDate.ForeColor = SystemColors.ControlText;
-        labelChronologicalJulianDate.ForeColor = SystemColors.ControlText;
-        labelChronologicalModifiedJulianDate.ForeColor = SystemColors.ControlText;
-        labelLilianDate.ForeColor = SystemColors.ControlText;
-        labelRataDie.ForeColor = SystemColors.ControlText;
-        labelMarsSolDate.ForeColor = SystemColors.ControlText;
-        labelUnixtime.ForeColor = SystemColors.ControlText;
-        labelRefreshRateText.ForeColor = SystemColors.ControlText;
-        statusStrip.ForeColor = SystemColors.ControlText;
+				labelUtcTimeText.ForeColor = SystemColors.ControlText;
+				labelLocalTimeText.ForeColor = SystemColors.ControlText;
+				labelJulianDateText.ForeColor = SystemColors.ControlText;
+				labelModifiedJulianDateText.ForeColor = SystemColors.ControlText;
+				labelReducedJulianDateText.ForeColor = SystemColors.ControlText;
+				labelTruncatedJulianDateText.ForeColor = SystemColors.ControlText;
+				labelDublinJulianDateText.ForeColor = SystemColors.ControlText;
+				labelCnesJulianDateText.ForeColor = SystemColors.ControlText;
+				labelCcsdsJulianDateText.ForeColor = SystemColors.ControlText;
+				labelLopJulianDateText.ForeColor = SystemColors.ControlText;
+				labelMillenniumJulianDateText.ForeColor = SystemColors.ControlText;
+				labelChronologicalJulianDateText.ForeColor = SystemColors.ControlText;
+				labelChronologicalModifiedJulianDateText.ForeColor = SystemColors.ControlText;
+				labelLilianDateText.ForeColor = SystemColors.ControlText;
+				labelRataDieText.ForeColor = SystemColors.ControlText;
+				labelMarsSolDateText.ForeColor = SystemColors.ControlText;
+				labelUnixtimeText.ForeColor = SystemColors.ControlText;
+				labelUtcTime.ForeColor = SystemColors.ControlText;
+				labelLocalTime.ForeColor = SystemColors.ControlText;
+				labelJulianDate.ForeColor = SystemColors.ControlText;
+				labelModifiedJulianDate.ForeColor = SystemColors.ControlText;
+				labelReducedJulianDate.ForeColor = SystemColors.ControlText;
+				labelTruncatedJulianDate.ForeColor = SystemColors.ControlText;
+				labelDublinJulianDate.ForeColor = SystemColors.ControlText;
+				labelCnesJulianDate.ForeColor = SystemColors.ControlText;
+				labelCcsdsJulianDate.ForeColor = SystemColors.ControlText;
+				labelLopJulianDate.ForeColor = SystemColors.ControlText;
+				labelMillenniumJulianDate.ForeColor = SystemColors.ControlText;
+				labelChronologicalJulianDate.ForeColor = SystemColors.ControlText;
+				labelChronologicalModifiedJulianDate.ForeColor = SystemColors.ControlText;
+				labelLilianDate.ForeColor = SystemColors.ControlText;
+				labelRataDie.ForeColor = SystemColors.ControlText;
+				labelMarsSolDate.ForeColor = SystemColors.ControlText;
+				labelUnixtime.ForeColor = SystemColors.ControlText;
+				labelRefreshRateText.ForeColor = SystemColors.ControlText;
+				statusStrip.ForeColor = SystemColors.ControlText;
 				checkBoxAutomaticRefresh.BackColor = SystemColors.Control;
 				checkBoxAutomaticRefresh.ForeColor = SystemColors.ControlText;
 				checkBoxStayOnTop.BackColor = SystemColors.Control;
@@ -423,55 +432,100 @@ namespace Julian_and_his_dates
 				buttonOpenJulianDateConverter.FlatAppearance.BorderColor = SystemColors.Control;
 			}
 			if (!boolFirstRun)
-      {
-        SoundPlayer sound = new SoundPlayer(Properties.Resources.wavBlop);
-        sound.Play();
-      }
-    }
+			{
+				using (SoundPlayer sound = new SoundPlayer(Properties.Resources.wavBlop))
+				{
+					sound.Play();
+				}
+			}
+		}
 
-    private void ButtonOpenJulianDateCalculator_Click(object sender, EventArgs e)
-    {
-      bool boolMainWindowWasOnTop = false;
-      if (this.TopMost) { this.TopMost = false; boolMainWindowWasOnTop = true; }
-      JulianDateCalculatorForm formJulianDateCalculator = new JulianDateCalculatorForm();
-      if (checkBoxDarkLightMode.Checked)
-      {
-				formJulianDateCalculator.BackColor = colorDarkBackground;
-        formJulianDateCalculator.ForeColor = colorWhiteFont;
-      }
-      formJulianDateCalculator.ShowDialog();
-      if (boolMainWindowWasOnTop) this.TopMost = true;
-    }
+		private void ButtonOpenJulianDateCalculator_Click(object sender, EventArgs e)
+		{
+			bool boolMainWindowWasOnTop = false;
+			if (TopMost) { TopMost = false; boolMainWindowWasOnTop = true; }
+			using (JulianDateCalculatorForm formJulianDateCalculator = new JulianDateCalculatorForm())
+			{
+				if (checkBoxDarkLightMode.Checked)
+				{
+					formJulianDateCalculator.BackColor = colorDarkBackground;
+					formJulianDateCalculator.ForeColor = colorWhiteFont;
+				}
+				formJulianDateCalculator.ShowDialog();
+			}
+			if (boolMainWindowWasOnTop)
+			{
+				TopMost = true;
+			}
+		}
 
-    private void ButtonOpenJulianDateConverter_Click(object sender, EventArgs e)
-    {
-      bool boolMainWindowWasOnTop = false;
-      if (this.TopMost == true) { this.TopMost = false; boolMainWindowWasOnTop = true; }
-      JulianDateConverterForm formJulianDateConverter = new JulianDateConverterForm();
-      if (checkBoxDarkLightMode.Checked)
-      {
-        formJulianDateConverter.BackColor = colorDarkBackground;
-        formJulianDateConverter.ForeColor = colorWhiteFont;
-      }
-      formJulianDateConverter.ShowDialog();
-      if (boolMainWindowWasOnTop) this.TopMost = true;
-    }
+		private void ButtonOpenJulianDateConverter_Click(object sender, EventArgs e)
+		{
+			bool boolMainWindowWasOnTop = false;
+			if (TopMost == true) { TopMost = false; boolMainWindowWasOnTop = true; }
+			using (JulianDateConverterForm formJulianDateConverter = new JulianDateConverterForm())
+			{
+				if (checkBoxDarkLightMode.Checked)
+				{
+					formJulianDateConverter.BackColor = colorDarkBackground;
+					formJulianDateConverter.ForeColor = colorWhiteFont;
+				}
+				formJulianDateConverter.ShowDialog();
+			}
+			if (boolMainWindowWasOnTop)
+			{
+				TopMost = true;
+			}
+		}
+
+		private void ToolStripStatusLabelAlarm_Click(object sender, EventArgs e)
+		{
+			if (boolIsAlarmEnabled)
+			{
+				boolIsAlarmEnabled = false;
+				toolStripStatusLabelAlarm.Image = Properties.Resources.picSoundMute;
+				toolStripStatusLabelAlarm.Text = Properties.Resources.strAlarmOff;
+			}
+			else
+			{
+				boolIsAlarmEnabled = true;
+				toolStripStatusLabelAlarm.Image = Properties.Resources.picSound;
+				toolStripStatusLabelAlarm.Text = Properties.Resources.strAlarmOn;
+				using (SoundPlayer sound = new SoundPlayer(stream: Properties.Resources.wavBleep))
+				{
+					sound.Play();
+				}
+			}
+		}
+
+		private void ToolStripStatusLabelTakeScreenshot_Click(object sender, EventArgs e)
+		{
+			using (SoundPlayer sound = new SoundPlayer(stream: Properties.Resources.wavCameraFlashing))
+			{
+				sound.Play();
+			}
+			string
+				strPathToMyPictures = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyPictures).ToString() + "\\",
+				strFilenameWithExtension = JulianDates.CalculateJulianDate().ToString() + ".png",
+				strInfotext = Properties.Resources.strScreenshotSavedTo;
+			MessageBox.Show(text: strInfotext + "\n\n" + ScreenToPicture(location: strPathToMyPictures + strFilenameWithExtension));
+		}
 
 		private void NumericUpDownRefreshRate_ValueChanged(object sender, EventArgs e) => timer.Interval = (int)numericUpDownRefreshRate.Value;
 
 		private void LabelRefreshRateText_DoubleClick(object sender, EventArgs e) => numericUpDownRefreshRate.Value = intDefaultTick;
 
 		private void JulianandhisdatesForm_FormClosing(object sender, FormClosingEventArgs e)
-    {
-      Properties.Settings.Default.BackgroundColor = this.BackColor;
-      Properties.Settings.Default.ForegroundColor = labelUtcTimeText.ForeColor;
-      Properties.Settings.Default.userTicks = timer.Interval;
-      Properties.Settings.Default.isDarkmodeEnabled = checkBoxDarkLightMode.Checked;
-      Properties.Settings.Default.isAlarmEnabled = boolIsAlarmEnabled;
-      Properties.Settings.Default.isAutomaticRefreshing = checkBoxAutomaticRefresh.Checked;
-      Properties.Settings.Default.isStayOnTop = checkBoxStayOnTop.Checked;
-      Properties.Settings.Default.Save();
-    }
+		{
+			Properties.Settings.Default.BackgroundColor = BackColor;
+			Properties.Settings.Default.ForegroundColor = labelUtcTimeText.ForeColor;
+			Properties.Settings.Default.userTicks = timer.Interval;
+			Properties.Settings.Default.isDarkmodeEnabled = checkBoxDarkLightMode.Checked;
+			Properties.Settings.Default.isAlarmEnabled = boolIsAlarmEnabled;
+			Properties.Settings.Default.isAutomaticRefreshing = checkBoxAutomaticRefresh.Checked;
+			Properties.Settings.Default.isStayOnTop = checkBoxStayOnTop.Checked;
+			Properties.Settings.Default.Save();
+		}
 
 		private void SetStatusBar(string strText)
 		{
@@ -489,133 +543,303 @@ namespace Julian_and_his_dates
 			toolStripStatusLabelTakeScreenshot.Visible = true;
 		}
 
-		#region ENTER
+		#region Enter-Eventhandler
 
-		private void LabelUtcTimeText_Enter(object sender, EventArgs e) => SetStatusBar(labelUtcTimeText.AccessibleDescription);
+		private void LabelUtcTimeText_Enter(object sender, EventArgs e)
+		{
+			labelUtcTimeText.Cursor = Cursors.Hand;
+			labelUtcTimeText.Font = new Font(prototype: labelUtcTimeText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelUtcTimeText.AccessibleDescription);
+		}
 
-		private void LabelLocalTimeText_Enter(object sender, EventArgs e) => SetStatusBar(labelLocalTimeText.AccessibleDescription);
+		private void LabelLocalTimeText_Enter(object sender, EventArgs e)
+		{
+			labelLocalTimeText.Cursor = Cursors.Hand;
+			labelLocalTimeText.Font = new Font(prototype: labelLocalTimeText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelLocalTimeText.AccessibleDescription);
+		}
 
-		private void LabelJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelJulianDateText.AccessibleDescription);
+		private void LabelJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelJulianDateText.Cursor = Cursors.Hand;
+			labelJulianDateText.Font = new Font(prototype: labelJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelModifiedJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelModifiedJulianDateText.AccessibleDescription);
+		private void LabelModifiedJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelModifiedJulianDateText.Cursor = Cursors.Hand;
+			labelModifiedJulianDateText.Font = new Font(prototype: labelModifiedJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelModifiedJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelReducedJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelReducedJulianDateText.AccessibleDescription);
+		private void LabelReducedJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelReducedJulianDateText.Cursor = Cursors.Hand;
+			labelReducedJulianDateText.Font = new Font(prototype: labelReducedJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelReducedJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelTruncatedJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelTruncatedJulianDateText.AccessibleDescription);
+		private void LabelTruncatedJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelTruncatedJulianDateText.Cursor = Cursors.Hand;
+			labelTruncatedJulianDateText.Font = new Font(prototype: labelTruncatedJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelTruncatedJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelDublinJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelDublinJulianDateText.AccessibleDescription);
+		private void LabelDublinJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelDublinJulianDateText.Cursor = Cursors.Hand;
+			labelDublinJulianDateText.Font = new Font(prototype: labelDublinJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelDublinJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelCnesJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelCnesJulianDateText.AccessibleDescription);
+		private void LabelCnesJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelCnesJulianDateText.Cursor = Cursors.Hand;
+			labelCnesJulianDateText.Font = new Font(prototype: labelCnesJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelCnesJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelCcsdsJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelCcsdsJulianDateText.AccessibleDescription);
+		private void LabelCcsdsJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelCcsdsJulianDateText.Cursor = Cursors.Hand;
+			labelCcsdsJulianDateText.Font = new Font(prototype: labelCcsdsJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelCcsdsJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelLopJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelLopJulianDateText.AccessibleDescription);
+		private void LabelLopJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelLopJulianDateText.Cursor = Cursors.Hand;
+			labelLopJulianDateText.Font = new Font(prototype: labelLopJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelLopJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelMillenniumJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelMillenniumJulianDateText.AccessibleDescription);
+		private void LabelMillenniumJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelMillenniumJulianDateText.Cursor = Cursors.Hand;
+			labelMillenniumJulianDateText.Font = new Font(prototype: labelMillenniumJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelMillenniumJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelChronologicalJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelChronologicalJulianDateText.AccessibleDescription);
+		private void LabelChronologicalJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelChronologicalJulianDateText.Cursor = Cursors.Hand;
+			labelChronologicalJulianDateText.Font = new Font(prototype: labelChronologicalJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelChronologicalJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelChronologicalModifiedJulianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelChronologicalModifiedJulianDateText.AccessibleDescription);
+		private void LabelChronologicalModifiedJulianDateText_Enter(object sender, EventArgs e)
+		{
+			labelChronologicalModifiedJulianDateText.Cursor = Cursors.Hand;
+			labelChronologicalModifiedJulianDateText.Font = new Font(prototype: labelChronologicalModifiedJulianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelChronologicalModifiedJulianDateText.AccessibleDescription);
+		}
 
-		private void LabelLilianDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelLilianDateText.AccessibleDescription);
+		private void LabelLilianDateText_Enter(object sender, EventArgs e)
+		{
+			labelLilianDateText.Cursor = Cursors.Hand;
+			labelLilianDateText.Font = new Font(prototype: labelLilianDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelLilianDateText.AccessibleDescription);
+		}
 
-		private void LabelRataDieText_Enter(object sender, EventArgs e) => SetStatusBar(labelRataDieText.AccessibleDescription);
+		private void LabelRataDieText_Enter(object sender, EventArgs e)
+		{
+			labelRataDieText.Cursor = Cursors.Hand;
+			labelRataDieText.Font = new Font(prototype: labelRataDieText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelRataDieText.AccessibleDescription);
+		}
 
-		private void LabelMarsSolDateText_Enter(object sender, EventArgs e) => SetStatusBar(labelMarsSolDateText.AccessibleDescription);
+		private void LabelMarsSolDateText_Enter(object sender, EventArgs e)
+		{
+			labelMarsSolDateText.Cursor = Cursors.Hand;
+			labelMarsSolDateText.Font = new Font(prototype: labelMarsSolDateText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelMarsSolDateText.AccessibleDescription);
+		}
 
-		private void LabelUnixtimeText_Enter(object sender, EventArgs e) => SetStatusBar(labelUnixtimeText.AccessibleDescription);
+		private void LabelUnixtimeText_Enter(object sender, EventArgs e)
+		{
+			labelUnixtimeText.Cursor = Cursors.Hand;
+			labelUnixtimeText.Font = new Font(prototype: labelUnixtimeText.Font, newStyle: FontStyle.Underline);
+			SetStatusBar(strText: labelUnixtimeText.AccessibleDescription);
+		}
 
-		private void LabelUtcTime_Enter(object sender, EventArgs e) => SetStatusBar(labelUtcTime.AccessibleDescription);
+		private void LabelUtcTime_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelUtcTime.AccessibleDescription);
 
-		private void LabelLocalTime_Enter(object sender, EventArgs e) => SetStatusBar(labelLocalTime.AccessibleDescription);
+		private void LabelLocalTime_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelLocalTime.AccessibleDescription);
 
-		private void LabelJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelJulianDate.AccessibleDescription);
+		private void LabelJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelJulianDate.AccessibleDescription);
 
-		private void LabelModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelModifiedJulianDate.AccessibleDescription);
+		private void LabelModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelModifiedJulianDate.AccessibleDescription);
 
-		private void LabelReducedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelReducedJulianDate.AccessibleDescription);
+		private void LabelReducedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelReducedJulianDate.AccessibleDescription);
 
-		private void LabelTruncatedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelTruncatedJulianDate.AccessibleDescription);
+		private void LabelTruncatedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelTruncatedJulianDate.AccessibleDescription);
 
-		private void LabelDublinJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelDublinJulianDate.AccessibleDescription);
+		private void LabelDublinJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelDublinJulianDate.AccessibleDescription);
 
-		private void LabelCnesJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelCnesJulianDate.AccessibleDescription);
+		private void LabelCnesJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelCnesJulianDate.AccessibleDescription);
 
-		private void LabelCcsdsJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelCcsdsJulianDate.AccessibleDescription);
+		private void LabelCcsdsJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelCcsdsJulianDate.AccessibleDescription);
 
-		private void LabelLopJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelLopJulianDate.AccessibleDescription);
+		private void LabelLopJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelLopJulianDate.AccessibleDescription);
 
-		private void LabelMillenniumJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelMillenniumJulianDate.AccessibleDescription);
+		private void LabelMillenniumJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelMillenniumJulianDate.AccessibleDescription);
 
-		private void LabelChronologicalJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelChronologicalJulianDate.AccessibleDescription);
+		private void LabelChronologicalJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelChronologicalJulianDate.AccessibleDescription);
 
-		private void LabelChronologicalModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelChronologicalModifiedJulianDate.AccessibleDescription);
+		private void LabelChronologicalModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelChronologicalModifiedJulianDate.AccessibleDescription);
 
-		private void LabelLilianDate_Enter(object sender, EventArgs e) => SetStatusBar(labelLilianDate.AccessibleDescription);
+		private void LabelLilianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelLilianDate.AccessibleDescription);
 
-		private void LabelRataDie_Enter(object sender, EventArgs e) => SetStatusBar(labelRataDie.AccessibleDescription);
+		private void LabelRataDie_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelRataDie.AccessibleDescription);
 
-		private void LabelMarsSolDate_Enter(object sender, EventArgs e) => SetStatusBar(labelMarsSolDate.AccessibleDescription);
+		private void LabelMarsSolDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelMarsSolDate.AccessibleDescription);
 
-		private void LabelUnixtime_Enter(object sender, EventArgs e) => SetStatusBar(labelUnixtime.AccessibleDescription);
+		private void LabelUnixtime_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelUnixtime.AccessibleDescription);
 
-		private void CheckBoxAutomaticRefresh_Enter(object sender, EventArgs e) => SetStatusBar(checkBoxAutomaticRefresh.AccessibleDescription);
+		private void CheckBoxAutomaticRefresh_Enter(object sender, EventArgs e) => SetStatusBar(strText: checkBoxAutomaticRefresh.AccessibleDescription);
 
-		private void CheckBoxStayOnTop_Enter(object sender, EventArgs e) => SetStatusBar(checkBoxStayOnTop.AccessibleDescription);
+		private void CheckBoxStayOnTop_Enter(object sender, EventArgs e) => SetStatusBar(strText: checkBoxStayOnTop.AccessibleDescription);
 
-		private void CheckBoxDarkLightMode_Enter(object sender, EventArgs e) => SetStatusBar(checkBoxDarkLightMode.AccessibleDescription);
+		private void CheckBoxDarkLightMode_Enter(object sender, EventArgs e) => SetStatusBar(strText: checkBoxDarkLightMode.AccessibleDescription);
 
-		private void LabelRefreshRateText_Enter(object sender, EventArgs e) => SetStatusBar(labelRefreshRateText.AccessibleDescription);
+		private void LabelRefreshRateText_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelRefreshRateText.AccessibleDescription);
 
-		private void NumericUpDownRefreshRate_Enter(object sender, EventArgs e) => SetStatusBar(numericUpDownRefreshRate.AccessibleDescription);
+		private void NumericUpDownRefreshRate_Enter(object sender, EventArgs e) => SetStatusBar(strText: numericUpDownRefreshRate.AccessibleDescription);
 
-		private void ButtonMinimizeToTray_Enter(object sender, EventArgs e) => SetStatusBar(buttonMinimizeToTray.AccessibleDescription);
+		private void ButtonMinimizeToTray_Enter(object sender, EventArgs e) => SetStatusBar(strText: buttonMinimizeToTray.AccessibleDescription);
 
-		private void ButtonInfo_Enter(object sender, EventArgs e) => SetStatusBar(buttonInfo.AccessibleDescription);
+		private void ButtonInfo_Enter(object sender, EventArgs e) => SetStatusBar(strText: buttonInfo.AccessibleDescription);
 
-		private void ButtonRefresh_Enter(object sender, EventArgs e) => SetStatusBar(buttonRefresh.AccessibleDescription);
+		private void ButtonRefresh_Enter(object sender, EventArgs e) => SetStatusBar(strText: buttonRefresh.AccessibleDescription);
 
-		private void ButtonOpenJulianDateCalculator_Enter(object sender, EventArgs e) => SetStatusBar(buttonOpenJulianDateCalculator.AccessibleDescription);
+		private void ButtonOpenJulianDateCalculator_Enter(object sender, EventArgs e) => SetStatusBar(strText: buttonOpenJulianDateCalculator.AccessibleDescription);
 
-		private void ButtonOpenJulianDateConverter_Enter(object sender, EventArgs e) => SetStatusBar(buttonOpenJulianDateConverter.AccessibleDescription);
+		private void ButtonOpenJulianDateConverter_Enter(object sender, EventArgs e) => SetStatusBar(strText: buttonOpenJulianDateConverter.AccessibleDescription);
 
 		#endregion
 
-		#region LEAVE
+		#region Leave-Eventhandler
 
-		private void LabelUtcTimeText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelUtcTimeText_Leave(object sender, EventArgs e)
+		{
+			labelUtcTimeText.Cursor = Cursors.Default;
+			labelUtcTimeText.Font = new Font(prototype: labelUtcTimeText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelLocalTimeText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLocalTimeText_Leave(object sender, EventArgs e)
+		{
+			labelLocalTimeText.Cursor = Cursors.Default;
+			labelLocalTimeText.Font = new Font(prototype: labelLocalTimeText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelJulianDateText.Cursor = Cursors.Default;
+			labelJulianDateText.Font = new Font(prototype: labelJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelModifiedJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelModifiedJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelModifiedJulianDateText.Cursor = Cursors.Default;
+			labelModifiedJulianDateText.Font = new Font(prototype: labelModifiedJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelReducedJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelReducedJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelReducedJulianDateText.Cursor = Cursors.Default;
+			labelReducedJulianDateText.Font = new Font(prototype: labelReducedJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelTruncatedJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelTruncatedJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelTruncatedJulianDateText.Cursor = Cursors.Default;
+			labelTruncatedJulianDateText.Font = new Font(prototype: labelTruncatedJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelDublinJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelDublinJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelDublinJulianDateText.Cursor = Cursors.Default;
+			labelDublinJulianDateText.Font = new Font(prototype: labelDublinJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelCnesJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelCnesJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelCnesJulianDateText.Cursor = Cursors.Default;
+			labelCnesJulianDateText.Font = new Font(prototype: labelCnesJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelCcsdsJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelCcsdsJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelCcsdsJulianDateText.Cursor = Cursors.Default;
+			labelCcsdsJulianDateText.Font = new Font(prototype: labelCcsdsJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelLopJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLopJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelLopJulianDateText.Cursor = Cursors.Default;
+			labelLopJulianDateText.Font = new Font(prototype: labelLopJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelMillenniumJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelMillenniumJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelMillenniumJulianDateText.Cursor = Cursors.Default;
+			labelMillenniumJulianDateText.Font = new Font(prototype: labelMillenniumJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelChronologicalJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelChronologicalJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelChronologicalJulianDateText.Cursor = Cursors.Default;
+			labelChronologicalJulianDateText.Font = new Font(prototype: labelChronologicalJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelChronologicalModifiedJulianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelChronologicalModifiedJulianDateText_Leave(object sender, EventArgs e)
+		{
+			labelChronologicalModifiedJulianDateText.Cursor = Cursors.Default;
+			labelChronologicalModifiedJulianDateText.Font = new Font(prototype: labelChronologicalModifiedJulianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelLilianDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLilianDateText_Leave(object sender, EventArgs e)
+		{
+			labelLilianDateText.Cursor = Cursors.Default;
+			labelLilianDateText.Font = new Font(prototype: labelLilianDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelRataDieText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelRataDieText_Leave(object sender, EventArgs e)
+		{
+			labelRataDieText.Cursor = Cursors.Default;
+			labelRataDieText.Font = new Font(prototype: labelRataDieText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelMarsSolDateText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelMarsSolDateText_Leave(object sender, EventArgs e)
+		{
+			labelMarsSolDateText.Cursor = Cursors.Default;
+			labelMarsSolDateText.Font = new Font(prototype: labelMarsSolDateText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
-		private void LabelUnixtimeText_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelUnixtimeText_Leave(object sender, EventArgs e)
+		{
+			labelUnixtimeText.Cursor = Cursors.Default;
+			labelUnixtimeText.Font = new Font(prototype: labelUnixtimeText.Font, newStyle: FontStyle.Regular);
+			ResetStatusBar();
+		}
 
 		private void LabelUtcTime_Leave(object sender, EventArgs e) => ResetStatusBar();
 
@@ -673,131 +897,131 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region MOUSEENTER
+		#region MouseEnter-Eventhandler
 
-		private void LabelUtcTimeText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelUtcTimeText.AccessibleDescription);
+		private void LabelUtcTimeText_MouseEnter(object sender, EventArgs e) => LabelUtcTimeText_Enter(sender: sender, e: e);
 
-		private void LabelLocalTimeText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelLocalTimeText.AccessibleDescription);
+		private void LabelLocalTimeText_MouseEnter(object sender, EventArgs e) => LabelLocalTimeText_Enter(sender: sender, e: e);
 
-		private void LabelJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelJulianDateText.AccessibleDescription);
+		private void LabelJulianDateText_MouseEnter(object sender, EventArgs e) => LabelJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelModifiedJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelModifiedJulianDateText.AccessibleDescription);
+		private void LabelModifiedJulianDateText_MouseEnter(object sender, EventArgs e) => LabelModifiedJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelReducedJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelReducedJulianDateText.AccessibleDescription);
+		private void LabelReducedJulianDateText_MouseEnter(object sender, EventArgs e) => LabelReducedJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelTruncatedJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelTruncatedJulianDateText.AccessibleDescription);
+		private void LabelTruncatedJulianDateText_MouseEnter(object sender, EventArgs e) => LabelTruncatedJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelDublinJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelDublinJulianDateText.AccessibleDescription);
+		private void LabelDublinJulianDateText_MouseEnter(object sender, EventArgs e) => LabelDublinJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelCnesJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelCnesJulianDateText.AccessibleDescription);
+		private void LabelCnesJulianDateText_MouseEnter(object sender, EventArgs e) => LabelCnesJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelCcsdsJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelCcsdsJulianDateText.AccessibleDescription);
+		private void LabelCcsdsJulianDateText_MouseEnter(object sender, EventArgs e) => LabelCcsdsJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelLopJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelLopJulianDateText.AccessibleDescription);
+		private void LabelLopJulianDateText_MouseEnter(object sender, EventArgs e) => LabelLopJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelMillenniumJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelMillenniumJulianDateText.AccessibleDescription);
+		private void LabelMillenniumJulianDateText_MouseEnter(object sender, EventArgs e) => LabelMillenniumJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelChronologicalJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelChronologicalJulianDateText.AccessibleDescription);
+		private void LabelChronologicalJulianDateText_MouseEnter(object sender, EventArgs e) => LabelChronologicalJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelChronologicalModifiedJulianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelChronologicalModifiedJulianDateText.AccessibleDescription);
+		private void LabelChronologicalModifiedJulianDateText_MouseEnter(object sender, EventArgs e) => LabelChronologicalModifiedJulianDateText_Enter(sender: sender, e: e);
 
-		private void LabelLilianDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelLilianDateText.AccessibleDescription);
+		private void LabelLilianDateText_MouseEnter(object sender, EventArgs e) => LabelLilianDateText_Enter(sender: sender, e: e);
 
-		private void LabelRataDieText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelRataDieText.AccessibleDescription);
+		private void LabelRataDieText_MouseEnter(object sender, EventArgs e) => LabelRataDieText_Enter(sender: sender, e: e);
 
-		private void LabelMarsSolDateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelMarsSolDateText.AccessibleDescription);
+		private void LabelMarsSolDateText_MouseEnter(object sender, EventArgs e) => LabelMarsSolDateText_Enter(sender: sender, e: e);
 
-		private void LabelUnixtimeText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelUnixtimeText.AccessibleDescription);
+		private void LabelUnixtimeText_MouseEnter(object sender, EventArgs e) => LabelUnixtimeText_Enter(sender: sender, e: e);
 
-		private void LabelUtcTime_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelUtcTime.AccessibleDescription);
+		private void LabelUtcTime_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelUtcTime.AccessibleDescription);
 
-		private void LabelLocalTime_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelLocalTime.AccessibleDescription);
+		private void LabelLocalTime_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelLocalTime.AccessibleDescription);
 
-		private void LabelJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelJulianDate.AccessibleDescription);
+		private void LabelJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelJulianDate.AccessibleDescription);
 
-		private void LabelModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelModifiedJulianDate.AccessibleDescription);
+		private void LabelModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelModifiedJulianDate.AccessibleDescription);
 
-		private void LabelReducedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelReducedJulianDate.AccessibleDescription);
+		private void LabelReducedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelReducedJulianDate.AccessibleDescription);
 
-		private void LabelTruncatedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelTruncatedJulianDate.AccessibleDescription);
+		private void LabelTruncatedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelTruncatedJulianDate.AccessibleDescription);
 
-		private void LabelDublinJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelDublinJulianDate.AccessibleDescription);
+		private void LabelDublinJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelDublinJulianDate.AccessibleDescription);
 
-		private void LabelCnesJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelCnesJulianDate.AccessibleDescription);
+		private void LabelCnesJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelCnesJulianDate.AccessibleDescription);
 
-		private void LabelCcsdsJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelCcsdsJulianDate.AccessibleDescription);
+		private void LabelCcsdsJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelCcsdsJulianDate.AccessibleDescription);
 
-		private void LabelLopJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelLopJulianDate.AccessibleDescription);
+		private void LabelLopJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelLopJulianDate.AccessibleDescription);
 
-		private void LabelMillenniumJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelMillenniumJulianDate.AccessibleDescription);
+		private void LabelMillenniumJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelMillenniumJulianDate.AccessibleDescription);
 
-		private void LabelChronologicalJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelChronologicalJulianDate.AccessibleDescription);
+		private void LabelChronologicalJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelChronologicalJulianDate.AccessibleDescription);
 
-		private void LabelChronologicalModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelChronologicalModifiedJulianDate.AccessibleDescription);
+		private void LabelChronologicalModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelChronologicalModifiedJulianDate.AccessibleDescription);
 
-		private void LabelLilianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelLilianDate.AccessibleDescription);
+		private void LabelLilianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelLilianDate.AccessibleDescription);
 
-		private void LabelRataDie_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelRataDie.AccessibleDescription);
+		private void LabelRataDie_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelRataDie.AccessibleDescription);
 
-		private void LabelMarsSolDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelMarsSolDate.AccessibleDescription);
+		private void LabelMarsSolDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelMarsSolDate.AccessibleDescription);
 
-		private void LabelUnixtime_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelUnixtime.AccessibleDescription);
+		private void LabelUnixtime_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelUnixtime.AccessibleDescription);
 
-		private void CheckBoxAutomaticRefresh_MouseEnter(object sender, EventArgs e) => SetStatusBar(checkBoxAutomaticRefresh.AccessibleDescription);
+		private void CheckBoxAutomaticRefresh_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: checkBoxAutomaticRefresh.AccessibleDescription);
 
-		private void CheckBoxStayOnTop_MouseEnter(object sender, EventArgs e) => SetStatusBar(checkBoxStayOnTop.AccessibleDescription);
+		private void CheckBoxStayOnTop_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: checkBoxStayOnTop.AccessibleDescription);
 
-		private void CheckBoxDarkLightMode_MouseEnter(object sender, EventArgs e) => SetStatusBar(checkBoxDarkLightMode.AccessibleDescription);
+		private void CheckBoxDarkLightMode_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: checkBoxDarkLightMode.AccessibleDescription);
 
-		private void LabelRefreshRateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(labelRefreshRateText.AccessibleDescription);
+		private void LabelRefreshRateText_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelRefreshRateText.AccessibleDescription);
 
-		private void ButtonMinimizeToTray_MouseEnter(object sender, EventArgs e) => SetStatusBar(buttonMinimizeToTray.AccessibleDescription);
+		private void ButtonMinimizeToTray_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: buttonMinimizeToTray.AccessibleDescription);
 
-		private void ButtonInfo_MouseEnter(object sender, EventArgs e) => SetStatusBar(buttonInfo.AccessibleDescription);
+		private void ButtonInfo_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: buttonInfo.AccessibleDescription);
 
-		private void ButtonRefresh_MouseEnter(object sender, EventArgs e) => SetStatusBar(buttonRefresh.AccessibleDescription);
+		private void ButtonRefresh_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: buttonRefresh.AccessibleDescription);
 
-		private void ButtonOpenJulianDateCalculator_MouseEnter(object sender, EventArgs e) => SetStatusBar(buttonOpenJulianDateCalculator.AccessibleDescription);
+		private void ButtonOpenJulianDateCalculator_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: buttonOpenJulianDateCalculator.AccessibleDescription);
 
-		private void ButtonOpenJulianDateConverter_MouseEnter(object sender, EventArgs e) => SetStatusBar(buttonOpenJulianDateConverter.AccessibleDescription);
+		private void ButtonOpenJulianDateConverter_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: buttonOpenJulianDateConverter.AccessibleDescription);
 
 		#endregion
 
-		#region MOUSELEAVE
+		#region MouseLeave-Eventhandler
 
-		private void LabelUtcTimeText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelUtcTimeText_MouseLeave(object sender, EventArgs e) => LabelUtcTimeText_Leave(sender: sender, e: e);
 
-		private void LabelLocalTimeText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLocalTimeText_MouseLeave(object sender, EventArgs e) => LabelLocalTimeText_Leave(sender: sender, e: e);
 
-		private void LabelJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelJulianDateText_MouseLeave(object sender, EventArgs e) => LabelJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelModifiedJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelModifiedJulianDateText_MouseLeave(object sender, EventArgs e) => LabelModifiedJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelReducedJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelReducedJulianDateText_MouseLeave(object sender, EventArgs e) => LabelReducedJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelTruncatedJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelTruncatedJulianDateText_MouseLeave(object sender, EventArgs e) => LabelTruncatedJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelDublinJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelDublinJulianDateText_MouseLeave(object sender, EventArgs e) => LabelDublinJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelCnesJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelCnesJulianDateText_MouseLeave(object sender, EventArgs e) => LabelCnesJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelCcsdsJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelCcsdsJulianDateText_MouseLeave(object sender, EventArgs e) => LabelCcsdsJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelLopJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLopJulianDateText_MouseLeave(object sender, EventArgs e) => LabelLopJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelMillenniumJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelMillenniumJulianDateText_MouseLeave(object sender, EventArgs e) => LabelMillenniumJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelChronologicalJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelChronologicalJulianDateText_MouseLeave(object sender, EventArgs e) => LabelChronologicalJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelChronologicalModifiedJulianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelChronologicalModifiedJulianDateText_MouseLeave(object sender, EventArgs e) => LabelChronologicalModifiedJulianDateText_Leave(sender: sender, e: e);
 
-		private void LabelLilianDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLilianDateText_MouseLeave(object sender, EventArgs e) => LabelLilianDateText_Leave(sender: sender, e: e);
 
-		private void LabelRataDieText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelRataDieText_MouseLeave(object sender, EventArgs e) => LabelRataDieText_Leave(sender: sender, e: e);
 
-		private void LabelMarsSolDateText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelMarsSolDateText_MouseLeave(object sender, EventArgs e) => LabelMarsSolDateText_Leave(sender: sender, e: e);
 
-		private void LabelUnixtimeText_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelUnixtimeText_MouseLeave(object sender, EventArgs e) => LabelUnixtimeText_Leave(sender: sender, e: e);
 
 		private void LabelUtcTime_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
@@ -852,32 +1076,5 @@ namespace Julian_and_his_dates
 		private void ButtonOpenJulianDateConverter_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		#endregion
-
-		private void ToolStripStatusLabelAlarm_Click(object sender, EventArgs e)
-    {
-      if (boolIsAlarmEnabled)
-      {
-        boolIsAlarmEnabled = false;
-        toolStripStatusLabelAlarm.Image = Properties.Resources.picSoundMute;
-        toolStripStatusLabelAlarm.Text = Properties.Resources.strAlarmOff;
-      } else {
-        boolIsAlarmEnabled = true;
-        toolStripStatusLabelAlarm.Image = Properties.Resources.picSound;
-        toolStripStatusLabelAlarm.Text = Properties.Resources.strAlarmOn;
-        SoundPlayer sound = new SoundPlayer(stream: Properties.Resources.wavBleep);
-        sound.Play();
-      }
-    }
-
-    private void ToolStripStatusLabelTakeScreenshot_Click(object sender, EventArgs e)
-    {
-      SoundPlayer sound = new SoundPlayer(stream: Properties.Resources.wavCameraFlashing);
-      sound.Play();
-			string
-				strPathToMyPictures = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyPictures).ToString() + "\\",
-				strFilenameWithExtension = JulianDatesClass.CalcJulianDate().ToString() + ".png",
-				strInfotext = Properties.Resources.strScreenshotSavedTo;
-			MessageBox.Show(text: strInfotext + "\n\n" + ScreenToPicture(location: strPathToMyPictures + strFilenameWithExtension));
-		}
 	}
 }

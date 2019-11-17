@@ -88,8 +88,10 @@
 			// labelJulianDateText
 			// 
 			this.labelJulianDateText.AccessibleDescription = "Description of the Julian Date";
+			this.labelJulianDateText.AccessibleName = "Julian Date Description";
 			this.labelJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelJulianDateText.AutoSize = true;
+			this.labelJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelJulianDateText.Location = new System.Drawing.Point(12, 35);
 			this.labelJulianDateText.Name = "labelJulianDateText";
 			this.labelJulianDateText.Size = new System.Drawing.Size(61, 13);
@@ -105,8 +107,10 @@
 			// labelJulianDate
 			// 
 			this.labelJulianDate.AccessibleDescription = "Value of the Julian Date";
+			this.labelJulianDate.AccessibleName = "Julian Date Value";
 			this.labelJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelJulianDate.AutoSize = true;
+			this.labelJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelJulianDate.Location = new System.Drawing.Point(180, 35);
 			this.labelJulianDate.Name = "labelJulianDate";
 			this.labelJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -122,7 +126,8 @@
 			// buttonRefresh
 			// 
 			this.buttonRefresh.AccessibleDescription = "If enabled you can manually refresh the dates";
-			this.buttonRefresh.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+			this.buttonRefresh.AccessibleName = "Automatic Refresh Button";
+			this.buttonRefresh.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
 			this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonRefresh.Location = new System.Drawing.Point(15, 303);
 			this.buttonRefresh.Name = "buttonRefresh";
@@ -140,6 +145,7 @@
 			// checkBoxAutomaticRefresh
 			// 
 			this.checkBoxAutomaticRefresh.AccessibleDescription = "Enable/Disable to set the automatic refresh of the dates";
+			this.checkBoxAutomaticRefresh.AccessibleName = "Automatic Refresh Button";
 			this.checkBoxAutomaticRefresh.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
 			this.checkBoxAutomaticRefresh.Appearance = System.Windows.Forms.Appearance.Button;
 			this.checkBoxAutomaticRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -160,8 +166,10 @@
 			// labelModifiedJulianDateText
 			// 
 			this.labelModifiedJulianDateText.AccessibleDescription = "Description of the Modified Julian Date";
+			this.labelModifiedJulianDateText.AccessibleName = "Modified Julian Date Description";
 			this.labelModifiedJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelModifiedJulianDateText.AutoSize = true;
+			this.labelModifiedJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelModifiedJulianDateText.Location = new System.Drawing.Point(12, 48);
 			this.labelModifiedJulianDateText.Name = "labelModifiedJulianDateText";
 			this.labelModifiedJulianDateText.Size = new System.Drawing.Size(104, 13);
@@ -177,8 +185,10 @@
 			// labelModifiedJulianDate
 			// 
 			this.labelModifiedJulianDate.AccessibleDescription = "Value of the Modified Julian Date";
+			this.labelModifiedJulianDate.AccessibleName = "Modified Julian Date Value";
 			this.labelModifiedJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelModifiedJulianDate.AutoSize = true;
+			this.labelModifiedJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelModifiedJulianDate.Location = new System.Drawing.Point(180, 48);
 			this.labelModifiedJulianDate.Name = "labelModifiedJulianDate";
 			this.labelModifiedJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -194,8 +204,10 @@
 			// labelReducedJulianDate
 			// 
 			this.labelReducedJulianDate.AccessibleDescription = "Value of the Reduced Julian Date";
+			this.labelReducedJulianDate.AccessibleName = "Reduced Julian Date Value";
 			this.labelReducedJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelReducedJulianDate.AutoSize = true;
+			this.labelReducedJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelReducedJulianDate.Location = new System.Drawing.Point(180, 61);
 			this.labelReducedJulianDate.Name = "labelReducedJulianDate";
 			this.labelReducedJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -211,8 +223,10 @@
 			// labelReducedJulianDateText
 			// 
 			this.labelReducedJulianDateText.AccessibleDescription = "Description of the Reduced Julian Date";
+			this.labelReducedJulianDateText.AccessibleName = "Reduced Julian Date Description";
 			this.labelReducedJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelReducedJulianDateText.AutoSize = true;
+			this.labelReducedJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelReducedJulianDateText.Location = new System.Drawing.Point(12, 61);
 			this.labelReducedJulianDateText.Name = "labelReducedJulianDateText";
 			this.labelReducedJulianDateText.Size = new System.Drawing.Size(108, 13);
@@ -228,8 +242,10 @@
 			// labelTruncatedJulianDate
 			// 
 			this.labelTruncatedJulianDate.AccessibleDescription = "Value of the Truncated Julian Date";
+			this.labelTruncatedJulianDate.AccessibleName = "Truncated Julian Date Value";
 			this.labelTruncatedJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelTruncatedJulianDate.AutoSize = true;
+			this.labelTruncatedJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelTruncatedJulianDate.Location = new System.Drawing.Point(180, 74);
 			this.labelTruncatedJulianDate.Name = "labelTruncatedJulianDate";
 			this.labelTruncatedJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -245,8 +261,10 @@
 			// labelTruncatedJulianDateText
 			// 
 			this.labelTruncatedJulianDateText.AccessibleDescription = "Description of the Truncated Julian Date";
+			this.labelTruncatedJulianDateText.AccessibleName = "Truncated Julian Date Description";
 			this.labelTruncatedJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelTruncatedJulianDateText.AutoSize = true;
+			this.labelTruncatedJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelTruncatedJulianDateText.Location = new System.Drawing.Point(12, 74);
 			this.labelTruncatedJulianDateText.Name = "labelTruncatedJulianDateText";
 			this.labelTruncatedJulianDateText.Size = new System.Drawing.Size(113, 13);
@@ -262,8 +280,10 @@
 			// labelDublinJulianDate
 			// 
 			this.labelDublinJulianDate.AccessibleDescription = "Value of the Dublin Julian Date";
+			this.labelDublinJulianDate.AccessibleName = "Dublin Julian Date Value";
 			this.labelDublinJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelDublinJulianDate.AutoSize = true;
+			this.labelDublinJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelDublinJulianDate.Location = new System.Drawing.Point(180, 87);
 			this.labelDublinJulianDate.Name = "labelDublinJulianDate";
 			this.labelDublinJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -279,8 +299,10 @@
 			// labelDublinJulianDateText
 			// 
 			this.labelDublinJulianDateText.AccessibleDescription = "Description of the Dublin Julian Date";
+			this.labelDublinJulianDateText.AccessibleName = "Dubln Julian Date Description";
 			this.labelDublinJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelDublinJulianDateText.AutoSize = true;
+			this.labelDublinJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelDublinJulianDateText.Location = new System.Drawing.Point(12, 87);
 			this.labelDublinJulianDateText.Name = "labelDublinJulianDateText";
 			this.labelDublinJulianDateText.Size = new System.Drawing.Size(94, 13);
@@ -296,8 +318,10 @@
 			// labelCnesJulianDate
 			// 
 			this.labelCnesJulianDate.AccessibleDescription = "Value of the CNES Julian Date";
+			this.labelCnesJulianDate.AccessibleName = "CNES Julian Date Value";
 			this.labelCnesJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelCnesJulianDate.AutoSize = true;
+			this.labelCnesJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelCnesJulianDate.Location = new System.Drawing.Point(180, 100);
 			this.labelCnesJulianDate.Name = "labelCnesJulianDate";
 			this.labelCnesJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -313,8 +337,10 @@
 			// labelCnesJulianDateText
 			// 
 			this.labelCnesJulianDateText.AccessibleDescription = "Description of the CNES Julian Date";
+			this.labelCnesJulianDateText.AccessibleName = "CNES Julian Date Description";
 			this.labelCnesJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelCnesJulianDateText.AutoSize = true;
+			this.labelCnesJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelCnesJulianDateText.Location = new System.Drawing.Point(12, 100);
 			this.labelCnesJulianDateText.Name = "labelCnesJulianDateText";
 			this.labelCnesJulianDateText.Size = new System.Drawing.Size(93, 13);
@@ -330,8 +356,10 @@
 			// labelCcsdsJulianDate
 			// 
 			this.labelCcsdsJulianDate.AccessibleDescription = "Value of the CCSDS Julian Date";
+			this.labelCcsdsJulianDate.AccessibleName = "CCSDS Julian Date Value";
 			this.labelCcsdsJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelCcsdsJulianDate.AutoSize = true;
+			this.labelCcsdsJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelCcsdsJulianDate.Location = new System.Drawing.Point(180, 113);
 			this.labelCcsdsJulianDate.Name = "labelCcsdsJulianDate";
 			this.labelCcsdsJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -347,8 +375,10 @@
 			// labelCcsdsJulianDateText
 			// 
 			this.labelCcsdsJulianDateText.AccessibleDescription = "Description of the CCSDS Julian Date";
+			this.labelCcsdsJulianDateText.AccessibleName = "CCSDS Julian Date Description";
 			this.labelCcsdsJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelCcsdsJulianDateText.AutoSize = true;
+			this.labelCcsdsJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelCcsdsJulianDateText.Location = new System.Drawing.Point(12, 113);
 			this.labelCcsdsJulianDateText.Name = "labelCcsdsJulianDateText";
 			this.labelCcsdsJulianDateText.Size = new System.Drawing.Size(100, 13);
@@ -364,8 +394,10 @@
 			// labelLopJulianDate
 			// 
 			this.labelLopJulianDate.AccessibleDescription = "Value of the LOP Julian Date";
+			this.labelLopJulianDate.AccessibleName = "LOP Julian Date Value";
 			this.labelLopJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelLopJulianDate.AutoSize = true;
+			this.labelLopJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelLopJulianDate.Location = new System.Drawing.Point(180, 126);
 			this.labelLopJulianDate.Name = "labelLopJulianDate";
 			this.labelLopJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -381,8 +413,10 @@
 			// labelLopJulianDateText
 			// 
 			this.labelLopJulianDateText.AccessibleDescription = "Description of the LOP Julian Date";
+			this.labelLopJulianDateText.AccessibleName = "LOP Julian Date Description";
 			this.labelLopJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelLopJulianDateText.AutoSize = true;
+			this.labelLopJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelLopJulianDateText.Location = new System.Drawing.Point(12, 126);
 			this.labelLopJulianDateText.Name = "labelLopJulianDateText";
 			this.labelLopJulianDateText.Size = new System.Drawing.Size(85, 13);
@@ -398,8 +432,10 @@
 			// labelMillenniumJulianDate
 			// 
 			this.labelMillenniumJulianDate.AccessibleDescription = "Value of the Millenium Julian Date";
+			this.labelMillenniumJulianDate.AccessibleName = "Millennium Julian Date Value";
 			this.labelMillenniumJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelMillenniumJulianDate.AutoSize = true;
+			this.labelMillenniumJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelMillenniumJulianDate.Location = new System.Drawing.Point(180, 139);
 			this.labelMillenniumJulianDate.Name = "labelMillenniumJulianDate";
 			this.labelMillenniumJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -415,8 +451,10 @@
 			// labelMillenniumJulianDateText
 			// 
 			this.labelMillenniumJulianDateText.AccessibleDescription = "Description of the Millennium Julian Date";
+			this.labelMillenniumJulianDateText.AccessibleName = "Millennium Julian Date Description";
 			this.labelMillenniumJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelMillenniumJulianDateText.AutoSize = true;
+			this.labelMillenniumJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelMillenniumJulianDateText.Location = new System.Drawing.Point(12, 139);
 			this.labelMillenniumJulianDateText.Name = "labelMillenniumJulianDateText";
 			this.labelMillenniumJulianDateText.Size = new System.Drawing.Size(113, 13);
@@ -432,6 +470,7 @@
 			// buttonInfo
 			// 
 			this.buttonInfo.AccessibleDescription = "Show some information";
+			this.buttonInfo.AccessibleName = "Information";
 			this.buttonInfo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
 			this.buttonInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonInfo.Location = new System.Drawing.Point(215, 274);
@@ -450,6 +489,7 @@
 			// buttonMinimizeToTray
 			// 
 			this.buttonMinimizeToTray.AccessibleDescription = "Minimize the application to the tray";
+			this.buttonMinimizeToTray.AccessibleName = "Minimize To Tray Button";
 			this.buttonMinimizeToTray.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
 			this.buttonMinimizeToTray.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonMinimizeToTray.Location = new System.Drawing.Point(120, 274);
@@ -468,6 +508,7 @@
 			// checkBoxStayOnTop
 			// 
 			this.checkBoxStayOnTop.AccessibleDescription = "Enable/Disable to set the application on top";
+			this.checkBoxStayOnTop.AccessibleName = "Aways On Top Button";
 			this.checkBoxStayOnTop.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
 			this.checkBoxStayOnTop.Appearance = System.Windows.Forms.Appearance.Button;
 			this.checkBoxStayOnTop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -488,6 +529,7 @@
 			// checkBoxDarkLightMode
 			// 
 			this.checkBoxDarkLightMode.AccessibleDescription = "Enable/Disable the dark mode";
+			this.checkBoxDarkLightMode.AccessibleName = "Dar Mode Button";
 			this.checkBoxDarkLightMode.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
 			this.checkBoxDarkLightMode.Appearance = System.Windows.Forms.Appearance.Button;
 			this.checkBoxDarkLightMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -508,8 +550,10 @@
 			// labelLocalTimeText
 			// 
 			this.labelLocalTimeText.AccessibleDescription = "Description of the local time";
+			this.labelLocalTimeText.AccessibleName = "Local Time Description";
 			this.labelLocalTimeText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelLocalTimeText.AutoSize = true;
+			this.labelLocalTimeText.BackColor = System.Drawing.Color.Transparent;
 			this.labelLocalTimeText.Location = new System.Drawing.Point(12, 22);
 			this.labelLocalTimeText.Name = "labelLocalTimeText";
 			this.labelLocalTimeText.Size = new System.Drawing.Size(58, 13);
@@ -525,8 +569,10 @@
 			// labelLocalTime
 			// 
 			this.labelLocalTime.AccessibleDescription = "Value of the local time";
+			this.labelLocalTime.AccessibleName = "Local Time Value";
 			this.labelLocalTime.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelLocalTime.AutoSize = true;
+			this.labelLocalTime.BackColor = System.Drawing.Color.Transparent;
 			this.labelLocalTime.Location = new System.Drawing.Point(180, 22);
 			this.labelLocalTime.Name = "labelLocalTime";
 			this.labelLocalTime.Size = new System.Drawing.Size(104, 13);
@@ -542,8 +588,10 @@
 			// labelUtcTime
 			// 
 			this.labelUtcTime.AccessibleDescription = "Value of the UTC time";
+			this.labelUtcTime.AccessibleName = "Local Time Value";
 			this.labelUtcTime.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelUtcTime.AutoSize = true;
+			this.labelUtcTime.BackColor = System.Drawing.Color.Transparent;
 			this.labelUtcTime.Location = new System.Drawing.Point(180, 9);
 			this.labelUtcTime.Name = "labelUtcTime";
 			this.labelUtcTime.Size = new System.Drawing.Size(104, 13);
@@ -559,8 +607,10 @@
 			// labelUtcTimeText
 			// 
 			this.labelUtcTimeText.AccessibleDescription = "Description of the UTC time";
+			this.labelUtcTimeText.AccessibleName = "UTC Time Description";
 			this.labelUtcTimeText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelUtcTimeText.AutoSize = true;
+			this.labelUtcTimeText.BackColor = System.Drawing.Color.Transparent;
 			this.labelUtcTimeText.Location = new System.Drawing.Point(12, 9);
 			this.labelUtcTimeText.Name = "labelUtcTimeText";
 			this.labelUtcTimeText.Size = new System.Drawing.Size(54, 13);
@@ -576,8 +626,10 @@
 			// labelChronologicalJulianDate
 			// 
 			this.labelChronologicalJulianDate.AccessibleDescription = "Value of the Chronological Julian Date";
+			this.labelChronologicalJulianDate.AccessibleName = "Chronological Julian Date Value";
 			this.labelChronologicalJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelChronologicalJulianDate.AutoSize = true;
+			this.labelChronologicalJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelChronologicalJulianDate.Location = new System.Drawing.Point(180, 152);
 			this.labelChronologicalJulianDate.Name = "labelChronologicalJulianDate";
 			this.labelChronologicalJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -593,8 +645,10 @@
 			// labelChronologicalJulianDateText
 			// 
 			this.labelChronologicalJulianDateText.AccessibleDescription = "Description of the Chronological Julian Date";
+			this.labelChronologicalJulianDateText.AccessibleName = "Chronological Julian Date Description";
 			this.labelChronologicalJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelChronologicalJulianDateText.AutoSize = true;
+			this.labelChronologicalJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelChronologicalJulianDateText.Location = new System.Drawing.Point(12, 152);
 			this.labelChronologicalJulianDateText.Name = "labelChronologicalJulianDateText";
 			this.labelChronologicalJulianDateText.Size = new System.Drawing.Size(128, 13);
@@ -610,8 +664,10 @@
 			// labelChronologicalModifiedJulianDate
 			// 
 			this.labelChronologicalModifiedJulianDate.AccessibleDescription = "Value of the Chronological Modified Julian Date";
+			this.labelChronologicalModifiedJulianDate.AccessibleName = "Chronological Modified Julian Date Value";
 			this.labelChronologicalModifiedJulianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelChronologicalModifiedJulianDate.AutoSize = true;
+			this.labelChronologicalModifiedJulianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelChronologicalModifiedJulianDate.Location = new System.Drawing.Point(180, 165);
 			this.labelChronologicalModifiedJulianDate.Name = "labelChronologicalModifiedJulianDate";
 			this.labelChronologicalModifiedJulianDate.Size = new System.Drawing.Size(111, 13);
@@ -627,8 +683,10 @@
 			// labelChronologicalModifiedJulianDateText
 			// 
 			this.labelChronologicalModifiedJulianDateText.AccessibleDescription = "Description of the Chronological Julian Date";
+			this.labelChronologicalModifiedJulianDateText.AccessibleName = "Chronological Modified Julian Date Description";
 			this.labelChronologicalModifiedJulianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelChronologicalModifiedJulianDateText.AutoSize = true;
+			this.labelChronologicalModifiedJulianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelChronologicalModifiedJulianDateText.Location = new System.Drawing.Point(12, 165);
 			this.labelChronologicalModifiedJulianDateText.Name = "labelChronologicalModifiedJulianDateText";
 			this.labelChronologicalModifiedJulianDateText.Size = new System.Drawing.Size(171, 13);
@@ -644,8 +702,10 @@
 			// labelLilianDate
 			// 
 			this.labelLilianDate.AccessibleDescription = "Value of the Lilian Date";
+			this.labelLilianDate.AccessibleName = "Lilian Date Value";
 			this.labelLilianDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelLilianDate.AutoSize = true;
+			this.labelLilianDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelLilianDate.Location = new System.Drawing.Point(180, 178);
 			this.labelLilianDate.Name = "labelLilianDate";
 			this.labelLilianDate.Size = new System.Drawing.Size(111, 13);
@@ -661,8 +721,10 @@
 			// labelLilianDateText
 			// 
 			this.labelLilianDateText.AccessibleDescription = "Description of the Lilian Date";
+			this.labelLilianDateText.AccessibleName = "Lilian Date Description";
 			this.labelLilianDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelLilianDateText.AutoSize = true;
+			this.labelLilianDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelLilianDateText.Location = new System.Drawing.Point(12, 178);
 			this.labelLilianDateText.Name = "labelLilianDateText";
 			this.labelLilianDateText.Size = new System.Drawing.Size(60, 13);
@@ -678,8 +740,10 @@
 			// labelRataDie
 			// 
 			this.labelRataDie.AccessibleDescription = "Value of the Rata Die";
+			this.labelRataDie.AccessibleName = "Rata Die Value";
 			this.labelRataDie.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelRataDie.AutoSize = true;
+			this.labelRataDie.BackColor = System.Drawing.Color.Transparent;
 			this.labelRataDie.Location = new System.Drawing.Point(180, 191);
 			this.labelRataDie.Name = "labelRataDie";
 			this.labelRataDie.Size = new System.Drawing.Size(111, 13);
@@ -694,8 +758,10 @@
 			// labelRataDieText
 			// 
 			this.labelRataDieText.AccessibleDescription = "Description of the Rata Die";
+			this.labelRataDieText.AccessibleName = "Rata Die Description";
 			this.labelRataDieText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelRataDieText.AutoSize = true;
+			this.labelRataDieText.BackColor = System.Drawing.Color.Transparent;
 			this.labelRataDieText.Location = new System.Drawing.Point(12, 191);
 			this.labelRataDieText.Name = "labelRataDieText";
 			this.labelRataDieText.Size = new System.Drawing.Size(52, 13);
@@ -711,8 +777,10 @@
 			// labelMarsSolDate
 			// 
 			this.labelMarsSolDate.AccessibleDescription = "Value of the Mars Sol Date";
+			this.labelMarsSolDate.AccessibleName = "Mars Sol Date Value";
 			this.labelMarsSolDate.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelMarsSolDate.AutoSize = true;
+			this.labelMarsSolDate.BackColor = System.Drawing.Color.Transparent;
 			this.labelMarsSolDate.Location = new System.Drawing.Point(180, 204);
 			this.labelMarsSolDate.Name = "labelMarsSolDate";
 			this.labelMarsSolDate.Size = new System.Drawing.Size(111, 13);
@@ -728,8 +796,10 @@
 			// labelMarsSolDateText
 			// 
 			this.labelMarsSolDateText.AccessibleDescription = "Description of the Mars Sol Date";
+			this.labelMarsSolDateText.AccessibleName = "Mars Sol Date Description";
 			this.labelMarsSolDateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelMarsSolDateText.AutoSize = true;
+			this.labelMarsSolDateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelMarsSolDateText.Location = new System.Drawing.Point(12, 204);
 			this.labelMarsSolDateText.Name = "labelMarsSolDateText";
 			this.labelMarsSolDateText.Size = new System.Drawing.Size(77, 13);
@@ -744,9 +814,11 @@
 			// 
 			// labelUnixtime
 			// 
-			this.labelUnixtime.AccessibleDescription = "Value of the Unixtime";
+			this.labelUnixtime.AccessibleDescription = "Value of the Unix Time";
+			this.labelUnixtime.AccessibleName = "Unix Time Value";
 			this.labelUnixtime.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelUnixtime.AutoSize = true;
+			this.labelUnixtime.BackColor = System.Drawing.Color.Transparent;
 			this.labelUnixtime.Location = new System.Drawing.Point(180, 217);
 			this.labelUnixtime.Name = "labelUnixtime";
 			this.labelUnixtime.Size = new System.Drawing.Size(111, 13);
@@ -762,13 +834,15 @@
 			// labelUnixtimeText
 			// 
 			this.labelUnixtimeText.AccessibleDescription = "Description of the Unix time";
+			this.labelUnixtimeText.AccessibleName = "Unix Time Description";
 			this.labelUnixtimeText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelUnixtimeText.AutoSize = true;
+			this.labelUnixtimeText.BackColor = System.Drawing.Color.Transparent;
 			this.labelUnixtimeText.Location = new System.Drawing.Point(12, 217);
 			this.labelUnixtimeText.Name = "labelUnixtimeText";
-			this.labelUnixtimeText.Size = new System.Drawing.Size(53, 13);
+			this.labelUnixtimeText.Size = new System.Drawing.Size(57, 13);
 			this.labelUnixtimeText.TabIndex = 32;
-			this.labelUnixtimeText.Text = "Unix time:";
+			this.labelUnixtimeText.Text = "Unix Time:";
 			this.toolTip.SetToolTip(this.labelUnixtimeText, "Click to show more information");
 			this.labelUnixtimeText.Click += new System.EventHandler(this.LabelUnixtimeText_Click);
 			this.labelUnixtimeText.Enter += new System.EventHandler(this.LabelUnixtimeText_Enter);
@@ -779,6 +853,7 @@
 			// buttonOpenJulianDateCalculator
 			// 
 			this.buttonOpenJulianDateCalculator.AccessibleDescription = "Open the Julian Dates Calculator";
+			this.buttonOpenJulianDateCalculator.AccessibleName = "Julian Date Calculator";
 			this.buttonOpenJulianDateCalculator.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
 			this.buttonOpenJulianDateCalculator.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonOpenJulianDateCalculator.Location = new System.Drawing.Point(120, 303);
@@ -797,8 +872,8 @@
 			// buttonOpenJulianDateConverter
 			// 
 			this.buttonOpenJulianDateConverter.AccessibleDescription = "Open the Julian Dates Converter";
+			this.buttonOpenJulianDateConverter.AccessibleName = "Julian Date Converter";
 			this.buttonOpenJulianDateConverter.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-			this.buttonOpenJulianDateConverter.Enabled = false;
 			this.buttonOpenJulianDateConverter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.buttonOpenJulianDateConverter.Location = new System.Drawing.Point(215, 303);
 			this.buttonOpenJulianDateConverter.Name = "buttonOpenJulianDateConverter";
@@ -807,7 +882,6 @@
 			this.buttonOpenJulianDateConverter.Text = "JD converter";
 			this.toolTip.SetToolTip(this.buttonOpenJulianDateConverter, "Open the Julian Dates Converter");
 			this.buttonOpenJulianDateConverter.UseVisualStyleBackColor = true;
-			this.buttonOpenJulianDateConverter.Visible = false;
 			this.buttonOpenJulianDateConverter.Click += new System.EventHandler(this.ButtonOpenJulianDateConverter_Click);
 			this.buttonOpenJulianDateConverter.Enter += new System.EventHandler(this.ButtonOpenJulianDateConverter_Enter);
 			this.buttonOpenJulianDateConverter.Leave += new System.EventHandler(this.ButtonOpenJulianDateConverter_Leave);
@@ -817,6 +891,7 @@
 			// numericUpDownRefreshRate
 			// 
 			this.numericUpDownRefreshRate.AccessibleDescription = "Refresh rate in milliseconds";
+			this.numericUpDownRefreshRate.AccessibleName = "Refresh Rate Button";
 			this.numericUpDownRefreshRate.AccessibleRole = System.Windows.Forms.AccessibleRole.SpinButton;
 			this.numericUpDownRefreshRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numericUpDownRefreshRate.Location = new System.Drawing.Point(76, 275);
@@ -846,8 +921,10 @@
 			// labelRefreshRateText
 			// 
 			this.labelRefreshRateText.AccessibleDescription = "Refresh rate in milliseconds";
+			this.labelRefreshRateText.AccessibleName = "Refresh Rate Label";
 			this.labelRefreshRateText.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelRefreshRateText.AutoSize = true;
+			this.labelRefreshRateText.BackColor = System.Drawing.Color.Transparent;
 			this.labelRefreshRateText.Location = new System.Drawing.Point(15, 277);
 			this.labelRefreshRateText.Name = "labelRefreshRateText";
 			this.labelRefreshRateText.Size = new System.Drawing.Size(60, 13);
@@ -877,6 +954,7 @@
 			// statusStrip
 			// 
 			this.statusStrip.AccessibleDescription = "Statusbar";
+			this.statusStrip.AccessibleName = "Statusbar";
 			this.statusStrip.AccessibleRole = System.Windows.Forms.AccessibleRole.StatusBar;
 			this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelInformation,
@@ -888,11 +966,13 @@
 			this.statusStrip.Size = new System.Drawing.Size(303, 22);
 			this.statusStrip.SizingGrip = false;
 			this.statusStrip.TabIndex = 44;
+			this.statusStrip.TabStop = true;
 			this.statusStrip.Text = "statusStrip";
 			// 
 			// toolStripStatusLabelInformation
 			// 
 			this.toolStripStatusLabelInformation.AccessibleDescription = "Show some information";
+			this.toolStripStatusLabelInformation.AccessibleName = "Information Label";
 			this.toolStripStatusLabelInformation.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.toolStripStatusLabelInformation.AutoToolTip = true;
 			this.toolStripStatusLabelInformation.Image = global::Julian_and_his_dates.Properties.Resources.picInformation;
@@ -904,6 +984,7 @@
 			// toolStripStatusLabelAlarm
 			// 
 			this.toolStripStatusLabelAlarm.AccessibleDescription = "Click to set alarm on/off";
+			this.toolStripStatusLabelAlarm.AccessibleName = "Alarm Label";
 			this.toolStripStatusLabelAlarm.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.toolStripStatusLabelAlarm.AutoToolTip = true;
 			this.toolStripStatusLabelAlarm.Image = global::Julian_and_his_dates.Properties.Resources.picSound;
@@ -917,6 +998,7 @@
 			// toolStripStatusLabelTakeScreenshot
 			// 
 			this.toolStripStatusLabelTakeScreenshot.AccessibleDescription = "Take a screenshot";
+			this.toolStripStatusLabelTakeScreenshot.AccessibleName = "Screeshot Label";
 			this.toolStripStatusLabelTakeScreenshot.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.toolStripStatusLabelTakeScreenshot.AutoToolTip = true;
 			this.toolStripStatusLabelTakeScreenshot.Image = global::Julian_and_his_dates.Properties.Resources.picCamera;
@@ -930,6 +1012,7 @@
 			// JulianandhisdatesForm
 			// 
 			this.AccessibleDescription = "Application";
+			this.AccessibleName = "Application";
 			this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
