@@ -529,7 +529,7 @@
 			// checkBoxDarkLightMode
 			// 
 			this.checkBoxDarkLightMode.AccessibleDescription = "Enable/Disable the dark mode";
-			this.checkBoxDarkLightMode.AccessibleName = "Dar Mode Button";
+			this.checkBoxDarkLightMode.AccessibleName = "Dark Mode Button";
 			this.checkBoxDarkLightMode.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
 			this.checkBoxDarkLightMode.Appearance = System.Windows.Forms.Appearance.Button;
 			this.checkBoxDarkLightMode.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -860,7 +860,7 @@
 			this.buttonOpenJulianDateCalculator.Name = "buttonOpenJulianDateCalculator";
 			this.buttonOpenJulianDateCalculator.Size = new System.Drawing.Size(89, 23);
 			this.buttonOpenJulianDateCalculator.TabIndex = 42;
-			this.buttonOpenJulianDateCalculator.Text = "JD calculator";
+			this.buttonOpenJulianDateCalculator.Text = "JD &calculator";
 			this.toolTip.SetToolTip(this.buttonOpenJulianDateCalculator, "Open the Julian Dates Calculator");
 			this.buttonOpenJulianDateCalculator.UseVisualStyleBackColor = true;
 			this.buttonOpenJulianDateCalculator.Click += new System.EventHandler(this.ButtonOpenJulianDateCalculator_Click);
@@ -879,7 +879,7 @@
 			this.buttonOpenJulianDateConverter.Name = "buttonOpenJulianDateConverter";
 			this.buttonOpenJulianDateConverter.Size = new System.Drawing.Size(76, 23);
 			this.buttonOpenJulianDateConverter.TabIndex = 43;
-			this.buttonOpenJulianDateConverter.Text = "JD converter";
+			this.buttonOpenJulianDateConverter.Text = "JD con&verter";
 			this.toolTip.SetToolTip(this.buttonOpenJulianDateConverter, "Open the Julian Dates Converter");
 			this.buttonOpenJulianDateConverter.UseVisualStyleBackColor = true;
 			this.buttonOpenJulianDateConverter.Click += new System.EventHandler(this.ButtonOpenJulianDateConverter_Click);
@@ -893,6 +893,7 @@
 			this.numericUpDownRefreshRate.AccessibleDescription = "Refresh rate in milliseconds";
 			this.numericUpDownRefreshRate.AccessibleName = "Refresh Rate Button";
 			this.numericUpDownRefreshRate.AccessibleRole = System.Windows.Forms.AccessibleRole.SpinButton;
+			this.numericUpDownRefreshRate.BackColor = System.Drawing.SystemColors.Window;
 			this.numericUpDownRefreshRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.numericUpDownRefreshRate.Location = new System.Drawing.Point(76, 275);
 			this.numericUpDownRefreshRate.Maximum = new decimal(new int[] {
@@ -908,6 +909,7 @@
 			this.numericUpDownRefreshRate.Name = "numericUpDownRefreshRate";
 			this.numericUpDownRefreshRate.Size = new System.Drawing.Size(40, 20);
 			this.numericUpDownRefreshRate.TabIndex = 38;
+			this.numericUpDownRefreshRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.toolTip.SetToolTip(this.numericUpDownRefreshRate, "Refresh rate in milliseconds");
 			this.numericUpDownRefreshRate.Value = new decimal(new int[] {
             1,

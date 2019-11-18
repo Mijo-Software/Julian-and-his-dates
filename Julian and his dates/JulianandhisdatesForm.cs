@@ -10,12 +10,13 @@ namespace Julian_and_his_dates
 	/// </summary>
 	public partial class JulianandhisdatesForm : Form
 	{
-		private double doubleOldJD = 0.999999999999999999999999, doubleNewJD;
+		private double doubleOldJD = 0.999999999999999999999999;
+		private double doubleNewJD;
 		private bool boolFirstRun = true;
 		private bool boolIsAlarmEnabled = true;
 		private readonly int intDefaultTick = 20;
 		private readonly Color colorWhiteFont = Color.WhiteSmoke;
-		private readonly Color colorDarkBackground = Color.FromArgb(29, 32, 41);
+		private readonly Color colorDarkBackground = Color.FromArgb(red: 29, green: 32, blue: 41);
 
 		/// <summary>
 		///  Initialize the form.
@@ -309,6 +310,7 @@ namespace Julian_and_his_dates
 		{
 			if (checkBoxDarkLightMode.Checked)
 			{ // Enable dark mode
+				checkBoxDarkLightMode.Text = "&Light Mode";
 				BackColor = colorDarkBackground;
 				ForeColor = colorWhiteFont;
 				statusStrip.BackColor = colorDarkBackground;
@@ -348,6 +350,8 @@ namespace Julian_and_his_dates
 				labelUnixtime.ForeColor = colorWhiteFont;
 				labelRefreshRateText.ForeColor = colorWhiteFont;
 				statusStrip.ForeColor = colorWhiteFont;
+				numericUpDownRefreshRate.BackColor = colorDarkBackground;
+				numericUpDownRefreshRate.ForeColor = colorWhiteFont;
 				checkBoxAutomaticRefresh.BackColor = colorDarkBackground;
 				checkBoxAutomaticRefresh.ForeColor = colorWhiteFont;
 				checkBoxStayOnTop.BackColor = colorDarkBackground;
@@ -367,6 +371,7 @@ namespace Julian_and_his_dates
 			}
 			else
 			{ //Enable light mode
+				checkBoxDarkLightMode.Text = "&Dark Mode";
 				BackColor = SystemColors.Control;
 				ForeColor = SystemColors.ControlText;
 				statusStrip.BackColor = SystemColors.Control;
@@ -406,6 +411,8 @@ namespace Julian_and_his_dates
 				labelUnixtime.ForeColor = SystemColors.ControlText;
 				labelRefreshRateText.ForeColor = SystemColors.ControlText;
 				statusStrip.ForeColor = SystemColors.ControlText;
+				numericUpDownRefreshRate.BackColor = SystemColors.Window;
+				numericUpDownRefreshRate.ForeColor = SystemColors.ControlText;
 				checkBoxAutomaticRefresh.BackColor = SystemColors.Control;
 				checkBoxAutomaticRefresh.ForeColor = SystemColors.ControlText;
 				checkBoxStayOnTop.BackColor = SystemColors.Control;
@@ -469,6 +476,7 @@ namespace Julian_and_his_dates
 				{
 					formJulianDateConverter.BackColor = colorDarkBackground;
 					formJulianDateConverter.ForeColor = colorWhiteFont;
+					formJulianDateConverter.SetDarkmode();
 				}
 				formJulianDateConverter.ShowDialog();
 			}

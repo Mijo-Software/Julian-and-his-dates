@@ -726,6 +726,7 @@
 			this.dateTimePicker.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
 			this.dateTimePicker.Location = new System.Drawing.Point(15, 13);
 			this.dateTimePicker.Name = "dateTimePicker";
+			this.dateTimePicker.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.dateTimePicker.Size = new System.Drawing.Size(276, 20);
 			this.dateTimePicker.TabIndex = 0;
 			this.toolTip.SetToolTip(this.dateTimePicker, "Select a date to calculate");
@@ -743,6 +744,7 @@
 			this.checkBoxIgnoreDecimals.AutoSize = true;
 			this.checkBoxIgnoreDecimals.Location = new System.Drawing.Point(15, 40);
 			this.checkBoxIgnoreDecimals.Name = "checkBoxIgnoreDecimals";
+			this.checkBoxIgnoreDecimals.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.checkBoxIgnoreDecimals.Size = new System.Drawing.Size(129, 17);
 			this.checkBoxIgnoreDecimals.TabIndex = 1;
 			this.checkBoxIgnoreDecimals.Text = "Ignore decimal places";

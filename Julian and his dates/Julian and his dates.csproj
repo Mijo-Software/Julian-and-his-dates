@@ -56,6 +56,8 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <LangVersion>7.2</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>julian-and-his-dates_logo.ico</ApplicationIcon>
@@ -86,7 +88,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <LangVersion>7.2</LangVersion>
-   <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
