@@ -24,6 +24,8 @@ public class JulianDates
 
 	private const int intSecondsOfDay = 86400;
 
+	#region JD Calculators
+
 	/// <summary>
 	/// 
 	/// </summary>
@@ -53,6 +55,13 @@ public class JulianDates
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateModifiedJulianDate(double julianDate) => julianDate - doubleModifiedJulianDateCoefficient;
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <returns></returns>
 	public static double CalculateReducedJulianDate() => CalculateJulianDate() - doubleReducedJulianDateCoefficient;
 
@@ -62,6 +71,13 @@ public class JulianDates
 	/// <param name="date"></param>
 	/// <returns></returns>
 	public static double CalculateReducedJulianDate(DateTime date) => CalculateJulianDate(date: date) - doubleReducedJulianDateCoefficient;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateReducedJulianDate(double julianDate) => julianDate - doubleReducedJulianDateCoefficient;
 
 	/// <summary>
 	/// 
@@ -79,6 +95,13 @@ public class JulianDates
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateTruncatedJulianDate(double julianDate) => Math.Floor(julianDate - doubleTruncatedJulianDateCoefficient);
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <returns></returns>
 	public static double CalculateDublinJulianDate() => CalculateJulianDate() - doubleDublinJulianDateCoefficient;
 
@@ -88,6 +111,13 @@ public class JulianDates
 	/// <param name="date"></param>
 	/// <returns></returns>
 	public static double CalculateDublinJulianDate(DateTime date) => CalculateJulianDate(date: date) - doubleDublinJulianDateCoefficient;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateDublinJulianDate(double julianDate) => julianDate - doubleDublinJulianDateCoefficient;
 
 	/// <summary>
 	/// 
@@ -105,6 +135,13 @@ public class JulianDates
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateCnesJulianDate(double julianDate) => julianDate - doubleCnesJulianDateCoefficient;
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <returns></returns>
 	public static double CalculateCcsdsJulianDate() => CalculateJulianDate() - doubleCcsdsJulianDateCoefficient;
 
@@ -114,6 +151,13 @@ public class JulianDates
 	/// <param name="date"></param>
 	/// <returns></returns>
 	public static double CalculateCcsdsJulianDate(DateTime date) => CalculateJulianDate(date: date) - doubleCcsdsJulianDateCoefficient;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateCcsdsJulianDate(double julianDate) => julianDate - doubleCcsdsJulianDateCoefficient;
 
 	/// <summary>
 	/// 
@@ -131,6 +175,13 @@ public class JulianDates
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateLopJulianDate(double julianDate) => julianDate - doubleLopJulianDateCoefficient;
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <returns></returns>
 	public static double CalculateMillenniumJulianDate() => CalculateJulianDate() - doubleMillenniumJulianDateCoefficient;
 
@@ -140,6 +191,13 @@ public class JulianDates
 	/// <param name="date"></param>
 	/// <returns></returns>
 	public static double CalculateMillenniumJulianDate(DateTime date) => CalculateJulianDate(date: date) - doubleMillenniumJulianDateCoefficient;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateMillenniumJulianDate(double julianDate) => julianDate - doubleMillenniumJulianDateCoefficient;
 
 	/// <summary>
 	/// 
@@ -169,13 +227,13 @@ public class JulianDates
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="date"></param>
+	/// <param name="julianDate"></param>
 	/// <returns></returns>
-	public static double CalculateChronologicalJulianDate(double date)
+	public static double CalculateChronologicalJulianDate(double julianDate)
 	{
 		TimeZone zone = TimeZone.CurrentTimeZone;
 		DaylightTime time = zone.GetDaylightChanges(year: DateTime.Today.Year);
-		return date + 0.5 + (time.Delta.Hours / 24.0);
+		return julianDate + 0.5 + (time.Delta.Hours / 24.0);
 	}
 
 	/// <summary>
@@ -206,13 +264,13 @@ public class JulianDates
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="date"></param>
+	/// <param name="julianDate"></param>
 	/// <returns></returns>
-	public static double CalculateChronologicalModifiedJulianDate(double date)
+	public static double CalculateChronologicalModifiedJulianDate(double julianDate)
 	{
 		TimeZone zone = TimeZone.CurrentTimeZone;
 		DaylightTime time = zone.GetDaylightChanges(year: DateTime.Today.Year);
-		return date - doubleModifiedJulianDateCoefficient + 0.5 + (time.Delta.Hours / 24.0);
+		return julianDate - doubleModifiedJulianDateCoefficient + 0.5 + (time.Delta.Hours / 24.0);
 	}
 
 	/// <summary>
@@ -231,6 +289,13 @@ public class JulianDates
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateLilianDate(double julianDate) => Math.Floor(julianDate - doubleLilianDateCoefficient);
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <returns></returns>
 	public static double CalculateRataDie() => Math.Floor(CalculateJulianDate() - doubleRataDieCoefficient);
 
@@ -240,6 +305,13 @@ public class JulianDates
 	/// <param name="date"></param>
 	/// <returns></returns>
 	public static double CalculateRataDie(DateTime date) => Math.Floor(CalculateJulianDate(date: date) - doubleRataDieCoefficient);
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateRataDie(double julianDate) => Math.Floor(julianDate - doubleRataDieCoefficient);
 
 	/// <summary>
 	/// 
@@ -257,6 +329,13 @@ public class JulianDates
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateMarsSolDate(double julianDate) => (julianDate - doubleMarsSolDateCoefficient) / doubleRatioRotationAxisEarthMars;
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <returns></returns>
 	public static double CalculateUnixTime() => (CalculateJulianDate() - doubleUnixtimeCoefficient) * intSecondsOfDay;
 
@@ -266,6 +345,17 @@ public class JulianDates
 	/// <param name="date"></param>
 	/// <returns></returns>
 	public static double CalculateUnixTime(DateTime date) => (CalculateJulianDate(date: date) - doubleUnixtimeCoefficient) * intSecondsOfDay;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="julianDate"></param>
+	/// <returns></returns>
+	public static double CalculateUnixTime(double julianDate) => (julianDate - doubleUnixtimeCoefficient) * intSecondsOfDay;
+
+	#endregion
+
+	#region JD Converters
 
 	/// <summary>
 	/// 
@@ -362,6 +452,16 @@ public class JulianDates
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <param name="julianModifiedDate"></param>
+	/// <returns></returns>
+	public static double ConvertModifiedJulianDateToJulianDate(double julianModifiedDate)
+	{
+		return julianModifiedDate + doubleModifiedJulianDateCoefficient;
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <param name="julianDate"></param>
 	/// <returns></returns>
 	public static double ConvertJulianDateToReducedJulianDate(double julianDate)
@@ -436,7 +536,7 @@ public class JulianDates
 	/// <returns></returns>
 	public static double ConvertJulianDateToChronologicalJulianDate(double julianDate)
 	{
-		return CalculateChronologicalJulianDate(date: julianDate);
+		return CalculateChronologicalJulianDate(julianDate: julianDate);
 	}
 
 	/// <summary>
@@ -446,7 +546,7 @@ public class JulianDates
 	/// <returns></returns>
 	public static double ConvertJulianDateToChronologicalModifiedJulianDate(double julianDate)
 	{
-		return CalculateChronologicalModifiedJulianDate(date: julianDate);
+		return CalculateChronologicalModifiedJulianDate(julianDate: julianDate);
 	}
 
 	/// <summary>
@@ -488,4 +588,6 @@ public class JulianDates
 	{
 		return julianDate - doubleUnixtimeCoefficient;
 	}
+
+	#endregion
 }

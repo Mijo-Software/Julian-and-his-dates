@@ -12,9 +12,8 @@ namespace Julian_and_his_dates
 	public partial class JulianDateConverterForm : Form
 	{
 
-		private const double
-			julianDateMinimum = 1721423.5,
-			julianDateMaximum = 5373483.5;
+		private const double julianDateMinimum = 1721423.5;
+		private const double julianDateMaximum = 5373483.5;
 		private readonly double doubleJulianDate;
 		private readonly double doubleModifiedJulianDate;
 		private readonly double doubleReducedJulianDate;
@@ -32,6 +31,9 @@ namespace Julian_and_his_dates
 		private readonly double doubleUnixtime;
 		private readonly CultureInfo culture = CultureInfo.CreateSpecificCulture(name: "en-GB");
 		private readonly NumberStyles style = NumberStyles.AllowDecimalPoint;
+		private readonly Color colorWhiteFont = Color.WhiteSmoke;
+		private readonly Color colorDarkBackground = Color.FromArgb(red: 29, green: 32, blue: 41);
+
 
 		/// <summary>
 		///  Initialize the form.
@@ -71,6 +73,43 @@ namespace Julian_and_his_dates
 			textboxRataDie.Text = doubleRataDie.ToString();
 			textboxMarsSolDate.Text = doubleMarsSolDate.ToString();
 			textboxUnixtime.Text = doubleUnixtime.ToString();
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public void SetDarkmode()
+		{
+			textboxJulianDate.ForeColor = colorWhiteFont;
+			textboxJulianDate.BackColor = colorDarkBackground;
+			textboxModifiedJulianDate.ForeColor = colorWhiteFont;
+			textboxModifiedJulianDate.BackColor = colorDarkBackground;
+			textboxReducedJulianDate.ForeColor = colorWhiteFont;
+			textboxReducedJulianDate.BackColor = colorDarkBackground;
+			textboxTruncatedJulianDate.ForeColor = colorWhiteFont;
+			textboxTruncatedJulianDate.BackColor = colorDarkBackground;
+			textboxDublinJulianDate.ForeColor = colorWhiteFont;
+			textboxDublinJulianDate.BackColor = colorDarkBackground;
+			textboxCnesJulianDate.ForeColor = colorWhiteFont;
+			textboxCnesJulianDate.BackColor = colorDarkBackground;
+			textboxCcsdsJulianDate.ForeColor = colorWhiteFont;
+			textboxCcsdsJulianDate.BackColor = colorDarkBackground;
+			textboxLopJulianDate.ForeColor = colorWhiteFont;
+			textboxLopJulianDate.BackColor = colorDarkBackground;
+			textboxMillenniumJulianDate.ForeColor = colorWhiteFont;
+			textboxMillenniumJulianDate.BackColor = colorDarkBackground;
+			textboxChronologicalJulianDate.ForeColor = colorWhiteFont;
+			textboxChronologicalJulianDate.BackColor = colorDarkBackground;
+			textboxChronologicalModifiedJulianDate.ForeColor = colorWhiteFont;
+			textboxChronologicalModifiedJulianDate.BackColor = colorDarkBackground;
+			textboxLilianDate.ForeColor = colorWhiteFont;
+			textboxLilianDate.BackColor = colorDarkBackground;
+			textboxRataDie.ForeColor = colorWhiteFont;
+			textboxRataDie.BackColor = colorDarkBackground;
+			textboxMarsSolDate.ForeColor = colorWhiteFont;
+			textboxMarsSolDate.BackColor = colorDarkBackground;
+			textboxUnixtime.ForeColor = colorWhiteFont;
+			textboxUnixtime.BackColor = colorDarkBackground;
 		}
 
 		private void JulianDateConverterForm_Load(object sender, EventArgs e)
@@ -775,6 +814,38 @@ namespace Julian_and_his_dates
 
 		private void TextboxModifiedJulianDate_TextChanged(object sender, EventArgs e)
 		{
+			double.TryParse(s: textboxModifiedJulianDate.Text.Replace(",", "."), style: style, provider: culture, result: out double julianModifiedDate);
+			double julianDate = JulianDates.ConvertModifiedJulianDateToJulianDate(julianModifiedDate);
+			if (julianDate < julianDateMinimum)
+			{
+				julianDate = julianDateMinimum;
+				textboxJulianDate.Text = julianDate.ToString();
+				labelUtcTime.Text = Properties.Resources.strOutOfYearRange;
+			}
+			else if (julianDate > julianDateMaximum)
+			{
+				julianDate = julianDateMaximum;
+				textboxJulianDate.Text = julianDate.ToString();
+				labelUtcTime.Text = Properties.Resources.strOutOfYearRange;
+			}
+			else
+			{
+				labelUtcTime.Text = JulianDates.ConvertJulianDateToCivilCalendar(julianDate: julianDate).ToString();
+			}
+			textboxJulianDate.Text = julianDate.ToString();
+			textboxReducedJulianDate.Text = JulianDates.ConvertJulianDateToReducedJulianDate(julianDate: julianDate).ToString();
+			textboxTruncatedJulianDate.Text = JulianDates.ConvertJulianDateToTruncatedJulianDate(julianDate: julianDate).ToString();
+			textboxDublinJulianDate.Text = JulianDates.ConvertJulianDateToDublinJulianDate(julianDate: julianDate).ToString();
+			textboxCnesJulianDate.Text = JulianDates.ConvertJulianDateToCnesJulianDate(julianDate: julianDate).ToString();
+			textboxCcsdsJulianDate.Text = JulianDates.ConvertJulianDateToCcsdsJulianDate(julianDate: julianDate).ToString();
+			textboxLopJulianDate.Text = JulianDates.ConvertJulianDateToLopJulianDate(julianDate: julianDate).ToString();
+			textboxMillenniumJulianDate.Text = JulianDates.ConvertJulianDateToMillenniumJulianDate(julianDate: julianDate).ToString();
+			textboxChronologicalJulianDate.Text = JulianDates.ConvertJulianDateToChronologicalJulianDate(julianDate: julianDate).ToString();
+			textboxChronologicalModifiedJulianDate.Text = JulianDates.ConvertJulianDateToChronologicalModifiedJulianDate(julianDate: julianDate).ToString();
+			textboxLilianDate.Text = JulianDates.ConvertJulianDateToLilianDate(julianDate: julianDate).ToString();
+			textboxRataDie.Text = JulianDates.ConvertJulianDateToRataDie(julianDate: julianDate).ToString();
+			textboxMarsSolDate.Text = JulianDates.ConvertJulianDateToMarsSolDate(julianDate: julianDate).ToString();
+			textboxUnixtime.Text = JulianDates.ConvertJulianDateToUnixtime(julianDate: julianDate).ToString();
 		}
 
 		private void TextboxReducedJulianDate_TextChanged(object sender, EventArgs e)

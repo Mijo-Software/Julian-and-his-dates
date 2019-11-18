@@ -9,9 +9,9 @@ namespace Julian_and_his_dates
 		public AboutBoxForm()
 		{
 			InitializeComponent();
-			Text = string.Format(format: "Info about {0}", arg0: AssemblyTitle);
+			Text = $"Info about {AssemblyTitle}";
 			labelProductName.Text = AssemblyProduct;
-			labelVersion.Text = string.Format(format: "Version {0}", arg0: AssemblyVersion);
+			labelVersion.Text = $"Version {AssemblyVersion}";
 			labelCopyright.Text = AssemblyCopyright;
 			labelCompanyName.Text = AssemblyCompany;
 			textBoxDescription.Text = AssemblyDescription;
@@ -23,7 +23,7 @@ namespace Julian_and_his_dates
 		{
 			get
 			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyTitleAttribute), inherit: false);
 				if (attributes.Length > 0)
 				{
 					AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
@@ -32,7 +32,7 @@ namespace Julian_and_his_dates
 						return titleAttribute.Title;
 					}
 				}
-				return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+				return System.IO.Path.GetFileNameWithoutExtension(path: Assembly.GetExecutingAssembly().CodeBase);
 			}
 		}
 
@@ -48,7 +48,7 @@ namespace Julian_and_his_dates
 		{
 			get
 			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyDescriptionAttribute), inherit: false);
 				if (attributes.Length == 0)
 				{
 					return "";
@@ -61,7 +61,7 @@ namespace Julian_and_his_dates
 		{
 			get
 			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyProductAttribute), inherit: false);
 				if (attributes.Length == 0)
 				{
 					return "";
@@ -74,7 +74,7 @@ namespace Julian_and_his_dates
 		{
 			get
 			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyCopyrightAttribute), inherit: false);
 				if (attributes.Length == 0)
 				{
 					return "";
@@ -87,7 +87,7 @@ namespace Julian_and_his_dates
 		{
 			get
 			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyCompanyAttribute), inherit: false);
 				if (attributes.Length == 0)
 				{
 					return "";
