@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Media;
 using System.Windows.Forms;
 
-namespace Julian_and_his_dates
+namespace JulianAndHisDates
 {
 	/// <summary>
 	///  Initialize the form.
