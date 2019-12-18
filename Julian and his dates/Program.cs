@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Julian_and_his_dates
+namespace JulianAndHisDates
 {
 	internal static class Program
 	{

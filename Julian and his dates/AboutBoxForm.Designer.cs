@@ -1,4 +1,4 @@
-﻿namespace Julian_and_his_dates
+﻿namespace JulianAndHisDates
 {
   partial class AboutBoxForm
   {

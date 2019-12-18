@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Julian_and_his_dates
+namespace JulianAndHisDates
 {
 	internal partial class AboutBoxForm : Form
 	{

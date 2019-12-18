@@ -1,4 +1,4 @@
-﻿namespace Julian_and_his_dates
+﻿namespace JulianAndHisDates
 {
   partial class JulianDateCalculatorForm
   {
@@ -779,7 +779,7 @@
 			this.toolStripStatusLabelInformation.AccessibleName = "Information Label";
 			this.toolStripStatusLabelInformation.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.toolStripStatusLabelInformation.AutoToolTip = true;
-			this.toolStripStatusLabelInformation.Image = global::Julian_and_his_dates.Properties.Resources.picInformation;
+			this.toolStripStatusLabelInformation.Image = global::JulianAndHisDates.Properties.Resources.picInformation;
 			this.toolStripStatusLabelInformation.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.toolStripStatusLabelInformation.Name = "toolStripStatusLabelInformation";
 			this.toolStripStatusLabelInformation.Size = new System.Drawing.Size(86, 16);
@@ -791,7 +791,7 @@
 			this.toolStripStatusLabelTakeScreenshot.AccessibleName = "Screenshot Label";
 			this.toolStripStatusLabelTakeScreenshot.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.toolStripStatusLabelTakeScreenshot.AutoToolTip = true;
-			this.toolStripStatusLabelTakeScreenshot.Image = global::Julian_and_his_dates.Properties.Resources.picCamera;
+			this.toolStripStatusLabelTakeScreenshot.Image = global::JulianAndHisDates.Properties.Resources.picCamera;
 			this.toolStripStatusLabelTakeScreenshot.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.toolStripStatusLabelTakeScreenshot.Name = "toolStripStatusLabelTakeScreenshot";
 			this.toolStripStatusLabelTakeScreenshot.Size = new System.Drawing.Size(81, 16);
