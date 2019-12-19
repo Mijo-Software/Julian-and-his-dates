@@ -6,7 +6,7 @@ namespace JulianAndHisDates
 	internal static class Program
 	{
 		/// <summary>
-		/// Der Haupteinstiegspunkt für die Anwendung.
+		/// main entrance point
 		/// </summary>
 		[STAThread]
 		private static void Main()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.Media;
 using System.Windows.Forms;
 
@@ -19,6 +20,11 @@ namespace JulianAndHisDates
 		private readonly Color colorDarkBackground = Color.FromArgb(red: 29, green: 32, blue: 41);
 
 		/// <summary>
+		/// culture info for the date
+		/// </summary>
+		private readonly CultureInfo culture = CultureInfo.CurrentUICulture;
+
+		/// <summary>
 		///  Initialize the form.
 		/// </summary>
 		public JulianandhisdatesForm() => InitializeComponent();
@@ -27,23 +33,23 @@ namespace JulianAndHisDates
 
 		private void UpdateDateInformations()
 		{
-			labelLocalTime.Text = DateTime.Now.ToString();
-			labelUtcTime.Text = DateTime.UtcNow.ToString();
-			labelJulianDate.Text = JulianDates.CalculateJulianDate().ToString();
-			labelModifiedJulianDate.Text = JulianDates.CalculateModifiedJulianDate().ToString();
-			labelReducedJulianDate.Text = JulianDates.CalculateReducedJulianDate().ToString();
-			labelTruncatedJulianDate.Text = JulianDates.CalculateTruncatedJulianDate().ToString();
-			labelDublinJulianDate.Text = JulianDates.CalculateDublinJulianDate().ToString();
-			labelCnesJulianDate.Text = JulianDates.CalculateCnesJulianDate().ToString();
-			labelCcsdsJulianDate.Text = JulianDates.CalculateCcsdsJulianDate().ToString();
-			labelLopJulianDate.Text = JulianDates.CalculateLopJulianDate().ToString();
-			labelMillenniumJulianDate.Text = JulianDates.CalculateMillenniumJulianDate().ToString();
-			labelChronologicalJulianDate.Text = JulianDates.CalculateChronologicalJulianDate().ToString();
-			labelChronologicalModifiedJulianDate.Text = JulianDates.CalculateChronologicalModifiedJulianDate().ToString();
-			labelLilianDate.Text = JulianDates.CalculateLilianDate().ToString();
-			labelRataDie.Text = JulianDates.CalculateRataDie().ToString();
-			labelMarsSolDate.Text = JulianDates.CalculateMarsSolDate().ToString();
-			labelUnixtime.Text = JulianDates.CalculateUnixTime().ToString();
+			labelLocalTime.Text = DateTime.Now.ToString(provider: culture);
+			labelUtcTime.Text = DateTime.UtcNow.ToString(provider: culture);
+			labelJulianDate.Text = JulianDates.CalculateJulianDate().ToString(provider: culture);
+			labelModifiedJulianDate.Text = JulianDates.CalculateModifiedJulianDate().ToString(provider: culture);
+			labelReducedJulianDate.Text = JulianDates.CalculateReducedJulianDate().ToString(provider: culture);
+			labelTruncatedJulianDate.Text = JulianDates.CalculateTruncatedJulianDate().ToString(provider: culture);
+			labelDublinJulianDate.Text = JulianDates.CalculateDublinJulianDate().ToString(provider: culture);
+			labelCnesJulianDate.Text = JulianDates.CalculateCnesJulianDate().ToString(provider: culture);
+			labelCcsdsJulianDate.Text = JulianDates.CalculateCcsdsJulianDate().ToString(provider: culture);
+			labelLopJulianDate.Text = JulianDates.CalculateLopJulianDate().ToString(provider: culture);
+			labelMillenniumJulianDate.Text = JulianDates.CalculateMillenniumJulianDate().ToString(provider: culture);
+			labelChronologicalJulianDate.Text = JulianDates.CalculateChronologicalJulianDate().ToString(provider: culture);
+			labelChronologicalModifiedJulianDate.Text = JulianDates.CalculateChronologicalModifiedJulianDate().ToString(provider: culture);
+			labelLilianDate.Text = JulianDates.CalculateLilianDate().ToString(provider: culture);
+			labelRataDie.Text = JulianDates.CalculateRataDie().ToString(provider: culture);
+			labelMarsSolDate.Text = JulianDates.CalculateMarsSolDate().ToString(provider: culture);
+			labelUnixtime.Text = JulianDates.CalculateUnixTime().ToString(provider: culture);
 		}
 
 		/// <summary>
@@ -148,7 +154,7 @@ namespace JulianAndHisDates
 			if (doubleNewJD < doubleOldJD)
 			{
 				doubleOldJD = doubleNewJD;
-				if (boolFirstRun == true)
+				if (boolFirstRun)
 				{
 					boolFirstRun = false;
 				}
@@ -158,7 +164,7 @@ namespace JulianAndHisDates
 					{
 						sound.Play();
 					}
-					notifyIcon.BalloonTipText = JulianDates.CalculateJulianDate().ToString();
+					notifyIcon.BalloonTipText = JulianDates.CalculateJulianDate().ToString(provider: culture);
 					notifyIcon.BalloonTipTitle = Properties.Resources.strJdSwitched;
 					notifyIcon.ShowBalloonTip(timeout: 500);
 				}
@@ -176,17 +182,17 @@ namespace JulianAndHisDates
 		private void ButtonInfo_Click(object sender, EventArgs e)
 		{
 			bool boolMainWindowWasOnTop = false;
-			if (TopMost == true) { TopMost = false; boolMainWindowWasOnTop = true; }
+			if (TopMost) { TopMost = false; boolMainWindowWasOnTop = true; }
 			using (AboutBoxForm about = new AboutBoxForm())
 			{
-				if (checkBoxDarkLightMode.Checked == true)
+				if (checkBoxDarkLightMode.Checked)
 				{
 					about.BackColor = colorDarkBackground;
 					about.ForeColor = colorWhiteFont;
 				}
 				about.ShowDialog();
 			}
-			if (boolMainWindowWasOnTop == true)
+			if (boolMainWindowWasOnTop)
 			{
 				TopMost = true;
 			}
@@ -469,7 +475,7 @@ namespace JulianAndHisDates
 		private void ButtonOpenJulianDateConverter_Click(object sender, EventArgs e)
 		{
 			bool boolMainWindowWasOnTop = false;
-			if (TopMost == true) { TopMost = false; boolMainWindowWasOnTop = true; }
+			if (TopMost) { TopMost = false; boolMainWindowWasOnTop = true; }
 			using (JulianDateConverterForm formJulianDateConverter = new JulianDateConverterForm())
 			{
 				if (checkBoxDarkLightMode.Checked)
@@ -513,8 +519,8 @@ namespace JulianAndHisDates
 				sound.Play();
 			}
 			string
-				strPathToMyPictures = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyPictures).ToString() + "\\",
-				strFilenameWithExtension = JulianDates.CalculateJulianDate().ToString() + ".png",
+				strPathToMyPictures = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyPictures) + "\\",
+				strFilenameWithExtension = JulianDates.CalculateJulianDate().ToString(provider: culture) + ".png",
 				strInfotext = Properties.Resources.strScreenshotSavedTo;
 			MessageBox.Show(text: strInfotext + "\n\n" + ScreenToPicture(location: strPathToMyPictures + strFilenameWithExtension));
 		}
