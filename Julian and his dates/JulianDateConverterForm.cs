@@ -11,7 +11,6 @@ namespace JulianAndHisDates
 	/// </summary>
 	public partial class JulianDateConverterForm : Form
 	{
-
 		private const double julianDateMinimum = 1721423.5;
 		private const double julianDateMaximum = 5373483.5;
 		private readonly double doubleJulianDate;
@@ -34,7 +33,6 @@ namespace JulianAndHisDates
 		private readonly Color colorWhiteFont = Color.WhiteSmoke;
 		private readonly Color colorDarkBackground = Color.FromArgb(red: 29, green: 32, blue: 41);
 
-
 		/// <summary>
 		///  Initialize the form.
 		/// </summary>
@@ -56,27 +54,28 @@ namespace JulianAndHisDates
 			doubleRataDie = JulianDates.CalculateRataDie();
 			doubleMarsSolDate = JulianDates.CalculateMarsSolDate();
 			doubleUnixtime = JulianDates.CalculateUnixTime();
-			labelLocalTime.Text = DateTime.Now.ToString();
-			labelUtcTime.Text = DateTime.UtcNow.ToString();
-			textboxJulianDate.Text = doubleJulianDate.ToString();
-			textboxModifiedJulianDate.Text = doubleModifiedJulianDate.ToString();
-			textboxReducedJulianDate.Text = doubleReducedJulianDate.ToString();
-			textboxTruncatedJulianDate.Text = doubleTruncatedJulianDate.ToString();
-			textboxDublinJulianDate.Text = doubleDublinJulianDate.ToString();
-			textboxCnesJulianDate.Text = doubleCnesJulianDate.ToString();
-			textboxCcsdsJulianDate.Text = doubleCcsdsJulianDate.ToString();
-			textboxLopJulianDate.Text = doubleLopJulianDate.ToString();
-			textboxMillenniumJulianDate.Text = doubleMillenniumJulianDate.ToString();
-			textboxChronologicalJulianDate.Text = doubleChronologicalJulianDate.ToString();
-			textboxChronologicalModifiedJulianDate.Text = doubleChronologicalModifiedJulianDate.ToString();
-			textboxLilianDate.Text = doubleLilianDate.ToString();
-			textboxRataDie.Text = doubleRataDie.ToString();
-			textboxMarsSolDate.Text = doubleMarsSolDate.ToString();
-			textboxUnixtime.Text = doubleUnixtime.ToString();
+			//, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly
+			labelLocalTime.Text = DateTime.Now.ToString(provider: culture);
+			labelUtcTime.Text = DateTime.UtcNow.ToString(provider: culture);
+			textboxJulianDate.Text = doubleJulianDate.ToString(provider: culture);
+			textboxModifiedJulianDate.Text = doubleModifiedJulianDate.ToString(provider: culture);
+			textboxReducedJulianDate.Text = doubleReducedJulianDate.ToString(provider: culture);
+			textboxTruncatedJulianDate.Text = doubleTruncatedJulianDate.ToString(provider: culture);
+			textboxDublinJulianDate.Text = doubleDublinJulianDate.ToString(provider: culture);
+			textboxCnesJulianDate.Text = doubleCnesJulianDate.ToString(provider: culture);
+			textboxCcsdsJulianDate.Text = doubleCcsdsJulianDate.ToString(provider: culture);
+			textboxLopJulianDate.Text = doubleLopJulianDate.ToString(provider: culture);
+			textboxMillenniumJulianDate.Text = doubleMillenniumJulianDate.ToString(provider: culture);
+			textboxChronologicalJulianDate.Text = doubleChronologicalJulianDate.ToString(provider: culture);
+			textboxChronologicalModifiedJulianDate.Text = doubleChronologicalModifiedJulianDate.ToString(provider: culture);
+			textboxLilianDate.Text = doubleLilianDate.ToString(provider: culture);
+			textboxRataDie.Text = doubleRataDie.ToString(provider: culture);
+			textboxMarsSolDate.Text = doubleMarsSolDate.ToString(provider: culture);
+			textboxUnixtime.Text = doubleUnixtime.ToString(provider: culture);
 		}
 
 		/// <summary>
-		/// 
+		/// Set dark mode
 		/// </summary>
 		public void SetDarkmode()
 		{
@@ -240,10 +239,12 @@ namespace JulianAndHisDates
 			try
 			{
 				Size currentScreenSize = new Size(width: Size.Width, height: Size.Height);
-				Bitmap screenToBitmap = new Bitmap(width: Size.Width, height: Size.Height);
-				Graphics gGraphics = Graphics.FromImage(image: screenToBitmap);
-				gGraphics.CopyFromScreen(upperLeftSource: Location, upperLeftDestination: new Point(x: 0, y: 0), blockRegionSize: currentScreenSize);
-				screenToBitmap.Save(filename: location);
+				using (Bitmap screenToBitmap = new Bitmap(width: Size.Width, height: Size.Height))
+				{
+					Graphics gGraphics = Graphics.FromImage(image: screenToBitmap);
+					gGraphics.CopyFromScreen(upperLeftSource: Location, upperLeftDestination: new Point(x: 0, y: 0), blockRegionSize: currentScreenSize);
+					screenToBitmap.Save(filename: location);
+				}
 				return location;
 			}
 			catch (Exception ex)
@@ -268,39 +269,39 @@ namespace JulianAndHisDates
 
 		#region Click-Eventhandlers
 
-		private void LabelUtcTimeText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strUtcTimeText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelUtcTimeText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strUtcTimeText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelLocalTimeText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strLocalTimeText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelLocalTimeText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strLocalTimeText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelModifiedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strModifiedJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelModifiedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strModifiedJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelReducedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strReducedJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelReducedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strReducedJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelTruncatedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strTruncatedJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelTruncatedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strTruncatedJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelDublinJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strDublinJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelDublinJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strDublinJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelCnesJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strCnesJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelCnesJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strCnesJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelCcsdsJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strCcsdsJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelCcsdsJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strCcsdsJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelLopJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strLopJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelLopJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strLopJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelMillenniumJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strMillenniumJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelMillenniumJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strMillenniumJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelChronologicalJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strChronologicalJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelChronologicalJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strChronologicalJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelChronologicalModifiedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strChronologicalModifiedJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelChronologicalModifiedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strChronologicalModifiedJulianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelLilianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strLilianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelLilianDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strLilianDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelRataDieText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strRataDieText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelRataDieText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strRataDieText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelMarsSolDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strMarsSolDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelMarsSolDateText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strMarsSolDateText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
-		private void LabelUnixtimeText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strUnixtimeText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		private void LabelUnixtimeText_Click(object sender, EventArgs e) => MessageBox.Show(text: Properties.Resources.strUnixtimeText, caption: Properties.Resources.strInformation, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1, options: MessageBoxOptions.DefaultDesktopOnly);
 
 		private void ToolStripStatusLabelTakeScreenshot_Click(object sender, EventArgs e)
 		{
@@ -309,10 +310,13 @@ namespace JulianAndHisDates
 				sound.Play();
 			}
 			string
-				strPathToMyPictures = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyPictures).ToString() + "\\",
-				strFilenameWithExtension = JulianDates.CalculateJulianDate().ToString() + ".png",
+				strPathToMyPictures = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyPictures) + "\\",
+				strFilenameWithExtension = JulianDates.CalculateJulianDate().ToString(provider: culture) + ".png",
 				strInfotext = Properties.Resources.strScreenshotSavedTo;
-			MessageBox.Show(text: strInfotext + "\n\n" + ScreenToPicture(location: strPathToMyPictures + strFilenameWithExtension));
+			MessageBox.Show(
+				text: strInfotext + "\n\n" + ScreenToPicture(location: strPathToMyPictures + strFilenameWithExtension),
+				caption: "Screenshot taken",
+				buttons: MessageBoxButtons.OK);
 		}
 
 		#endregion
@@ -783,69 +787,69 @@ namespace JulianAndHisDates
 			if (julianDate < julianDateMinimum)
 			{
 				julianDate = julianDateMinimum;
-				textboxJulianDate.Text = julianDate.ToString();
+				textboxJulianDate.Text = julianDate.ToString(provider: culture);
 				labelUtcTime.Text = Properties.Resources.strOutOfYearRange;
 			}
 			else if (julianDate > julianDateMaximum)
 			{
 				julianDate = julianDateMaximum;
-				textboxJulianDate.Text = julianDate.ToString();
+				textboxJulianDate.Text = julianDate.ToString(provider: culture);
 				labelUtcTime.Text = Properties.Resources.strOutOfYearRange;
 			}
 			else
 			{
-				labelUtcTime.Text = JulianDates.ConvertJulianDateToCivilCalendar(julianDate: julianDate).ToString();
+				labelUtcTime.Text = JulianDates.ConvertJulianDateToCivilCalendar(julianDate: julianDate).ToString(provider: culture);
 			}
-			textboxModifiedJulianDate.Text = JulianDates.ConvertJulianDateToModifiedJulianDate(julianDate: julianDate).ToString();
-			textboxReducedJulianDate.Text = JulianDates.ConvertJulianDateToReducedJulianDate(julianDate: julianDate).ToString();
-			textboxTruncatedJulianDate.Text = JulianDates.ConvertJulianDateToTruncatedJulianDate(julianDate: julianDate).ToString();
-			textboxDublinJulianDate.Text = JulianDates.ConvertJulianDateToDublinJulianDate(julianDate: julianDate).ToString();
-			textboxCnesJulianDate.Text = JulianDates.ConvertJulianDateToCnesJulianDate(julianDate: julianDate).ToString();
-			textboxCcsdsJulianDate.Text = JulianDates.ConvertJulianDateToCcsdsJulianDate(julianDate: julianDate).ToString();
-			textboxLopJulianDate.Text = JulianDates.ConvertJulianDateToLopJulianDate(julianDate: julianDate).ToString();
-			textboxMillenniumJulianDate.Text = JulianDates.ConvertJulianDateToMillenniumJulianDate(julianDate: julianDate).ToString();
-			textboxChronologicalJulianDate.Text = JulianDates.ConvertJulianDateToChronologicalJulianDate(julianDate: julianDate).ToString();
-			textboxChronologicalModifiedJulianDate.Text = JulianDates.ConvertJulianDateToChronologicalModifiedJulianDate(julianDate: julianDate).ToString();
-			textboxLilianDate.Text = JulianDates.ConvertJulianDateToLilianDate(julianDate: julianDate).ToString();
-			textboxRataDie.Text = JulianDates.ConvertJulianDateToRataDie(julianDate: julianDate).ToString();
-			textboxMarsSolDate.Text = JulianDates.ConvertJulianDateToMarsSolDate(julianDate: julianDate).ToString();
-			textboxUnixtime.Text = JulianDates.ConvertJulianDateToUnixtime(julianDate: julianDate).ToString();
+			textboxModifiedJulianDate.Text = JulianDates.ConvertJulianDateToModifiedJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxReducedJulianDate.Text = JulianDates.ConvertJulianDateToReducedJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxTruncatedJulianDate.Text = JulianDates.ConvertJulianDateToTruncatedJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxDublinJulianDate.Text = JulianDates.ConvertJulianDateToDublinJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxCnesJulianDate.Text = JulianDates.ConvertJulianDateToCnesJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxCcsdsJulianDate.Text = JulianDates.ConvertJulianDateToCcsdsJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxLopJulianDate.Text = JulianDates.ConvertJulianDateToLopJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxMillenniumJulianDate.Text = JulianDates.ConvertJulianDateToMillenniumJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxChronologicalJulianDate.Text = JulianDates.ConvertJulianDateToChronologicalJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxChronologicalModifiedJulianDate.Text = JulianDates.ConvertJulianDateToChronologicalModifiedJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxLilianDate.Text = JulianDates.ConvertJulianDateToLilianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxRataDie.Text = JulianDates.ConvertJulianDateToRataDie(julianDate: julianDate).ToString(provider: culture);
+			textboxMarsSolDate.Text = JulianDates.ConvertJulianDateToMarsSolDate(julianDate: julianDate).ToString(provider: culture);
+			textboxUnixtime.Text = JulianDates.ConvertJulianDateToUnixtime(julianDate: julianDate).ToString(provider: culture);
 		}
 
 		private void TextboxModifiedJulianDate_TextChanged(object sender, EventArgs e)
 		{
-			double.TryParse(s: textboxModifiedJulianDate.Text.Replace(",", "."), style: style, provider: culture, result: out double julianModifiedDate);
-			double julianDate = JulianDates.ConvertModifiedJulianDateToJulianDate(julianModifiedDate);
+			double.TryParse(s: textboxModifiedJulianDate.Text.Replace(oldValue: ",", newValue: "."), style: style, provider: culture, result: out double julianModifiedDate);
+			double julianDate = JulianDates.ConvertModifiedJulianDateToJulianDate(julianModifiedDate: julianModifiedDate);
 			if (julianDate < julianDateMinimum)
 			{
 				julianDate = julianDateMinimum;
-				textboxJulianDate.Text = julianDate.ToString();
+				textboxJulianDate.Text = julianDate.ToString(provider: culture);
 				labelUtcTime.Text = Properties.Resources.strOutOfYearRange;
 			}
 			else if (julianDate > julianDateMaximum)
 			{
 				julianDate = julianDateMaximum;
-				textboxJulianDate.Text = julianDate.ToString();
+				textboxJulianDate.Text = julianDate.ToString(provider: culture);
 				labelUtcTime.Text = Properties.Resources.strOutOfYearRange;
 			}
 			else
 			{
-				labelUtcTime.Text = JulianDates.ConvertJulianDateToCivilCalendar(julianDate: julianDate).ToString();
+				labelUtcTime.Text = JulianDates.ConvertJulianDateToCivilCalendar(julianDate: julianDate).ToString(provider: culture);
 			}
-			textboxJulianDate.Text = julianDate.ToString();
-			textboxReducedJulianDate.Text = JulianDates.ConvertJulianDateToReducedJulianDate(julianDate: julianDate).ToString();
-			textboxTruncatedJulianDate.Text = JulianDates.ConvertJulianDateToTruncatedJulianDate(julianDate: julianDate).ToString();
-			textboxDublinJulianDate.Text = JulianDates.ConvertJulianDateToDublinJulianDate(julianDate: julianDate).ToString();
-			textboxCnesJulianDate.Text = JulianDates.ConvertJulianDateToCnesJulianDate(julianDate: julianDate).ToString();
-			textboxCcsdsJulianDate.Text = JulianDates.ConvertJulianDateToCcsdsJulianDate(julianDate: julianDate).ToString();
-			textboxLopJulianDate.Text = JulianDates.ConvertJulianDateToLopJulianDate(julianDate: julianDate).ToString();
-			textboxMillenniumJulianDate.Text = JulianDates.ConvertJulianDateToMillenniumJulianDate(julianDate: julianDate).ToString();
-			textboxChronologicalJulianDate.Text = JulianDates.ConvertJulianDateToChronologicalJulianDate(julianDate: julianDate).ToString();
-			textboxChronologicalModifiedJulianDate.Text = JulianDates.ConvertJulianDateToChronologicalModifiedJulianDate(julianDate: julianDate).ToString();
-			textboxLilianDate.Text = JulianDates.ConvertJulianDateToLilianDate(julianDate: julianDate).ToString();
-			textboxRataDie.Text = JulianDates.ConvertJulianDateToRataDie(julianDate: julianDate).ToString();
-			textboxMarsSolDate.Text = JulianDates.ConvertJulianDateToMarsSolDate(julianDate: julianDate).ToString();
-			textboxUnixtime.Text = JulianDates.ConvertJulianDateToUnixtime(julianDate: julianDate).ToString();
+			textboxJulianDate.Text = julianDate.ToString(provider: culture);
+			textboxReducedJulianDate.Text = JulianDates.ConvertJulianDateToReducedJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxTruncatedJulianDate.Text = JulianDates.ConvertJulianDateToTruncatedJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxDublinJulianDate.Text = JulianDates.ConvertJulianDateToDublinJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxCnesJulianDate.Text = JulianDates.ConvertJulianDateToCnesJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxCcsdsJulianDate.Text = JulianDates.ConvertJulianDateToCcsdsJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxLopJulianDate.Text = JulianDates.ConvertJulianDateToLopJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxMillenniumJulianDate.Text = JulianDates.ConvertJulianDateToMillenniumJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxChronologicalJulianDate.Text = JulianDates.ConvertJulianDateToChronologicalJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxChronologicalModifiedJulianDate.Text = JulianDates.ConvertJulianDateToChronologicalModifiedJulianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxLilianDate.Text = JulianDates.ConvertJulianDateToLilianDate(julianDate: julianDate).ToString(provider: culture);
+			textboxRataDie.Text = JulianDates.ConvertJulianDateToRataDie(julianDate: julianDate).ToString(provider: culture);
+			textboxMarsSolDate.Text = JulianDates.ConvertJulianDateToMarsSolDate(julianDate: julianDate).ToString(provider: culture);
+			textboxUnixtime.Text = JulianDates.ConvertJulianDateToUnixtime(julianDate: julianDate).ToString(provider: culture);
 		}
 
 		private void TextboxReducedJulianDate_TextChanged(object sender, EventArgs e)

@@ -70,8 +70,7 @@
     <ApplicationIcon>julian-and-his-dates_logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject>JulianAndHisDates.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -116,6 +115,7 @@
     <Compile Include="AboutBoxForm.Designer.cs">
       <DependentUpon>AboutBoxForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="JulianDateCalculatorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,7 +134,7 @@
     <Compile Include="JulianDateConverterForm.Designer.cs">
       <DependentUpon>JulianDateConverterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="JulianDatesClass.cs" />
+    <Compile Include="JulianDates.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutBoxForm.resx">
