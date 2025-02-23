@@ -2,7 +2,7 @@
 using System.Media;
 using Julian_and_his_dates.Properties;
 
-namespace JulianAndHisDates
+namespace Julian_and_his_dates
 {
 	/// <summary>
 	/// Initialize the form.

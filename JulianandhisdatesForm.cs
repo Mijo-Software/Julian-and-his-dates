@@ -2,10 +2,10 @@
 using System.Media;
 using Julian_and_his_dates.Properties;
 
-namespace JulianAndHisDates
+namespace Julian_and_his_dates
 {
 	/// <summary>
-	/// Initialize the form.
+	/// Initialize the form
 	/// </summary>
 	public partial class JulianandhisdatesForm : Form
 	{
@@ -221,7 +221,7 @@ namespace JulianAndHisDates
 		private static void CopyToClipboard(string strText)
 		{
 			Clipboard.SetText(text: strText);
-			MessageBox.Show(
+			_ = MessageBox.Show(
 				text: Resources.strCopiedToClipboard,
 				caption: Resources.strInformation,
 				buttons: MessageBoxButtons.OK,
@@ -255,7 +255,7 @@ namespace JulianAndHisDates
 					about.BackColor = colorDarkBackground;
 					about.ForeColor = colorWhiteFont;
 				}
-				about.ShowDialog();
+				_ = about.ShowDialog();
 			}
 			if (boolMainWindowWasOnTop)
 			{
@@ -814,7 +814,7 @@ namespace JulianAndHisDates
 					formJulianDateCalculator.BackColor = colorDarkBackground;
 					formJulianDateCalculator.ForeColor = colorWhiteFont;
 				}
-				formJulianDateCalculator.ShowDialog();
+				_ = formJulianDateCalculator.ShowDialog();
 			}
 			if (boolMainWindowWasOnTop)
 			{
@@ -843,7 +843,7 @@ namespace JulianAndHisDates
 					formJulianDateConverter.ForeColor = colorWhiteFont;
 					formJulianDateConverter.SetDarkMode();
 				}
-				formJulianDateConverter.ShowDialog();
+				_ = formJulianDateConverter.ShowDialog();
 			}
 			if (boolMainWindowWasOnTop)
 			{
@@ -887,7 +887,7 @@ namespace JulianAndHisDates
 				strPathToMyPictures = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyPictures) + "\\",
 				strFilenameWithExtension = JulianDates.CalculateJulianDate().ToString(provider: culture) + ".png",
 				strInfotext = Resources.strScreenshotSavedTo;
-			MessageBox.Show(
+			_ = MessageBox.Show(
 				text: strInfotext + "\n\n" + ScreenToPicture(location: strPathToMyPictures + strFilenameWithExtension));
 		}
 
