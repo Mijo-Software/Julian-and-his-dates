@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
     <RootNamespace>Julian_and_his_dates</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -13,9 +13,9 @@
     <StartupObject>Julian_and_his_dates.Program</StartupObject>
     <SignAssembly>True</SignAssembly>
     <Title>Julian and his dates</Title>
-    <Version>1.3.0.6</Version>
+    <Version>1.3.1.7</Version>
     <Company>Mijo Software</Company>
-    <Copyright>Copyright © 2017-2023</Copyright>
+    <Copyright>Copyright © 2017-2025</Copyright>
     <Description>Calculates various versions of the Julian date.</Description>
     <PackageIcon>julian-and-his-dates_logo-512.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -87,6 +87,10 @@
 
   <ItemGroup>
     <Content Include="julian-and-his-dates_logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="5.4.0" />
   </ItemGroup>
 
   <ItemGroup>

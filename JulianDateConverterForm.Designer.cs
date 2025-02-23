@@ -1,4 +1,4 @@
-﻿namespace JulianAndHisDates
+﻿namespace Julian_and_his_dates
 {
 	partial class JulianDateConverterForm
 	{

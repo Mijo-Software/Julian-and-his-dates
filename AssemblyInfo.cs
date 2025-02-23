@@ -1,12 +1,15 @@
 ﻿using System.Reflection;
+using NLog;
 
-namespace MijoSoftware.AssemblyInformation
+namespace Julian_and_his_dates
 {
 	/// <summary>
 	/// Provide some assembly information
 	/// </summary>
 	public static class AssemblyInfo
 	{
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
 		#region Assembly attribute accessors
 
 		/// <summary>
@@ -16,23 +19,40 @@ namespace MijoSoftware.AssemblyInformation
 		{
 			get
 			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyTitleAttribute), inherit: false);
-				if (attributes.Length > 0)
+				try
 				{
-					AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-					if (!string.IsNullOrEmpty(value: titleAttribute.Title))
-					{
-						return titleAttribute.Title;
-					}
+					object[] attributes = Assembly.GetExecutingAssembly()
+						.GetCustomAttributes(attributeType: typeof(AssemblyTitleAttribute), inherit: false);
+					return attributes.Length > 0 && attributes[0] is AssemblyTitleAttribute titleAttribute
+						? !string.IsNullOrEmpty(value: titleAttribute.Title) ? titleAttribute.Title : Path.GetFileNameWithoutExtension(path: Assembly.GetExecutingAssembly().Location)
+						: Path.GetFileNameWithoutExtension(path: Assembly.GetExecutingAssembly().Location);
 				}
-				return Path.GetFileNameWithoutExtension(path: Assembly.GetExecutingAssembly().CodeBase);
+				catch (Exception ex)
+				{
+					Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly title.");
+					return string.Empty;
+				}
 			}
 		}
 
 		/// <summary>
 		/// Return the version of the assembly
 		/// </summary>
-		public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		public static string AssemblyVersion
+		{
+			get
+			{
+				try
+				{
+					return Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? string.Empty;
+				}
+				catch (Exception ex)
+				{
+					Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly version.");
+					return string.Empty;
+				}
+			}
+		}
 
 		/// <summary>
 		/// Return the description of the assembly
@@ -41,8 +61,16 @@ namespace MijoSoftware.AssemblyInformation
 		{
 			get
 			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyDescriptionAttribute), inherit: false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyDescriptionAttribute)attributes[0]).Description;
+				try
+				{
+					object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyDescriptionAttribute), inherit: false);
+					return attributes.Length == 0 ? string.Empty : ((AssemblyDescriptionAttribute)attributes[0]).Description;
+				}
+				catch (Exception ex)
+				{
+					Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly description.");
+					return string.Empty;
+				}
 			}
 		}
 
@@ -53,8 +81,16 @@ namespace MijoSoftware.AssemblyInformation
 		{
 			get
 			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyProductAttribute), inherit: false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyProductAttribute)attributes[0]).Product;
+				try
+				{
+					object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyProductAttribute), inherit: false);
+					return attributes.Length == 0 ? string.Empty : ((AssemblyProductAttribute)attributes[0]).Product;
+				}
+				catch (Exception ex)
+				{
+					Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly product.");
+					return string.Empty;
+				}
 			}
 		}
 
@@ -65,8 +101,16 @@ namespace MijoSoftware.AssemblyInformation
 		{
 			get
 			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyCopyrightAttribute), inherit: false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+				try
+				{
+					object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyCopyrightAttribute), inherit: false);
+					return attributes.Length == 0 ? string.Empty : ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+				}
+				catch (Exception ex)
+				{
+					Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly copyright.");
+					return string.Empty;
+				}
 			}
 		}
 
@@ -77,8 +121,16 @@ namespace MijoSoftware.AssemblyInformation
 		{
 			get
 			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyCompanyAttribute), inherit: false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyCompanyAttribute)attributes[0]).Company;
+				try
+				{
+					object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyCompanyAttribute), inherit: false);
+					return attributes.Length == 0 ? string.Empty : ((AssemblyCompanyAttribute)attributes[0]).Company;
+				}
+				catch (Exception ex)
+				{
+					Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly company.");
+					return string.Empty;
+				}
 			}
 		}
 
