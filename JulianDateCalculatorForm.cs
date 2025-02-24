@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using System.Media;
 using Julian_and_his_dates.Properties;
 
@@ -7,10 +8,12 @@ namespace Julian_and_his_dates
 	/// <summary>
 	/// Initialize the form.
 	/// </summary>
+	[DebuggerDisplay(value: $"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+
 	public partial class JulianDateCalculatorForm : Form
 	{
 		/// <summary>
-		///
+		/// JD dates
 		/// </summary>
 		private double
 			doubleJulianDate,
@@ -33,6 +36,121 @@ namespace Julian_and_his_dates
 		/// culture info for the date
 		/// </summary>
 		private readonly CultureInfo culture = CultureInfo.CurrentUICulture;
+
+		#region Helper Methods
+
+		/// <summary>
+		/// Returns a string that represents the current object for debugging purposes.
+		/// </summary>
+		/// <returns>A string that represents the current object.</returns>
+		private string GetDebuggerDisplay() => ToString();
+
+		/// <summary>
+		/// Copies the specified text to the clipboard and shows a message box.
+		/// </summary>
+		/// <param name="strText">The text to copy to the clipboard.</param>
+		private static void CopyToClipboard(string text)
+		{
+			Clipboard.SetText(text: text);
+			_ = MessageBox.Show(
+				text: Resources.strCopiedToClipboard,
+				caption: Resources.strInformation,
+				buttons: MessageBoxButtons.OK,
+				icon: MessageBoxIcon.Information);
+		}
+
+		/// <summary>
+		/// Sets the status bar text.
+		/// </summary>
+		/// <param name="text">The text to display in the status bar.</param>
+		private void SetStatusbar(string text)
+		{
+			toolStripStatusLabelInformation.Visible = true;
+			toolStripStatusLabelInformation.Text = text;
+			toolStripStatusLabelTakeScreenshot.Visible = false;
+		}
+
+		/// <summary>
+		/// Resets the status bar to its default state.
+		/// </summary>
+		private void ResetStatusbar()
+		{
+			toolStripStatusLabelInformation.Visible = false;
+			toolStripStatusLabelInformation.Text = string.Empty;
+			toolStripStatusLabelTakeScreenshot.Visible = true;
+		}
+
+		/// <summary>
+		/// Saves an image of the screen to the specified path.
+		/// </summary>
+		/// <param name="location">Path where the output file will be saved.</param>
+		/// <returns>Path of the successfully saved image or an error message.</returns>
+		public string ScreenToPicture(string location)
+		{
+			try
+			{
+				using Bitmap screenToBitmap = new(width: Size.Width, height: Size.Height);
+				using Graphics gGraphics = Graphics.FromImage(image: screenToBitmap);
+				Size currentScreenSize = new(width: Size.Width, height: Size.Height);
+				gGraphics.CopyFromScreen(
+					upperLeftSource: Location,
+					upperLeftDestination: new Point(x: 0, y: 0),
+					blockRegionSize: currentScreenSize);
+				screenToBitmap.Save(filename: location);
+				return location;
+			}
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+		}
+
+		/// <summary>
+		/// Truncate Decimals
+		/// </summary>
+		private void CheckToTruncateDecimals()
+		{
+			if (checkBoxIgnoreDecimals.Checked)
+			{
+				labelJulianDate.Text = Math.Truncate(d: doubleJulianDate).ToString(provider: culture);
+				labelModifiedJulianDate.Text = Math.Truncate(d: doubleModifiedJulianDate).ToString(provider: culture);
+				labelReducedJulianDate.Text = Math.Truncate(d: doubleReducedJulianDate).ToString(provider: culture);
+				labelTruncatedJulianDate.Text = Math.Truncate(d: doubleTruncatedJulianDate).ToString(provider: culture);
+				labelDublinJulianDate.Text = Math.Truncate(d: doubleDublinJulianDate).ToString(provider: culture);
+				labelCnesJulianDate.Text = Math.Truncate(d: doubleCnesJulianDate).ToString(provider: culture);
+				labelCcsdsJulianDate.Text = Math.Truncate(d: doubleCcsdsJulianDate).ToString(provider: culture);
+				labelLopJulianDate.Text = Math.Truncate(d: doubleLopJulianDate).ToString(provider: culture);
+				labelMillenniumJulianDate.Text = Math.Truncate(d: doubleMillenniumJulianDate).ToString(provider: culture);
+				labelChronologicalJulianDate.Text = Math.Truncate(d: doubleChronologicalJulianDate).ToString(provider: culture);
+				labelChronologicalModifiedJulianDate.Text = Math.Truncate(d: doubleChronologicalModifiedJulianDate).ToString(provider: culture);
+				labelLilianDate.Text = Math.Truncate(d: doubleLilianDate).ToString(provider: culture);
+				labelRataDie.Text = Math.Truncate(d: doubleRataDie).ToString(provider: culture);
+				labelMarsSolDate.Text = Math.Truncate(d: doubleMarsSolDate).ToString(provider: culture);
+				labelUnixtime.Text = Math.Truncate(d: doubleUnixtime).ToString(provider: culture);
+			}
+			else
+			{
+				labelJulianDate.Text = doubleJulianDate.ToString(provider: culture);
+				labelModifiedJulianDate.Text = doubleModifiedJulianDate.ToString(provider: culture);
+				labelReducedJulianDate.Text = doubleReducedJulianDate.ToString(provider: culture);
+				labelTruncatedJulianDate.Text = doubleTruncatedJulianDate.ToString(provider: culture);
+				labelDublinJulianDate.Text = doubleDublinJulianDate.ToString(provider: culture);
+				labelCnesJulianDate.Text = doubleCnesJulianDate.ToString(provider: culture);
+				labelCcsdsJulianDate.Text = doubleCcsdsJulianDate.ToString(provider: culture);
+				labelLopJulianDate.Text = doubleLopJulianDate.ToString(provider: culture);
+				labelMillenniumJulianDate.Text = doubleMillenniumJulianDate.ToString(provider: culture);
+				labelChronologicalJulianDate.Text = doubleChronologicalJulianDate.ToString(provider: culture);
+				labelChronologicalModifiedJulianDate.Text = doubleChronologicalModifiedJulianDate.ToString(provider: culture);
+				labelLilianDate.Text = doubleLilianDate.ToString(provider: culture);
+				labelRataDie.Text = doubleRataDie.ToString(provider: culture);
+				labelMarsSolDate.Text = doubleMarsSolDate.ToString(provider: culture);
+				labelUnixtime.Text = doubleUnixtime.ToString(provider: culture);
+			}
+		}
+
+		#endregion
+
+		#region Constructor
 
 		/// <summary>
 		/// Initialize the form.
@@ -74,6 +192,10 @@ namespace Julian_and_his_dates
 			labelUnixtime.Text = doubleUnixtime.ToString(provider: culture);
 		}
 
+		#endregion
+
+		#region Form Event Handlers
+
 		/// <summary>
 		///
 		/// </summary>
@@ -85,44 +207,31 @@ namespace Julian_and_his_dates
 			statusStrip.BackColor = BackColor;
 		}
 
+		#endregion
+
+		#region Click Event Handlers
+
 		/// <summary>
 		///
 		/// </summary>
-		/// <param name="strText"></param>
-		private static void CopyToClipboard(string strText)
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ToolStripStatusLabelTakeScreenshot_Click(object sender, EventArgs e)
 		{
-			Clipboard.SetText(text: strText);
-			MessageBox.Show(
-				text: Resources.strCopiedToClipboard,
-				caption: Resources.strInformation,
+			using SoundPlayer sound = new(stream: Resources.wavCameraFlashing);
+			sound.Play();
+			string
+				strPathToMyPictures = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyPictures) + "\\",
+				strFilenameWithExtension = JulianDates.CalculateJulianDate().ToString(provider: culture) + ".png",
+				strInfotext = Resources.strScreenshotSavedTo;
+			_ = MessageBox.Show(
+				text: strInfotext + "\n\n" + ScreenToPicture(location: strPathToMyPictures + strFilenameWithExtension),
+				caption: "Screenshot taken",
 				buttons: MessageBoxButtons.OK,
 				icon: MessageBoxIcon.Information,
 				defaultButton: MessageBoxDefaultButton.Button1,
 				options: MessageBoxOptions.DefaultDesktopOnly);
 		}
-
-		/// <summary>
-		///
-		/// </summary>
-		/// <param name="strText"></param>
-		private void SetStatusBar(string strText)
-		{
-			toolStripStatusLabelInformation.Visible = true;
-			toolStripStatusLabelInformation.Text = strText;
-			toolStripStatusLabelTakeScreenshot.Visible = false;
-		}
-
-		/// <summary>
-		///
-		/// </summary>
-		private void ResetStatusBar()
-		{
-			toolStripStatusLabelInformation.Visible = false;
-			toolStripStatusLabelInformation.Text = string.Empty;
-			toolStripStatusLabelTakeScreenshot.Visible = true;
-		}
-
-		#region Click-Eventhandlers
 
 		/// <summary>
 		/// 
@@ -342,130 +451,130 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region DoubleClick-Eventhandlers
+		#region DoubleClick Event Handlers
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelUtcTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelUtcTime.Text);
+		private void LabelUtcTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelUtcTime.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLocalTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelLocalTime.Text);
+		private void LabelLocalTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelLocalTime.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelJulianDate.Text);
+		private void LabelJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelModifiedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelModifiedJulianDate.Text);
+		private void LabelModifiedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelModifiedJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelReducedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelReducedJulianDate.Text);
+		private void LabelReducedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelReducedJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelTruncatedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelTruncatedJulianDate.Text);
+		private void LabelTruncatedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelTruncatedJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelDublinJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelDublinJulianDate.Text);
+		private void LabelDublinJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelDublinJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelCnesJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelCnesJulianDate.Text);
+		private void LabelCnesJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelCnesJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelCcsdsJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelCcsdsJulianDate.Text);
+		private void LabelCcsdsJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelCcsdsJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLopJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelLopJulianDate.Text);
+		private void LabelLopJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelLopJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelMillenniumJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelMillenniumJulianDate.Text);
+		private void LabelMillenniumJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelMillenniumJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelChronologicalJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelChronologicalJulianDate.Text);
+		private void LabelChronologicalJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelChronologicalJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelChronologicalModifiedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelChronologicalModifiedJulianDate.Text);
+		private void LabelChronologicalModifiedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelChronologicalModifiedJulianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLilianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelLilianDate.Text);
+		private void LabelLilianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelLilianDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelRataDie_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelRataDie.Text);
+		private void LabelRataDie_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelRataDie.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelMarsSolDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelMarsSolDate.Text);
+		private void LabelMarsSolDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelMarsSolDate.Text);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelUnixtime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(strText: labelUnixtime.Text);
+		private void LabelUnixtime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelUnixtime.Text);
 
 		#endregion
 
-		#region Enter-Eventhandlers
+		#region Enter Event Handlers
 
 		/// <summary>
 		/// 
@@ -476,7 +585,7 @@ namespace Julian_and_his_dates
 		{
 			labelUtcTimeText.Cursor = Cursors.Hand;
 			labelUtcTimeText.Font = new Font(prototype: labelUtcTimeText.Font, newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelUtcTimeText.AccessibleDescription);
+			SetStatusbar(text: labelUtcTimeText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -488,7 +597,7 @@ namespace Julian_and_his_dates
 		{
 			labelLocalTimeText.Cursor = Cursors.Hand;
 			labelLocalTimeText.Font = new Font(prototype: labelLocalTimeText.Font, newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelLocalTimeText.AccessibleDescription);
+			SetStatusbar(text: labelLocalTimeText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -500,7 +609,7 @@ namespace Julian_and_his_dates
 		{
 			labelJulianDateText.Cursor = Cursors.Hand;
 			labelJulianDateText.Font = new Font(prototype: labelJulianDateText.Font, newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -514,7 +623,7 @@ namespace Julian_and_his_dates
 			labelModifiedJulianDateText.Font = new Font(
 				prototype: labelModifiedJulianDateText.Font,
 				newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelModifiedJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelModifiedJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -528,7 +637,7 @@ namespace Julian_and_his_dates
 			labelReducedJulianDateText.Font = new Font(
 				prototype: labelReducedJulianDateText.Font,
 				newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelReducedJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelReducedJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -542,7 +651,7 @@ namespace Julian_and_his_dates
 			labelTruncatedJulianDateText.Font = new Font(
 				prototype: labelTruncatedJulianDateText.Font,
 				newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelTruncatedJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelTruncatedJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -556,7 +665,7 @@ namespace Julian_and_his_dates
 			labelDublinJulianDateText.Font = new Font(
 				prototype: labelDublinJulianDateText.Font,
 				newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelDublinJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelDublinJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -570,7 +679,7 @@ namespace Julian_and_his_dates
 			labelCnesJulianDateText.Font = new Font(
 				prototype: labelCnesJulianDateText.Font,
 				newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelCnesJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelCnesJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -584,7 +693,7 @@ namespace Julian_and_his_dates
 			labelCcsdsJulianDateText.Font = new Font(
 				prototype: labelCcsdsJulianDateText.Font,
 				newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelCcsdsJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelCcsdsJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -598,7 +707,7 @@ namespace Julian_and_his_dates
 			labelLopJulianDateText.Font = new Font(
 				prototype: labelLopJulianDateText.Font,
 				newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelLopJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelLopJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -612,7 +721,7 @@ namespace Julian_and_his_dates
 			labelMillenniumJulianDateText.Font = new Font(
 				prototype: labelMillenniumJulianDateText.Font,
 				newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelMillenniumJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelMillenniumJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -626,7 +735,7 @@ namespace Julian_and_his_dates
 			labelChronologicalJulianDateText.Font = new Font(
 				prototype: labelChronologicalJulianDateText.Font,
 				newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelChronologicalJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelChronologicalJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -640,7 +749,7 @@ namespace Julian_and_his_dates
 			labelChronologicalModifiedJulianDateText.Font = new Font(
 				prototype: labelChronologicalModifiedJulianDateText.Font,
 				newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelChronologicalModifiedJulianDateText.AccessibleDescription);
+			SetStatusbar(text: labelChronologicalModifiedJulianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -652,7 +761,7 @@ namespace Julian_and_his_dates
 		{
 			labelLilianDateText.Cursor = Cursors.Hand;
 			labelLilianDateText.Font = new Font(prototype: labelLilianDateText.Font, newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelLilianDateText.AccessibleDescription);
+			SetStatusbar(text: labelLilianDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -664,7 +773,7 @@ namespace Julian_and_his_dates
 		{
 			labelRataDieText.Cursor = Cursors.Hand;
 			labelRataDieText.Font = new Font(prototype: labelRataDieText.Font, newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelRataDieText.AccessibleDescription);
+			SetStatusbar(text: labelRataDieText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -676,7 +785,7 @@ namespace Julian_and_his_dates
 		{
 			labelMarsSolDateText.Cursor = Cursors.Hand;
 			labelMarsSolDateText.Font = new Font(prototype: labelMarsSolDateText.Font, newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelMarsSolDateText.AccessibleDescription);
+			SetStatusbar(text: labelMarsSolDateText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -688,7 +797,7 @@ namespace Julian_and_his_dates
 		{
 			labelUnixtimeText.Cursor = Cursors.Hand;
 			labelUnixtimeText.Font = new Font(prototype: labelUnixtimeText.Font, newStyle: FontStyle.Underline);
-			SetStatusBar(strText: labelUnixtimeText.AccessibleDescription);
+			SetStatusbar(text: labelUnixtimeText.AccessibleDescription);
 		}
 
 		/// <summary>
@@ -696,138 +805,138 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelUtcTime_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelUtcTime.AccessibleDescription);
+		private void LabelUtcTime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelUtcTime.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLocalTime_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelLocalTime.AccessibleDescription);
+		private void LabelLocalTime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLocalTime.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelJulianDate.AccessibleDescription);
+		private void LabelJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelModifiedJulianDate.AccessibleDescription);
+		private void LabelModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelModifiedJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelReducedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelReducedJulianDate.AccessibleDescription);
+		private void LabelReducedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelReducedJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelTruncatedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelTruncatedJulianDate.AccessibleDescription);
+		private void LabelTruncatedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelTruncatedJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelDublinJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelDublinJulianDate.AccessibleDescription);
+		private void LabelDublinJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelDublinJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelCnesJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelCnesJulianDate.AccessibleDescription);
+		private void LabelCnesJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelCnesJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelCcsdsJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelCcsdsJulianDate.AccessibleDescription);
+		private void LabelCcsdsJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelCcsdsJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLopJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelLopJulianDate.AccessibleDescription);
+		private void LabelLopJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLopJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelMillenniumJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelMillenniumJulianDate.AccessibleDescription);
+		private void LabelMillenniumJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelMillenniumJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelChronologicalJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelChronologicalJulianDate.AccessibleDescription);
+		private void LabelChronologicalJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelChronologicalModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelChronologicalModifiedJulianDate.AccessibleDescription);
+		private void LabelChronologicalModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalModifiedJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLilianDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelLilianDate.AccessibleDescription);
+		private void LabelLilianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLilianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelRataDie_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelRataDie.AccessibleDescription);
+		private void LabelRataDie_Enter(object sender, EventArgs e) => SetStatusbar(text: labelRataDie.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelMarsSolDate_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelMarsSolDate.AccessibleDescription);
+		private void LabelMarsSolDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelMarsSolDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelUnixtime_Enter(object sender, EventArgs e) => SetStatusBar(strText: labelUnixtime.AccessibleDescription);
+		private void LabelUnixtime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelUnixtime.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void DateTimePicker_Enter(object sender, EventArgs e) => SetStatusBar(strText: dateTimePicker.AccessibleDescription);
+		private void DateTimePicker_Enter(object sender, EventArgs e) => SetStatusbar(text: dateTimePicker.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void CheckBoxIgnoreDecimals_Enter(object sender, EventArgs e) => SetStatusBar(
-			strText: checkBoxIgnoreDecimals.AccessibleDescription);
+		private void CheckBoxIgnoreDecimals_Enter(object sender, EventArgs e) => SetStatusbar(
+			text: checkBoxIgnoreDecimals.AccessibleDescription);
 
 		#endregion
 
-		#region Leave-Eventhandlers
+		#region Leave Event Handlers
 
 		/// <summary>
 		/// 
@@ -838,7 +947,7 @@ namespace Julian_and_his_dates
 		{
 			labelUtcTimeText.Cursor = Cursors.Default;
 			labelUtcTimeText.Font = new Font(prototype: labelUtcTimeText.Font, newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -850,7 +959,7 @@ namespace Julian_and_his_dates
 		{
 			labelLocalTimeText.Cursor = Cursors.Default;
 			labelLocalTimeText.Font = new Font(prototype: labelLocalTimeText.Font, newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -862,7 +971,7 @@ namespace Julian_and_his_dates
 		{
 			labelJulianDateText.Cursor = Cursors.Default;
 			labelJulianDateText.Font = new Font(prototype: labelJulianDateText.Font, newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -876,7 +985,7 @@ namespace Julian_and_his_dates
 			labelModifiedJulianDateText.Font = new Font(
 				prototype: labelModifiedJulianDateText.Font,
 				newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -890,7 +999,7 @@ namespace Julian_and_his_dates
 			labelReducedJulianDateText.Font = new Font(
 				prototype: labelReducedJulianDateText.Font,
 				newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -904,7 +1013,7 @@ namespace Julian_and_his_dates
 			labelTruncatedJulianDateText.Font = new Font(
 				prototype: labelTruncatedJulianDateText.Font,
 				newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -918,7 +1027,7 @@ namespace Julian_and_his_dates
 			labelDublinJulianDateText.Font = new Font(
 				prototype: labelDublinJulianDateText.Font,
 				newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -932,7 +1041,7 @@ namespace Julian_and_his_dates
 			labelCnesJulianDateText.Font = new Font(
 				prototype: labelCnesJulianDateText.Font,
 				newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -946,7 +1055,7 @@ namespace Julian_and_his_dates
 			labelCcsdsJulianDateText.Font = new Font(
 				prototype: labelCcsdsJulianDateText.Font,
 				newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -958,7 +1067,7 @@ namespace Julian_and_his_dates
 		{
 			labelLopJulianDateText.Cursor = Cursors.Default;
 			labelLopJulianDateText.Font = new Font(prototype: labelLopJulianDateText.Font, newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -972,7 +1081,7 @@ namespace Julian_and_his_dates
 			labelMillenniumJulianDateText.Font = new Font(
 				prototype: labelMillenniumJulianDateText.Font,
 				newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -986,7 +1095,7 @@ namespace Julian_and_his_dates
 			labelChronologicalJulianDateText.Font = new Font(
 				prototype: labelChronologicalJulianDateText.Font,
 				newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -1000,7 +1109,7 @@ namespace Julian_and_his_dates
 			labelChronologicalModifiedJulianDateText.Font = new Font(
 				prototype: labelChronologicalModifiedJulianDateText.Font,
 				newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -1012,7 +1121,7 @@ namespace Julian_and_his_dates
 		{
 			labelLilianDateText.Cursor = Cursors.Default;
 			labelLilianDateText.Font = new Font(prototype: labelLilianDateText.Font, newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -1024,7 +1133,7 @@ namespace Julian_and_his_dates
 		{
 			labelRataDieText.Cursor = Cursors.Default;
 			labelRataDieText.Font = new Font(prototype: labelRataDieText.Font, newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -1036,7 +1145,7 @@ namespace Julian_and_his_dates
 		{
 			labelMarsSolDateText.Cursor = Cursors.Default;
 			labelMarsSolDateText.Font = new Font(prototype: labelMarsSolDateText.Font, newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -1048,7 +1157,7 @@ namespace Julian_and_his_dates
 		{
 			labelUnixtimeText.Cursor = Cursors.Default;
 			labelUnixtimeText.Font = new Font(prototype: labelUnixtimeText.Font, newStyle: FontStyle.Regular);
-			ResetStatusBar();
+			ResetStatusbar();
 		}
 
 		/// <summary>
@@ -1056,132 +1165,132 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelUtcTime_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelUtcTime_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLocalTime_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLocalTime_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelModifiedJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelModifiedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelReducedJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelReducedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelTruncatedJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelTruncatedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelDublinJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelDublinJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelCnesJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelCnesJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelCcsdsJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelCcsdsJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLopJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLopJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelMillenniumJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelMillenniumJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelChronologicalJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelChronologicalJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelChronologicalModifiedJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelChronologicalModifiedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
-		private void LabelLilianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelRataDie_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLilianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelMarsSolDate_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelRataDie_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelUnixtime_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelMarsSolDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void DateTimePicker_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelUnixtime_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void CheckBoxIgnoreDecimals_Leave(object sender, EventArgs e) => ResetStatusBar();
+		private void DateTimePicker_Leave(object sender, EventArgs e) => ResetStatusbar();
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void CheckBoxIgnoreDecimals_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		#endregion
 
-		#region MouseEnter-Eventhandlers
+		#region MouseEnter Event Handlers
 
 		/// <summary>
 		/// 
@@ -1307,137 +1416,137 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelUtcTime_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelUtcTime.AccessibleDescription);
+		private void LabelUtcTime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelUtcTime.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLocalTime_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelLocalTime.AccessibleDescription);
+		private void LabelLocalTime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLocalTime.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelJulianDate.AccessibleDescription);
+		private void LabelJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelModifiedJulianDate.AccessibleDescription);
+		private void LabelModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelModifiedJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelReducedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelReducedJulianDate.AccessibleDescription);
+		private void LabelReducedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelReducedJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelTruncatedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelTruncatedJulianDate.AccessibleDescription);
+		private void LabelTruncatedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelTruncatedJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelDublinJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelDublinJulianDate.AccessibleDescription);
+		private void LabelDublinJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelDublinJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelCnesJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelCnesJulianDate.AccessibleDescription);
+		private void LabelCnesJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelCnesJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelCcsdsJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelCcsdsJulianDate.AccessibleDescription);
+		private void LabelCcsdsJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelCcsdsJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLopJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelLopJulianDate.AccessibleDescription);
+		private void LabelLopJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLopJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelMillenniumJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelMillenniumJulianDate.AccessibleDescription);
+		private void LabelMillenniumJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelMillenniumJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelChronologicalJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelChronologicalJulianDate.AccessibleDescription);
+		private void LabelChronologicalJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelChronologicalModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelChronologicalModifiedJulianDate.AccessibleDescription);
+		private void LabelChronologicalModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalModifiedJulianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLilianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelLilianDate.AccessibleDescription);
+		private void LabelLilianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLilianDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelRataDie_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelRataDie.AccessibleDescription);
+		private void LabelRataDie_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelRataDie.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelMarsSolDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelMarsSolDate.AccessibleDescription);
+		private void LabelMarsSolDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelMarsSolDate.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelUnixtime_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: labelUnixtime.AccessibleDescription);
+		private void LabelUnixtime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelUnixtime.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void DateTimePicker_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: dateTimePicker.AccessibleDescription);
+		private void DateTimePicker_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: dateTimePicker.AccessibleDescription);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void CheckBoxIgnoreDecimals_MouseEnter(object sender, EventArgs e) => SetStatusBar(strText: checkBoxIgnoreDecimals.AccessibleDescription);
+		private void CheckBoxIgnoreDecimals_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: checkBoxIgnoreDecimals.AccessibleDescription);
 
 		#endregion
 
-		#region MouseLeave-Eventhandlers
+		#region MouseLeave Event Handlers
 
 		/// <summary>
 		/// 
@@ -1563,230 +1672,137 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelUtcTime_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelUtcTime_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLocalTime_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLocalTime_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelModifiedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelModifiedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelReducedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelReducedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelTruncatedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelTruncatedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelDublinJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelDublinJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelCnesJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelCnesJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelCcsdsJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelCcsdsJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void DateTimePicker_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void DateTimePicker_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void CheckBoxIgnoreDecimals_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void CheckBoxIgnoreDecimals_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLopJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLopJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelMillenniumJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelMillenniumJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelChronologicalJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelChronologicalJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelChronologicalModifiedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelChronologicalModifiedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelLilianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelLilianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelRataDie_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelRataDie_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelMarsSolDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelMarsSolDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void LabelUnixtime_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
+		private void LabelUnixtime_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		#endregion
 
-		/// <summary>
-		/// Saves an image of the screen to the specified path.
-		/// </summary>
-		/// <param name="location">Path, where output file will be saved at.</param>
-		/// <returns>Path of the successfully saved image or error message</returns>
-
-		public string ScreenToPicture(string location)
-		{
-			try
-			{
-				using (Bitmap screenToBitmap = new(width: Size.Width, height: Size.Height))
-				{
-					using (Graphics gGraphics = Graphics.FromImage(image: screenToBitmap))
-					{
-						Size currentScreenSize = new(width: Size.Width, height: Size.Height);
-						gGraphics.CopyFromScreen(
-							upperLeftSource: Location,
-							upperLeftDestination: new Point(x: 0, y: 0),
-							blockRegionSize: currentScreenSize);
-					}
-					screenToBitmap.Save(filename: location);
-				}
-				return location;
-			}
-			catch (Exception ex)
-			{
-				return ex.Message;
-			}
-		}
-
-		/// <summary>
-		///
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void ToolStripStatusLabelTakeScreenshot_Click(object sender, EventArgs e)
-		{
-			using SoundPlayer sound = new(stream: Resources.wavCameraFlashing);
-			sound.Play();
-			string
-				strPathToMyPictures = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyPictures) + "\\",
-				strFilenameWithExtension = JulianDates.CalculateJulianDate().ToString(provider: culture) + ".png",
-				strInfotext = Resources.strScreenshotSavedTo;
-			MessageBox.Show(
-				text: strInfotext + "\n\n" + ScreenToPicture(location: strPathToMyPictures + strFilenameWithExtension),
-				caption: "Screenshot taken",
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Information,
-				defaultButton: MessageBoxDefaultButton.Button1,
-				options: MessageBoxOptions.DefaultDesktopOnly);
-		}
-
-		/// <summary>
-		///
-		/// </summary>
-		private void CheckToTruncateDecimals()
-		{
-			if (checkBoxIgnoreDecimals.Checked)
-			{
-				labelJulianDate.Text = Math.Truncate(d: doubleJulianDate).ToString(provider: culture);
-				labelModifiedJulianDate.Text = Math.Truncate(d: doubleModifiedJulianDate).ToString(provider: culture);
-				labelReducedJulianDate.Text = Math.Truncate(d: doubleReducedJulianDate).ToString(provider: culture);
-				labelTruncatedJulianDate.Text = Math.Truncate(d: doubleTruncatedJulianDate).ToString(provider: culture);
-				labelDublinJulianDate.Text = Math.Truncate(d: doubleDublinJulianDate).ToString(provider: culture);
-				labelCnesJulianDate.Text = Math.Truncate(d: doubleCnesJulianDate).ToString(provider: culture);
-				labelCcsdsJulianDate.Text = Math.Truncate(d: doubleCcsdsJulianDate).ToString(provider: culture);
-				labelLopJulianDate.Text = Math.Truncate(d: doubleLopJulianDate).ToString(provider: culture);
-				labelMillenniumJulianDate.Text = Math.Truncate(d: doubleMillenniumJulianDate).ToString(provider: culture);
-				labelChronologicalJulianDate.Text = Math.Truncate(d: doubleChronologicalJulianDate).ToString(provider: culture);
-				labelChronologicalModifiedJulianDate.Text = Math.Truncate(d: doubleChronologicalModifiedJulianDate).ToString(provider: culture);
-				labelLilianDate.Text = Math.Truncate(d: doubleLilianDate).ToString(provider: culture);
-				labelRataDie.Text = Math.Truncate(d: doubleRataDie).ToString(provider: culture);
-				labelMarsSolDate.Text = Math.Truncate(d: doubleMarsSolDate).ToString(provider: culture);
-				labelUnixtime.Text = Math.Truncate(d: doubleUnixtime).ToString(provider: culture);
-			}
-			else
-			{
-				labelJulianDate.Text = doubleJulianDate.ToString(provider: culture);
-				labelModifiedJulianDate.Text = doubleModifiedJulianDate.ToString(provider: culture);
-				labelReducedJulianDate.Text = doubleReducedJulianDate.ToString(provider: culture);
-				labelTruncatedJulianDate.Text = doubleTruncatedJulianDate.ToString(provider: culture);
-				labelDublinJulianDate.Text = doubleDublinJulianDate.ToString(provider: culture);
-				labelCnesJulianDate.Text = doubleCnesJulianDate.ToString(provider: culture);
-				labelCcsdsJulianDate.Text = doubleCcsdsJulianDate.ToString(provider: culture);
-				labelLopJulianDate.Text = doubleLopJulianDate.ToString(provider: culture);
-				labelMillenniumJulianDate.Text = doubleMillenniumJulianDate.ToString(provider: culture);
-				labelChronologicalJulianDate.Text = doubleChronologicalJulianDate.ToString(provider: culture);
-				labelChronologicalModifiedJulianDate.Text = doubleChronologicalModifiedJulianDate.ToString(provider: culture);
-				labelLilianDate.Text = doubleLilianDate.ToString(provider: culture);
-				labelRataDie.Text = doubleRataDie.ToString(provider: culture);
-				labelMarsSolDate.Text = doubleMarsSolDate.ToString(provider: culture);
-				labelUnixtime.Text = doubleUnixtime.ToString(provider: culture);
-			}
-		}
+		#region ValueChanged Event Handlers
 
 		/// <summary>
 		///
@@ -1816,11 +1832,17 @@ namespace Julian_and_his_dates
 			CheckToTruncateDecimals();
 		}
 
+		#endregion
+
+		#region CheckedChanged Event Handlers
+
 		/// <summary>
 		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void CheckBoxIgnoreDecimals_CheckedChanged(object sender, EventArgs e) => CheckToTruncateDecimals();
+
+		#endregion
 	}
 }

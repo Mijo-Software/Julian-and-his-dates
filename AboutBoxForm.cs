@@ -17,6 +17,16 @@ namespace Julian_and_his_dates
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
+		/// The color used for white font.
+		/// </summary>
+		private readonly Color colorWhiteFont = Color.WhiteSmoke;
+
+		/// <summary>
+		/// The color used for the dark background.
+		/// </summary>
+		private readonly Color colorDarkBackground = Color.FromArgb(red: 29, green: 32, blue: 41);
+
+		/// <summary>
 		/// Returns a string that represents the current object for debugging purposes.
 		/// </summary>
 		/// <returns>A string that represents the current object.</returns>
@@ -33,10 +43,35 @@ namespace Julian_and_his_dates
 		}
 
 		/// <summary>
+		/// Handles exceptions by logging the error and showing a message box
+		/// </summary>
+		/// <param name="ex">The exception that occurred</param>
+		/// <param name="message">The message to log and display</param>
+		/// <param name="sender">The source of the event that caused the exception</param>
+		/// <param name="e">The event data associated with the exception</param>
+		private static void HandleException(Exception ex, string message, object? sender = null, EventArgs? e = null)
+		{
+			string msg = $"Error: {ex}\nMessage: {ex.Message}\nStackTrace: {ex.StackTrace}\nSender: {sender}, EventArgs: {e}";
+			Debug.WriteLine(value: msg);
+			Console.WriteLine(value: msg);
+			Logger.Error(exception: ex, message: msg);
+			_ = MessageBox.Show(text: message, caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		}
+
+		/// <summary>
+		/// Sets the dark mode
+		/// </summary>
+		public void SetDarkMode()
+		{
+			statusStrip.BackColor = colorDarkBackground;
+			labelInformation.BackColor = colorDarkBackground;
+			labelInformation.ForeColor = colorWhiteFont;
+		}
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="AboutBoxForm"/> class.
 		/// Sets the text of the labels to the corresponding assembly information.
 		/// </summary>
-
 		public AboutBoxForm()
 		{
 			InitializeComponent();
@@ -71,23 +106,42 @@ namespace Julian_and_his_dates
 		private void AboutBoxForm_Load(object sender, EventArgs e) => SetStatusbarText(text: string.Empty);
 
 		/// <summary>
-		/// Called when the mouse pointer moves over a control.
+		/// Detect the accessibility description to set as information text in the status bar
 		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <param name="sender">The event source</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data</param>
 		private void SetStatusbar_Enter(object sender, EventArgs e)
 		{
-			if (sender is Control { AccessibleDescription: { } } control)
+			try
 			{
-				SetStatusbarText(text: control.AccessibleDescription);
+				if (sender is Control { AccessibleDescription: { } } control)
+				{
+					SetStatusbarText(text: control.AccessibleDescription);
+				}
+				else if (sender is ToolStripMenuItem { AccessibleDescription: { } } control2)
+				{
+					SetStatusbarText(text: control2.AccessibleDescription);
+				}
+				else if (sender is ToolStripStatusLabel { AccessibleDescription: { } } control3)
+				{
+					SetStatusbarText(text: control3.AccessibleDescription);
+				}
+				else if (sender is ToolStripButton { AccessibleDescription: { } } control4)
+				{
+					SetStatusbarText(text: control4.AccessibleDescription);
+				}
+				else if (sender is ToolStripDropDownButton { AccessibleDescription: { } } control5)
+				{
+					SetStatusbarText(text: control5.AccessibleDescription);
+				}
+				else if (sender is ToolStripSplitButton { AccessibleDescription: { } } control6)
+				{
+					SetStatusbarText(text: control6.AccessibleDescription);
+				}
 			}
-			else if (sender is ToolStripMenuItem { AccessibleDescription: { } } control2)
+			catch (Exception ex)
 			{
-				SetStatusbarText(text: control2.AccessibleDescription);
-			}
-			else if (sender is ToolStripStatusLabel { AccessibleDescription: { } } control3)
-			{
-				SetStatusbarText(text: control3.AccessibleDescription);
+				HandleException(ex: ex, message: "An error occurred while setting the status bar text.", sender: sender, e: e);
 			}
 		}
 
