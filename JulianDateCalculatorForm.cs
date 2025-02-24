@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Media;
 using Julian_and_his_dates.Properties;
+using NLog;
 
 namespace Julian_and_his_dates
 {
@@ -37,6 +38,11 @@ namespace Julian_and_his_dates
 		/// </summary>
 		private readonly CultureInfo culture = CultureInfo.CurrentUICulture;
 
+		/// <summary>
+		/// Logger instance for logging messages and exceptions.
+		/// </summary>
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
 		#region Helper Methods
 
 		/// <summary>
@@ -46,9 +52,56 @@ namespace Julian_and_his_dates
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
+		/// Show an error message
+		/// </summary>
+		private static void ShowAndLogErrorMessage(Exception ex, string messageLogger, string messageBox)
+		{
+			Debug.WriteLine(value: ex);
+			Logger.Error(exception: ex, message: messageLogger);
+			_ = MessageBox.Show(text: messageBox, caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		}
+
+		/// <summary>
+		/// Updates the label's cursor, font style, and status bar text on Enter event.
+		/// </summary>
+		/// <param name="label">The label to update.</param>
+		private void UpdateLabelOnEnter(Label label)
+		{
+			label.Cursor = Cursors.Hand;
+			label.Font = new Font(prototype: label.Font, newStyle: FontStyle.Underline);
+			SetStatusbar(text: label.AccessibleDescription ?? string.Empty);
+		}
+
+		/// <summary>
+		/// Resets the label's cursor and font style, and resets the status bar text on Leave event.
+		/// </summary>
+		/// <param name="label">The label to update.</param>
+		private void UpdateLabelOnLeave(Label label)
+		{
+			label.Cursor = Cursors.Default;
+			label.Font = new Font(prototype: label.Font, newStyle: FontStyle.Regular);
+			ResetStatusbar();
+		}
+
+		/// <summary>
+		/// Shows a message box with the specified information text.
+		/// </summary>
+		/// <param name="text">The information text to display.</param>
+		private static void ShowInfoMessage(string text)
+		{
+			_ = MessageBox.Show(
+				text: text,
+				caption: Resources.strInformation,
+				buttons: MessageBoxButtons.OK,
+				icon: MessageBoxIcon.Information,
+				defaultButton: MessageBoxDefaultButton.Button1,
+				options: MessageBoxOptions.DefaultDesktopOnly);
+		}
+
+		/// <summary>
 		/// Copies the specified text to the clipboard and shows a message box.
 		/// </summary>
-		/// <param name="strText">The text to copy to the clipboard.</param>
+		/// <param name="text">The text to copy to the clipboard.</param>
 		private static void CopyToClipboard(string text)
 		{
 			Clipboard.SetText(text: text);
@@ -110,41 +163,26 @@ namespace Julian_and_his_dates
 		/// </summary>
 		private void CheckToTruncateDecimals()
 		{
-			if (checkBoxIgnoreDecimals.Checked)
+			bool truncate = checkBoxIgnoreDecimals.Checked;
+			foreach ((Label label, double value) in new[]
 			{
-				labelJulianDate.Text = Math.Truncate(d: doubleJulianDate).ToString(provider: culture);
-				labelModifiedJulianDate.Text = Math.Truncate(d: doubleModifiedJulianDate).ToString(provider: culture);
-				labelReducedJulianDate.Text = Math.Truncate(d: doubleReducedJulianDate).ToString(provider: culture);
-				labelTruncatedJulianDate.Text = Math.Truncate(d: doubleTruncatedJulianDate).ToString(provider: culture);
-				labelDublinJulianDate.Text = Math.Truncate(d: doubleDublinJulianDate).ToString(provider: culture);
-				labelCnesJulianDate.Text = Math.Truncate(d: doubleCnesJulianDate).ToString(provider: culture);
-				labelCcsdsJulianDate.Text = Math.Truncate(d: doubleCcsdsJulianDate).ToString(provider: culture);
-				labelLopJulianDate.Text = Math.Truncate(d: doubleLopJulianDate).ToString(provider: culture);
-				labelMillenniumJulianDate.Text = Math.Truncate(d: doubleMillenniumJulianDate).ToString(provider: culture);
-				labelChronologicalJulianDate.Text = Math.Truncate(d: doubleChronologicalJulianDate).ToString(provider: culture);
-				labelChronologicalModifiedJulianDate.Text = Math.Truncate(d: doubleChronologicalModifiedJulianDate).ToString(provider: culture);
-				labelLilianDate.Text = Math.Truncate(d: doubleLilianDate).ToString(provider: culture);
-				labelRataDie.Text = Math.Truncate(d: doubleRataDie).ToString(provider: culture);
-				labelMarsSolDate.Text = Math.Truncate(d: doubleMarsSolDate).ToString(provider: culture);
-				labelUnixtime.Text = Math.Truncate(d: doubleUnixtime).ToString(provider: culture);
-			}
-			else
+				(labelJulianDate, doubleJulianDate),
+				(labelModifiedJulianDate, doubleModifiedJulianDate),
+				(labelReducedJulianDate, doubleReducedJulianDate),
+				(labelTruncatedJulianDate, doubleTruncatedJulianDate),
+				(labelDublinJulianDate, doubleDublinJulianDate),
+				(labelCnesJulianDate, doubleCnesJulianDate),
+				(labelCcsdsJulianDate, doubleCcsdsJulianDate),
+				(labelLopJulianDate, doubleLopJulianDate),
+				(labelMillenniumJulianDate, doubleMillenniumJulianDate),
+				(labelChronologicalJulianDate, doubleChronologicalJulianDate),
+				(labelChronologicalModifiedJulianDate, doubleChronologicalModifiedJulianDate),
+				(labelLilianDate, doubleLilianDate),
+				(labelRataDie, doubleRataDie),
+				(labelMarsSolDate, doubleMarsSolDate),
+				(labelUnixtime, doubleUnixtime)})
 			{
-				labelJulianDate.Text = doubleJulianDate.ToString(provider: culture);
-				labelModifiedJulianDate.Text = doubleModifiedJulianDate.ToString(provider: culture);
-				labelReducedJulianDate.Text = doubleReducedJulianDate.ToString(provider: culture);
-				labelTruncatedJulianDate.Text = doubleTruncatedJulianDate.ToString(provider: culture);
-				labelDublinJulianDate.Text = doubleDublinJulianDate.ToString(provider: culture);
-				labelCnesJulianDate.Text = doubleCnesJulianDate.ToString(provider: culture);
-				labelCcsdsJulianDate.Text = doubleCcsdsJulianDate.ToString(provider: culture);
-				labelLopJulianDate.Text = doubleLopJulianDate.ToString(provider: culture);
-				labelMillenniumJulianDate.Text = doubleMillenniumJulianDate.ToString(provider: culture);
-				labelChronologicalJulianDate.Text = doubleChronologicalJulianDate.ToString(provider: culture);
-				labelChronologicalModifiedJulianDate.Text = doubleChronologicalModifiedJulianDate.ToString(provider: culture);
-				labelLilianDate.Text = doubleLilianDate.ToString(provider: culture);
-				labelRataDie.Text = doubleRataDie.ToString(provider: culture);
-				labelMarsSolDate.Text = doubleMarsSolDate.ToString(provider: culture);
-				labelUnixtime.Text = doubleUnixtime.ToString(provider: culture);
+				label.Text = (truncate ? Math.Truncate(d: value) : value).ToString(provider: culture);
 			}
 		}
 
@@ -158,6 +196,9 @@ namespace Julian_and_his_dates
 		public JulianDateCalculatorForm()
 		{
 			InitializeComponent();
+			Logger.Info(message: "JulianDateCalculatorForm initialized.");
+			this.KeyDown += new KeyEventHandler(JulianDateCalculatorForm_KeyDown);
+			this.KeyPreview = true; // Ensures the form receives key events before the controls
 			doubleJulianDate = JulianDates.CalculateJulianDate();
 			doubleModifiedJulianDate = JulianDates.CalculateModifiedJulianDate();
 			doubleReducedJulianDate = JulianDates.CalculateReducedJulianDate();
@@ -194,13 +235,14 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region Form Event Handlers
+		#region Form event handlers
 
 		/// <summary>
-		///
+		/// Handles the Load event for the JulianDateCalculatorForm.
+		/// Sets the foreground and background colors of the status strip to match the form's colors.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void JulianDateCalculatorForm_Load(object sender, EventArgs e)
 		{
 			statusStrip.ForeColor = ForeColor;
@@ -209,13 +251,15 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region Click Event Handlers
+		#region Click event handlers
 
 		/// <summary>
-		///
+		/// Handles the Click event for the ToolStripStatusLabelTakeScreenshot.
+		/// Plays a camera flash sound, takes a screenshot of the form, saves it to the user's Pictures folder,
+		/// and shows a message box with the location of the saved screenshot.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void ToolStripStatusLabelTakeScreenshot_Click(object sender, EventArgs e)
 		{
 			using SoundPlayer sound = new(stream: Resources.wavCameraFlashing);
@@ -234,1581 +278,1460 @@ namespace Julian_and_his_dates
 		}
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the UTC time label text.
+		/// Shows a message box with information about UTC time.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelUtcTimeText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strUtcTimeText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelUtcTimeText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strUtcTimeText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the local time label text.
+		/// Shows a message box with information about local time.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLocalTimeText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strLocalTimeText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLocalTimeText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strLocalTimeText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the Julian date label text.
+		/// Shows a message box with information about Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the modified Julian date label text.
+		/// Shows a message box with information about modified Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelModifiedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strModifiedJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelModifiedJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strModifiedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the reduced Julian date label text.
+		/// Shows a message box with information about reduced Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelReducedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strReducedJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelReducedJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strReducedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the truncated Julian date label text.
+		/// Shows a message box with information about truncated Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelTruncatedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strTruncatedJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelTruncatedJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strTruncatedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the Dublin Julian date label text.
+		/// Shows a message box with information about Dublin Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelDublinJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strDublinJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelDublinJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strDublinJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the CNES Julian date label text.
+		/// Shows a message box with information about CNES Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelCnesJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strCnesJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelCnesJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strCnesJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the CCSDS Julian date label text.
+		/// Shows a message box with information about CCSDS Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelCcsdsJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strCcsdsJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelCcsdsJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strCcsdsJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the LOP Julian date label text.
+		/// Shows a message box with information about LOP Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLopJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strLopJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLopJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strLopJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the Millennium Julian date label text.
+		/// Shows a message box with information about Millennium Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelMillenniumJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strMillenniumJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelMillenniumJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strMillenniumJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the chronological Julian date label text.
+		/// Shows a message box with information about chronological Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelChronologicalJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strChronologicalJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelChronologicalJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strChronologicalJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the chronological modified Julian date label text.
+		/// Shows a message box with information about chronological modified Julian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelChronologicalModifiedJulianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strChronologicalModifiedJulianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelChronologicalModifiedJulianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strChronologicalModifiedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the Lilian date label text.
+		/// Shows a message box with information about Lilian date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLilianDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strLilianDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
-
-		private void LabelRataDieText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strRataDieText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLilianDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strLilianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the Rata Die label text.
+		/// Shows a message box with information about Rata Die.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelMarsSolDateText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strMarsSolDateText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelRataDieText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strRataDieText);
 
 		/// <summary>
-		/// 
+		/// Handles the Click event for the Mars Sol date label text.
+		/// Shows a message box with information about Mars Sol date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelUnixtimeText_Click(object sender, EventArgs e) => MessageBox.Show(
-			text: Resources.strUnixtimeText,
-			caption: Resources.strInformation,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information,
-			defaultButton: MessageBoxDefaultButton.Button1,
-			options: MessageBoxOptions.DefaultDesktopOnly);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelMarsSolDateText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strMarsSolDateText);
+
+		/// <summary>
+		/// Handles the Click event for the Unix time label text.
+		/// Shows a message box with information about Unix time.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelUnixtimeText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strUnixtimeText);
 
 		#endregion
 
-		#region DoubleClick Event Handlers
+		#region DoubleClick event handlers
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the UTC time label.
+		/// Copies the UTC time text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelUtcTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelUtcTime.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the local time label.
+		/// Copies the local time text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLocalTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelLocalTime.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the Julian date label.
+		/// Copies the Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the modified Julian date label.
+		/// Copies the modified Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelModifiedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelModifiedJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the reduced Julian date label.
+		/// Copies the reduced Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelReducedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelReducedJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the truncated Julian date label.
+		/// Copies the truncated Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelTruncatedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelTruncatedJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the Dublin Julian date label.
+		/// Copies the Dublin Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelDublinJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelDublinJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the CNES Julian date label.
+		/// Copies the CNES Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelCnesJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelCnesJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the CCSDS Julian date label.
+		/// Copies the CCSDS Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelCcsdsJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelCcsdsJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the LOP Julian date label.
+		/// Copies the LOP Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLopJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelLopJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the Millennium Julian date label.
+		/// Copies the Millennium Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelMillenniumJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelMillenniumJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the chronological Julian date label.
+		/// Copies the chronological Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelChronologicalJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelChronologicalJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the chronological modified Julian date label.
+		/// Copies the chronological modified Julian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelChronologicalModifiedJulianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelChronologicalModifiedJulianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the Lilian date label.
+		/// Copies the Lilian date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLilianDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelLilianDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the Rata Die label.
+		/// Copies the Rata Die text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelRataDie_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelRataDie.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the Mars Sol date label.
+		/// Copies the Mars Sol date text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelMarsSolDate_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelMarsSolDate.Text);
 
 		/// <summary>
-		/// 
+		/// Handles the DoubleClick event for the Unix time label.
+		/// Copies the Unix time text to the clipboard.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelUnixtime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelUnixtime.Text);
 
 		#endregion
 
-		#region Enter Event Handlers
+		#region Enter event handlers
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the UTC time label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelUtcTimeText_Enter(object sender, EventArgs e)
-		{
-			labelUtcTimeText.Cursor = Cursors.Hand;
-			labelUtcTimeText.Font = new Font(prototype: labelUtcTimeText.Font, newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelUtcTimeText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelUtcTimeText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelUtcTimeText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the local time label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLocalTimeText_Enter(object sender, EventArgs e)
-		{
-			labelLocalTimeText.Cursor = Cursors.Hand;
-			labelLocalTimeText.Font = new Font(prototype: labelLocalTimeText.Font, newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelLocalTimeText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLocalTimeText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelLocalTimeText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelJulianDateText.Cursor = Cursors.Hand;
-			labelJulianDateText.Font = new Font(prototype: labelJulianDateText.Font, newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the modified Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelModifiedJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelModifiedJulianDateText.Cursor = Cursors.Hand;
-			labelModifiedJulianDateText.Font = new Font(
-				prototype: labelModifiedJulianDateText.Font,
-				newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelModifiedJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelModifiedJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelModifiedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the reduced Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelReducedJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelReducedJulianDateText.Cursor = Cursors.Hand;
-			labelReducedJulianDateText.Font = new Font(
-				prototype: labelReducedJulianDateText.Font,
-				newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelReducedJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelReducedJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelReducedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the truncated Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelTruncatedJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelTruncatedJulianDateText.Cursor = Cursors.Hand;
-			labelTruncatedJulianDateText.Font = new Font(
-				prototype: labelTruncatedJulianDateText.Font,
-				newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelTruncatedJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelTruncatedJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelTruncatedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Dublin Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelDublinJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelDublinJulianDateText.Cursor = Cursors.Hand;
-			labelDublinJulianDateText.Font = new Font(
-				prototype: labelDublinJulianDateText.Font,
-				newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelDublinJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelDublinJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelDublinJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the CNES Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelCnesJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelCnesJulianDateText.Cursor = Cursors.Hand;
-			labelCnesJulianDateText.Font = new Font(
-				prototype: labelCnesJulianDateText.Font,
-				newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelCnesJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelCnesJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelCnesJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the CCSDS Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelCcsdsJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelCcsdsJulianDateText.Cursor = Cursors.Hand;
-			labelCcsdsJulianDateText.Font = new Font(
-				prototype: labelCcsdsJulianDateText.Font,
-				newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelCcsdsJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelCcsdsJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelCcsdsJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the LOP Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLopJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelLopJulianDateText.Cursor = Cursors.Hand;
-			labelLopJulianDateText.Font = new Font(
-				prototype: labelLopJulianDateText.Font,
-				newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelLopJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLopJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelLopJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Millennium Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelMillenniumJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelMillenniumJulianDateText.Cursor = Cursors.Hand;
-			labelMillenniumJulianDateText.Font = new Font(
-				prototype: labelMillenniumJulianDateText.Font,
-				newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelMillenniumJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelMillenniumJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelMillenniumJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the chronological Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelChronologicalJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelChronologicalJulianDateText.Cursor = Cursors.Hand;
-			labelChronologicalJulianDateText.Font = new Font(
-				prototype: labelChronologicalJulianDateText.Font,
-				newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelChronologicalJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelChronologicalJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelChronologicalJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the chronological modified Julian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelChronologicalModifiedJulianDateText_Enter(object sender, EventArgs e)
-		{
-			labelChronologicalModifiedJulianDateText.Cursor = Cursors.Hand;
-			labelChronologicalModifiedJulianDateText.Font = new Font(
-				prototype: labelChronologicalModifiedJulianDateText.Font,
-				newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelChronologicalModifiedJulianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelChronologicalModifiedJulianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelChronologicalModifiedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Lilian date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLilianDateText_Enter(object sender, EventArgs e)
-		{
-			labelLilianDateText.Cursor = Cursors.Hand;
-			labelLilianDateText.Font = new Font(prototype: labelLilianDateText.Font, newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelLilianDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLilianDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelLilianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Rata Die label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelRataDieText_Enter(object sender, EventArgs e)
-		{
-			labelRataDieText.Cursor = Cursors.Hand;
-			labelRataDieText.Font = new Font(prototype: labelRataDieText.Font, newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelRataDieText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelRataDieText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelRataDieText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Mars Sol date label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelMarsSolDateText_Enter(object sender, EventArgs e)
-		{
-			labelMarsSolDateText.Cursor = Cursors.Hand;
-			labelMarsSolDateText.Font = new Font(prototype: labelMarsSolDateText.Font, newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelMarsSolDateText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelMarsSolDateText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelMarsSolDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Unix time label text.
+		/// Changes the cursor and font style, and sets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelUnixtimeText_Enter(object sender, EventArgs e)
-		{
-			labelUnixtimeText.Cursor = Cursors.Hand;
-			labelUnixtimeText.Font = new Font(prototype: labelUnixtimeText.Font, newStyle: FontStyle.Underline);
-			SetStatusbar(text: labelUnixtimeText.AccessibleDescription);
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelUnixtimeText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelUnixtimeText);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the UTC time label.
+		/// Sets the status bar text to the accessible description of the UTC time label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelUtcTime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelUtcTime.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelUtcTime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelUtcTime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the local time label.
+		/// Sets the status bar text to the accessible description of the local time label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLocalTime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLocalTime.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLocalTime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLocalTime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Julian date label.
+		/// Sets the status bar text to the accessible description of the Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the modified Julian date label.
+		/// Sets the status bar text to the accessible description of the modified Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelModifiedJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelModifiedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the reduced Julian date label.
+		/// Sets the status bar text to the accessible description of the reduced Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelReducedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelReducedJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelReducedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelReducedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the truncated Julian date label.
+		/// Sets the status bar text to the accessible description of the truncated Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelTruncatedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelTruncatedJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelTruncatedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelTruncatedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Dublin Julian date label.
+		/// Sets the status bar text to the accessible description of the Dublin Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelDublinJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelDublinJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelDublinJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelDublinJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the CNES Julian date label.
+		/// Sets the status bar text to the accessible description of the CNES Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelCnesJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelCnesJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelCnesJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelCnesJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the CCSDS Julian date label.
+		/// Sets the status bar text to the accessible description of the CCSDS Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelCcsdsJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelCcsdsJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelCcsdsJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelCcsdsJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the LOP Julian date label.
+		/// Sets the status bar text to the accessible description of the LOP Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLopJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLopJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLopJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLopJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Millennium Julian date label.
+		/// Sets the status bar text to the accessible description of the Millennium Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelMillenniumJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelMillenniumJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelMillenniumJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelMillenniumJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the chronological Julian date label.
+		/// Sets the status bar text to the accessible description of the chronological Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelChronologicalJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelChronologicalJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the chronological modified Julian date label.
+		/// Sets the status bar text to the accessible description of the chronological modified Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelChronologicalModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalModifiedJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelChronologicalModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalModifiedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Lilian date label.
+		/// Sets the status bar text to the accessible description of the Lilian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLilianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLilianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLilianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLilianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Rata Die label.
+		/// Sets the status bar text to the accessible description of the Rata Die label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelRataDie_Enter(object sender, EventArgs e) => SetStatusbar(text: labelRataDie.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelRataDie_Enter(object sender, EventArgs e) => SetStatusbar(text: labelRataDie.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Mars Sol date label.
+		/// Sets the status bar text to the accessible description of the Mars Sol date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelMarsSolDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelMarsSolDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelMarsSolDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelMarsSolDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the Unix time label.
+		/// Sets the status bar text to the accessible description of the Unix time label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelUnixtime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelUnixtime.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelUnixtime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelUnixtime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the DateTimePicker.
+		/// Sets the status bar text to the accessible description of the DateTimePicker.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void DateTimePicker_Enter(object sender, EventArgs e) => SetStatusbar(text: dateTimePicker.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void DateTimePicker_Enter(object sender, EventArgs e) => SetStatusbar(text: dateTimePicker.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the Enter event for the CheckBoxIgnoreDecimals.
+		/// Sets the status bar text to the accessible description of the CheckBoxIgnoreDecimals.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void CheckBoxIgnoreDecimals_Enter(object sender, EventArgs e) => SetStatusbar(
-			text: checkBoxIgnoreDecimals.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void CheckBoxIgnoreDecimals_Enter(object sender, EventArgs e) => SetStatusbar(text: checkBoxIgnoreDecimals.AccessibleDescription ?? string.Empty);
 
 		#endregion
 
-		#region Leave Event Handlers
+		#region Leave event handlers
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the UTC time label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelUtcTimeText_Leave(object sender, EventArgs e)
-		{
-			labelUtcTimeText.Cursor = Cursors.Default;
-			labelUtcTimeText.Font = new Font(prototype: labelUtcTimeText.Font, newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelUtcTimeText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelUtcTimeText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the local time label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLocalTimeText_Leave(object sender, EventArgs e)
-		{
-			labelLocalTimeText.Cursor = Cursors.Default;
-			labelLocalTimeText.Font = new Font(prototype: labelLocalTimeText.Font, newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLocalTimeText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelLocalTimeText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelJulianDateText.Cursor = Cursors.Default;
-			labelJulianDateText.Font = new Font(prototype: labelJulianDateText.Font, newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the modified Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelModifiedJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelModifiedJulianDateText.Cursor = Cursors.Default;
-			labelModifiedJulianDateText.Font = new Font(
-				prototype: labelModifiedJulianDateText.Font,
-				newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelModifiedJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelModifiedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the reduced Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelReducedJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelReducedJulianDateText.Cursor = Cursors.Default;
-			labelReducedJulianDateText.Font = new Font(
-				prototype: labelReducedJulianDateText.Font,
-				newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelReducedJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelReducedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the truncated Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelTruncatedJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelTruncatedJulianDateText.Cursor = Cursors.Default;
-			labelTruncatedJulianDateText.Font = new Font(
-				prototype: labelTruncatedJulianDateText.Font,
-				newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelTruncatedJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelTruncatedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Dublin Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelDublinJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelDublinJulianDateText.Cursor = Cursors.Default;
-			labelDublinJulianDateText.Font = new Font(
-				prototype: labelDublinJulianDateText.Font,
-				newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelDublinJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelDublinJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the CNES Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelCnesJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelCnesJulianDateText.Cursor = Cursors.Default;
-			labelCnesJulianDateText.Font = new Font(
-				prototype: labelCnesJulianDateText.Font,
-				newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelCnesJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelCnesJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the CCSDS Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelCcsdsJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelCcsdsJulianDateText.Cursor = Cursors.Default;
-			labelCcsdsJulianDateText.Font = new Font(
-				prototype: labelCcsdsJulianDateText.Font,
-				newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelCcsdsJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelCcsdsJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the LOP Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLopJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelLopJulianDateText.Cursor = Cursors.Default;
-			labelLopJulianDateText.Font = new Font(prototype: labelLopJulianDateText.Font, newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLopJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelLopJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Millennium Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelMillenniumJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelMillenniumJulianDateText.Cursor = Cursors.Default;
-			labelMillenniumJulianDateText.Font = new Font(
-				prototype: labelMillenniumJulianDateText.Font,
-				newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelMillenniumJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelMillenniumJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the chronological Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelChronologicalJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelChronologicalJulianDateText.Cursor = Cursors.Default;
-			labelChronologicalJulianDateText.Font = new Font(
-				prototype: labelChronologicalJulianDateText.Font,
-				newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelChronologicalJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelChronologicalJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the chronological modified Julian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelChronologicalModifiedJulianDateText_Leave(object sender, EventArgs e)
-		{
-			labelChronologicalModifiedJulianDateText.Cursor = Cursors.Default;
-			labelChronologicalModifiedJulianDateText.Font = new Font(
-				prototype: labelChronologicalModifiedJulianDateText.Font,
-				newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelChronologicalModifiedJulianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelChronologicalModifiedJulianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Lilian date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLilianDateText_Leave(object sender, EventArgs e)
-		{
-			labelLilianDateText.Cursor = Cursors.Default;
-			labelLilianDateText.Font = new Font(prototype: labelLilianDateText.Font, newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLilianDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelLilianDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Rata Die label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelRataDieText_Leave(object sender, EventArgs e)
-		{
-			labelRataDieText.Cursor = Cursors.Default;
-			labelRataDieText.Font = new Font(prototype: labelRataDieText.Font, newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelRataDieText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelRataDieText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Mars Sol date label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelMarsSolDateText_Leave(object sender, EventArgs e)
-		{
-			labelMarsSolDateText.Cursor = Cursors.Default;
-			labelMarsSolDateText.Font = new Font(prototype: labelMarsSolDateText.Font, newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelMarsSolDateText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelMarsSolDateText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Unix time label text.
+		/// Resets the label's cursor and font style, and resets the status bar text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelUnixtimeText_Leave(object sender, EventArgs e)
-		{
-			labelUnixtimeText.Cursor = Cursors.Default;
-			labelUnixtimeText.Font = new Font(prototype: labelUnixtimeText.Font, newStyle: FontStyle.Regular);
-			ResetStatusbar();
-		}
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelUnixtimeText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelUnixtimeText);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the UTC time label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelUtcTime_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the local time label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLocalTime_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the modified Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelModifiedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the reduced Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelReducedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the truncated Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelTruncatedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Dublin Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelDublinJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the CNES Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelCnesJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the CCSDS Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelCcsdsJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the LOP Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLopJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Millennium Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelMillenniumJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the chronological Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelChronologicalJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the chronological modified Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelChronologicalModifiedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
+		/// <summary>
+		/// Handles the Leave event for the Lilian date label.
+		/// Resets the status bar to its default state.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLilianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Rata Die label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelRataDie_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Mars Sol date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelMarsSolDate_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Unix time label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelUnixtime_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the DateTimePicker.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void DateTimePicker_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the CheckBoxIgnoreDecimals.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void CheckBoxIgnoreDecimals_Leave(object sender, EventArgs e) => ResetStatusbar();
 
 		#endregion
 
-		#region MouseEnter Event Handlers
+		#region MouseEnter event handlers
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the UTC time label text.
+		/// Calls the Enter event handler for the UTC time label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelUtcTimeText_MouseEnter(object sender, EventArgs e) => LabelUtcTimeText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the local time label text.
+		/// Calls the Enter event handler for the local time label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLocalTimeText_MouseEnter(object sender, EventArgs e) => LabelLocalTimeText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Julian date label text.
+		/// Calls the Enter event handler for the Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelJulianDateText_MouseEnter(object sender, EventArgs e) => LabelJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the modified Julian date label text.
+		/// Calls the Enter event handler for the modified Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelModifiedJulianDateText_MouseEnter(object sender, EventArgs e) => LabelModifiedJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the reduced Julian date label text.
+		/// Calls the Enter event handler for the reduced Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelReducedJulianDateText_MouseEnter(object sender, EventArgs e) => LabelReducedJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the truncated Julian date label text.
+		/// Calls the Enter event handler for the truncated Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelTruncatedJulianDateText_MouseEnter(object sender, EventArgs e) => LabelTruncatedJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Dublin Julian date label text.
+		/// Calls the Enter event handler for the Dublin Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelDublinJulianDateText_MouseEnter(object sender, EventArgs e) => LabelDublinJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the CNES Julian date label text.
+		/// Calls the Enter event handler for the CNES Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelCnesJulianDateText_MouseEnter(object sender, EventArgs e) => LabelCnesJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the CCSDS Julian date label text.
+		/// Calls the Enter event handler for the CCSDS Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelCcsdsJulianDateText_MouseEnter(object sender, EventArgs e) => LabelCcsdsJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the LOP Julian date label text.
+		/// Calls the Enter event handler for the LOP Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLopJulianDateText_MouseEnter(object sender, EventArgs e) => LabelLopJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Millennium Julian date label text.
+		/// Calls the Enter event handler for the Millennium Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelMillenniumJulianDateText_MouseEnter(object sender, EventArgs e) => LabelMillenniumJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the chronological Julian date label text.
+		/// Calls the Enter event handler for the chronological Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelChronologicalJulianDateText_MouseEnter(object sender, EventArgs e) => LabelChronologicalJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the chronological modified Julian date label text.
+		/// Calls the Enter event handler for the chronological modified Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelChronologicalModifiedJulianDateText_MouseEnter(object sender, EventArgs e) => LabelChronologicalModifiedJulianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Lilian date label text.
+		/// Calls the Enter event handler for the Lilian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLilianDateText_MouseEnter(object sender, EventArgs e) => LabelLilianDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Rata Die label text.
+		/// Calls the Enter event handler for the Rata Die label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelRataDieText_MouseEnter(object sender, EventArgs e) => LabelRataDieText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Mars Sol date label text.
+		/// Calls the Enter event handler for the Mars Sol date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelMarsSolDateText_MouseEnter(object sender, EventArgs e) => LabelMarsSolDateText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Unix time label text.
+		/// Calls the Enter event handler for the Unix time label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelUnixtimeText_MouseEnter(object sender, EventArgs e) => LabelUnixtimeText_Enter(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the UTC time label.
+		/// Sets the status bar text to the accessible description of the UTC time label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelUtcTime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelUtcTime.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelUtcTime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelUtcTime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the local time label.
+		/// Sets the status bar text to the accessible description of the local time label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLocalTime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLocalTime.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLocalTime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLocalTime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Julian date label.
+		/// Sets the status bar text to the accessible description of the Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the modified Julian date label.
+		/// Sets the status bar text to the accessible description of the modified Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelModifiedJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelModifiedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the reduced Julian date label.
+		/// Sets the status bar text to the accessible description of the reduced Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelReducedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelReducedJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelReducedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelReducedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the truncated Julian date label.
+		/// Sets the status bar text to the accessible description of the truncated Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelTruncatedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelTruncatedJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelTruncatedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelTruncatedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Dublin Julian date label.
+		/// Sets the status bar text to the accessible description of the Dublin Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelDublinJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelDublinJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelDublinJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelDublinJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the CNES Julian date label.
+		/// Sets the status bar text to the accessible description of the CNES Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelCnesJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelCnesJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelCnesJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelCnesJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the CCSDS Julian date label.
+		/// Sets the status bar text to the accessible description of the CCSDS Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelCcsdsJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelCcsdsJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelCcsdsJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelCcsdsJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the LOP Julian date label.
+		/// Sets the status bar text to the accessible description of the LOP Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLopJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLopJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLopJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLopJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Millennium Julian date label.
+		/// Sets the status bar text to the accessible description of the Millennium Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelMillenniumJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelMillenniumJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelMillenniumJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelMillenniumJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the chronological Julian date label.
+		/// Sets the status bar text to the accessible description of the chronological Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelChronologicalJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelChronologicalJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the chronological modified Julian date label.
+		/// Sets the status bar text to the accessible description of the chronological modified Julian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelChronologicalModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalModifiedJulianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelChronologicalModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalModifiedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Lilian date label.
+		/// Sets the status bar text to the accessible description of the Lilian date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelLilianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLilianDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelLilianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLilianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Rata Die label.
+		/// Sets the status bar text to the accessible description of the Rata Die label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelRataDie_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelRataDie.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelRataDie_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelRataDie.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Mars Sol date label.
+		/// Sets the status bar text to the accessible description of the Mars Sol date label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelMarsSolDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelMarsSolDate.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelMarsSolDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelMarsSolDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the Unix time label.
+		/// Sets the status bar text to the accessible description of the Unix time label.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void LabelUnixtime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelUnixtime.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void LabelUnixtime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelUnixtime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the DateTimePicker.
+		/// Sets the status bar text to the accessible description of the DateTimePicker.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void DateTimePicker_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: dateTimePicker.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void DateTimePicker_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: dateTimePicker.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseEnter event for the CheckBoxIgnoreDecimals.
+		/// Sets the status bar text to the accessible description of the CheckBoxIgnoreDecimals.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void CheckBoxIgnoreDecimals_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: checkBoxIgnoreDecimals.AccessibleDescription);
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void CheckBoxIgnoreDecimals_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: checkBoxIgnoreDecimals.AccessibleDescription ?? string.Empty);
+
 
 		#endregion
 
-		#region MouseLeave Event Handlers
+		#region MouseLeave event handlers
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the UTC time label text.
+		/// Calls the Leave event handler for the UTC time label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelUtcTimeText_MouseLeave(object sender, EventArgs e) => LabelUtcTimeText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the local time label text.
+		/// Calls the Leave event handler for the local time label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLocalTimeText_MouseLeave(object sender, EventArgs e) => LabelLocalTimeText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the Julian date label text.
+		/// Calls the Leave event handler for the Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelJulianDateText_MouseLeave(object sender, EventArgs e) => LabelJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the modified Julian date label text.
+		/// Calls the Leave event handler for the modified Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelModifiedJulianDateText_MouseLeave(object sender, EventArgs e) => LabelModifiedJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the reduced Julian date label text.
+		/// Calls the Leave event handler for the reduced Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelReducedJulianDateText_MouseLeave(object sender, EventArgs e) => LabelReducedJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the truncated Julian date label text.
+		/// Calls the Leave event handler for the truncated Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelTruncatedJulianDateText_MouseLeave(object sender, EventArgs e) => LabelTruncatedJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the Dublin Julian date label text.
+		/// Calls the Leave event handler for the Dublin Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelDublinJulianDateText_MouseLeave(object sender, EventArgs e) => LabelDublinJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the CNES Julian date label text.
+		/// Calls the Leave event handler for the CNES Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelCnesJulianDateText_MouseLeave(object sender, EventArgs e) => LabelCnesJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the CCSDS Julian date label text.
+		/// Calls the Leave event handler for the CCSDS Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelCcsdsJulianDateText_MouseLeave(object sender, EventArgs e) => LabelCcsdsJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the LOP Julian date label text.
+		/// Calls the Leave event handler for the LOP Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLopJulianDateText_MouseLeave(object sender, EventArgs e) => LabelLopJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the Millennium Julian date label text.
+		/// Calls the Leave event handler for the Millennium Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelMillenniumJulianDateText_MouseLeave(object sender, EventArgs e) => LabelMillenniumJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the chronological Julian date label text.
+		/// Calls the Leave event handler for the chronological Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelChronologicalJulianDateText_MouseLeave(object sender, EventArgs e) => LabelChronologicalJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the chronological modified Julian date label text.
+		/// Calls the Leave event handler for the chronological modified Julian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelChronologicalModifiedJulianDateText_MouseLeave(object sender, EventArgs e) => LabelChronologicalModifiedJulianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the Lilian date label text.
+		/// Calls the Leave event handler for the Lilian date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLilianDateText_MouseLeave(object sender, EventArgs e) => LabelLilianDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the Rata Die label text.
+		/// Calls the Leave event handler for the Rata Die label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelRataDieText_MouseLeave(object sender, EventArgs e) => LabelRataDieText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the Mars Sol date label text.
+		/// Calls the Leave event handler for the Mars Sol date label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelMarsSolDateText_MouseLeave(object sender, EventArgs e) => LabelMarsSolDateText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the MouseLeave event for the Unix time label text.
+		/// Calls the Leave event handler for the Unix time label text.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelUnixtimeText_MouseLeave(object sender, EventArgs e) => LabelUnixtimeText_Leave(sender: sender, e: e);
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the UTC time label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelUtcTime_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the local time label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLocalTime_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the modified Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelModifiedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the reduced Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelReducedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the truncated Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelTruncatedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Dublin Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelDublinJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the CNES Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelCnesJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the CCSDS Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelCcsdsJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the LOP Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void DateTimePicker_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void CheckBoxIgnoreDecimals_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLopJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Millennium Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelMillenniumJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the chronological Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelChronologicalJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the chronological modified Julian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelChronologicalModifiedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Lilian date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelLilianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Rata Die label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelRataDie_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Mars Sol date label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelMarsSolDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		/// <summary>
-		/// 
+		/// Handles the Leave event for the Unix time label.
+		/// Resets the status bar to its default state.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void LabelUnixtime_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+
+		/// <summary>
+		/// Handles the Leave event for the DateTime picker.
+		/// Resets the status bar to its default state.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void DateTimePicker_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+
+		/// <summary>
+		/// Handles the Leave event for the IngoreDecimals checkbox.
+		/// Resets the status bar to its default state.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
+		private void CheckBoxIgnoreDecimals_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
 
 		#endregion
 
-		#region ValueChanged Event Handlers
+		#region ValueChanged event handlers
 
 		/// <summary>
-		///
+		/// Handles the ValueChanged event for the DateTimePicker.
+		/// Updates the various date labels based on the selected date.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void DateTimePicker_ValueChanged(object sender, EventArgs e)
 		{
 			DateTime value = dateTimePicker.Value;
@@ -1834,14 +1757,33 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region CheckedChanged Event Handlers
+		#region CheckedChanged event handlers
 
 		/// <summary>
-		///
+		/// Handles the CheckedChanged event for the CheckBoxIgnoreDecimals.
+		/// Truncates the decimal values of the Julian dates if the checkbox is checked.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The event data.</param>
 		private void CheckBoxIgnoreDecimals_CheckedChanged(object sender, EventArgs e) => CheckToTruncateDecimals();
+
+		#endregion
+
+		#region KeyDown event handlers
+
+		/// <summary>
+		/// Handles the KeyDown event of the ExportDataSheetForm.
+		/// Closes the form when the Escape key is pressed.
+		/// </summary>
+		/// <param name="sender">The event source.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		private void JulianDateCalculatorForm_KeyDown(object? sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Escape)
+			{
+				this.Close();
+			}
+		}
 
 		#endregion
 	}
