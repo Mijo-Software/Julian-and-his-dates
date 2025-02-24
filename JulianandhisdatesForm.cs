@@ -168,11 +168,15 @@ namespace Julian_and_his_dates
 		}
 
 		/// <summary>
-		/// Sets the state of the label when it is entered.
+		/// Updates the label's cursor, font style, and status bar text on Enter event.
 		/// </summary>
-		/// <param name="label">The label to set the state for.</param>
-		private static void SetLabelEnterState(Label label) =>
-			(label.Cursor, label.Font) = (Cursors.Hand, new Font(prototype: label.Font, newStyle: FontStyle.Underline));
+		/// <param name="label">The label to update.</param>
+		private void UpdateLabelOnEnter(Label label)
+		{
+			label.Cursor = Cursors.Hand;
+			label.Font = new Font(prototype: label.Font, newStyle: FontStyle.Underline);
+			SetStatusbar(text: label.AccessibleDescription ?? string.Empty);
+		}
 
 		/// <summary>
 		/// Resets the state of the label when it is left.
@@ -232,11 +236,17 @@ namespace Julian_and_his_dates
 		/// <summary>
 		/// Initialize the form.
 		/// </summary>
-		public JulianandhisdatesForm() => InitializeComponent();
+		public JulianandhisdatesForm()
+		{
+			InitializeComponent();
+			Logger.Info(message: "JulianandhisdatesForm initialized.");
+			this.KeyDown += new KeyEventHandler(JulianandhisdatesForm_KeyDown);
+			this.KeyPreview = true; // Ensures the form receives key events before the controls
+		}
 
 		#endregion
 
-		#region Form Event handlers
+		#region Form event handlers
 
 		/// <summary>
 		/// Handles the Load event of the form.
@@ -298,7 +308,7 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region Timer Event handlers
+		#region Timer event handlers
 
 		/// <summary>
 		/// Handles the Tick event of the timer.
@@ -331,7 +341,7 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region Click Event handlers
+		#region Click event handlers
 
 		/// <summary>
 		/// Handles the Click event of the Refresh button.
@@ -672,7 +682,7 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region DoubleClick Event handlers
+		#region DoubleClick event handlers
 
 		/// <summary>
 		/// Handles the DoubleClick event for the Refresh Rate text label.
@@ -836,7 +846,7 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region CheckedChanged Event handlers
+		#region CheckedChanged event handlers
 
 		/// <summary>
 		/// Handles the CheckedChanged event for the automatic refresh checkbox.
@@ -898,7 +908,7 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region ValueChanged Event handlers
+		#region ValueChanged event handlers
 
 		/// <summary>
 		/// Handles the ValueChanged event of the Refresh Rate numeric up-down control.
@@ -932,7 +942,7 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region Enter-Eventhandler
+		#region Enter event handlers
 
 		/// <summary>
 		/// Handles the Enter event for the UTC time label.
@@ -940,7 +950,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelUtcTimeText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelUtcTimeText);
+			UpdateLabelOnEnter(label: labelUtcTimeText);
 
 		/// <summary>
 		/// Handles the Enter event for the local time label.
@@ -948,7 +958,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelLocalTimeText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelLocalTimeText);
+			UpdateLabelOnEnter(label: labelLocalTimeText);
 
 		/// <summary>
 		/// Handles the Enter event for the Julian date label.
@@ -956,7 +966,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelJulianDateText);
+			UpdateLabelOnEnter(label: labelJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the modified Julian date label.
@@ -964,7 +974,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelModifiedJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelModifiedJulianDateText);
+			UpdateLabelOnEnter(label: labelModifiedJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the reduced Julian date label.
@@ -972,7 +982,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelReducedJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelReducedJulianDateText);
+			UpdateLabelOnEnter(label: labelReducedJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the truncated Julian date label.
@@ -980,7 +990,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelTruncatedJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelTruncatedJulianDateText);
+			UpdateLabelOnEnter(label: labelTruncatedJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the Dublin Julian date label.
@@ -988,7 +998,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelDublinJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelDublinJulianDateText);
+			UpdateLabelOnEnter(label: labelDublinJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the CNES Julian date label.
@@ -996,7 +1006,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelCnesJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelCnesJulianDateText);
+			UpdateLabelOnEnter(label: labelCnesJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the CCSDS Julian date label.
@@ -1004,7 +1014,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelCcsdsJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelCcsdsJulianDateText);
+			UpdateLabelOnEnter(label: labelCcsdsJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the LOP Julian date label.
@@ -1012,7 +1022,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelLopJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelLopJulianDateText);
+			UpdateLabelOnEnter(label: labelLopJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the Millennium Julian date label.
@@ -1020,7 +1030,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelMillenniumJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelMillenniumJulianDateText);
+			UpdateLabelOnEnter(label: labelMillenniumJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the chronological Julian date label.
@@ -1028,7 +1038,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelChronologicalJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelChronologicalJulianDateText);
+			UpdateLabelOnEnter(label: labelChronologicalJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the chronological modified Julian date label.
@@ -1036,7 +1046,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelChronologicalModifiedJulianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelChronologicalModifiedJulianDateText);
+			UpdateLabelOnEnter(label: labelChronologicalModifiedJulianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the Lilian date label.
@@ -1044,7 +1054,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelLilianDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelLilianDateText);
+			UpdateLabelOnEnter(label: labelLilianDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the Rata Die label.
@@ -1052,7 +1062,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelRataDieText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelRataDieText);
+			UpdateLabelOnEnter(label: labelRataDieText);
 
 		/// <summary>
 		/// Handles the Enter event for the Mars Sol date label.
@@ -1060,7 +1070,7 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelMarsSolDateText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelMarsSolDateText);
+			UpdateLabelOnEnter(label: labelMarsSolDateText);
 
 		/// <summary>
 		/// Handles the Enter event for the Unix time label.
@@ -1068,11 +1078,11 @@ namespace Julian_and_his_dates
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
 		private void LabelUnixtimeText_Enter(object sender, EventArgs e) =>
-			SetLabelEnterState(label: labelUnixtimeText);
+			UpdateLabelOnEnter(label: labelUnixtimeText);
 
 		#endregion
 
-		#region Leave-Eventhandler
+		#region Leave event handlers
 
 		/// <summary>
 		/// Handles the Leave event for the UTC time label.
@@ -1195,7 +1205,7 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region MouseEnter-Eventhandler
+		#region MouseEnter event handlers
 
 		/// <summary>
 		/// Handles the MouseEnter event for the UTC time label.
@@ -1500,7 +1510,7 @@ namespace Julian_and_his_dates
 
 		#endregion
 
-		#region MouseLeave-Eventhandler
+		#region MouseLeave event handlers
 
 		/// <summary>
 		/// Handles the MouseLeave event for the UTC time label text.
@@ -1742,5 +1752,22 @@ namespace Julian_and_his_dates
 
 		#endregion
 
+		#region KeyDown event handlers
+
+		/// <summary>
+		/// Handles the KeyDown event of the ExportDataSheetForm.
+		/// Closes the form when the Escape key is pressed.
+		/// </summary>
+		/// <param name="sender">The event source.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		private void JulianandhisdatesForm_KeyDown(object? sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Escape)
+			{
+				this.Close();
+			}
+		}
+
+		#endregion
 	}
 }
