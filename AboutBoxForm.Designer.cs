@@ -37,11 +37,11 @@
 			labelVersion = new Label();
 			labelProductName = new Label();
 			logoPictureBox = new PictureBox();
+			ContentPanel = new ToolStripContentPanel();
 			BottomToolStripPanel = new ToolStripPanel();
 			TopToolStripPanel = new ToolStripPanel();
 			RightToolStripPanel = new ToolStripPanel();
 			LeftToolStripPanel = new ToolStripPanel();
-			ContentPanel = new ToolStripContentPanel();
 			tableLayoutPanel = new TableLayoutPanel();
 			statusStrip = new StatusStrip();
 			labelInformation = new ToolStripStatusLabel();
@@ -205,8 +205,18 @@
 			logoPictureBox.MouseEnter += SetStatusbar_Enter;
 			logoPictureBox.MouseLeave += ClearStatusbar_Leave;
 			// 
+			// ContentPanel
+			// 
+			ContentPanel.AccessibleDescription = "Just a pane to justify the elements";
+			ContentPanel.AccessibleName = "Pane";
+			ContentPanel.AccessibleRole = AccessibleRole.Pane;
+			ContentPanel.Size = new Size(304, 138);
+			// 
 			// BottomToolStripPanel
 			// 
+			BottomToolStripPanel.AccessibleDescription = "Just a pane to justify the elements";
+			BottomToolStripPanel.AccessibleName = "Pane";
+			BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 			BottomToolStripPanel.Location = new Point(0, 0);
 			BottomToolStripPanel.Name = "BottomToolStripPanel";
 			BottomToolStripPanel.Orientation = Orientation.Horizontal;
@@ -215,6 +225,9 @@
 			// 
 			// TopToolStripPanel
 			// 
+			TopToolStripPanel.AccessibleDescription = "Just a pane to justify the elements";
+			TopToolStripPanel.AccessibleName = "Pane";
+			TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 			TopToolStripPanel.Location = new Point(0, 0);
 			TopToolStripPanel.Name = "TopToolStripPanel";
 			TopToolStripPanel.Orientation = Orientation.Horizontal;
@@ -223,6 +236,9 @@
 			// 
 			// RightToolStripPanel
 			// 
+			RightToolStripPanel.AccessibleDescription = "Just a pane to justify the elements";
+			RightToolStripPanel.AccessibleName = "Pane";
+			RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 			RightToolStripPanel.Location = new Point(0, 0);
 			RightToolStripPanel.Name = "RightToolStripPanel";
 			RightToolStripPanel.Orientation = Orientation.Horizontal;
@@ -231,15 +247,14 @@
 			// 
 			// LeftToolStripPanel
 			// 
+			LeftToolStripPanel.AccessibleDescription = "Just a pane to justify the elements";
+			LeftToolStripPanel.AccessibleName = "Pane";
+			LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 			LeftToolStripPanel.Location = new Point(0, 0);
 			LeftToolStripPanel.Name = "LeftToolStripPanel";
 			LeftToolStripPanel.Orientation = Orientation.Horizontal;
 			LeftToolStripPanel.RowMargin = new Padding(3, 0, 0, 0);
 			LeftToolStripPanel.Size = new Size(0, 0);
-			// 
-			// ContentPanel
-			// 
-			ContentPanel.Size = new Size(304, 138);
 			// 
 			// tableLayoutPanel
 			// 
@@ -272,6 +287,9 @@
 			// 
 			// statusStrip
 			// 
+			statusStrip.AccessibleDescription = "Statusbar";
+			statusStrip.AccessibleName = "Statusbar";
+			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
 			statusStrip.Dock = DockStyle.None;
 			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 			statusStrip.Location = new Point(0, 0);
@@ -286,6 +304,9 @@
 			// 
 			// labelInformation
 			// 
+			labelInformation.AccessibleDescription = "Show some information";
+			labelInformation.AccessibleName = "Show some information";
+			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Name = "labelInformation";
 			labelInformation.Size = new Size(56, 17);
@@ -296,6 +317,9 @@
 			// 
 			// toolStripContainer
 			// 
+			toolStripContainer.AccessibleDescription = "Just a pane to justify the elements";
+			toolStripContainer.AccessibleName = "Pane";
+			toolStripContainer.AccessibleRole = AccessibleRole.Pane;
 			// 
 			// toolStripContainer.BottomToolStripPanel
 			// 

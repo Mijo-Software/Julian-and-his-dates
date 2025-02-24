@@ -122,8 +122,8 @@
 			labelJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelJulianDate, "Double-click to copy into the clipboard");
 			labelJulianDate.DoubleClick += LabelJulianDate_DoubleClick;
-			labelJulianDate.Enter += LabelJulianDate_Enter;
-			labelJulianDate.Leave += LabelJulianDate_Leave;
+			labelJulianDate.Enter += SetStatusbar_Enter;
+			labelJulianDate.Leave += ClearStatusBar_Leave;
 			labelJulianDate.MouseEnter += LabelJulianDate_MouseEnter;
 			labelJulianDate.MouseLeave += LabelJulianDate_MouseLeave;
 			// 
@@ -143,10 +143,10 @@
 			toolTip.SetToolTip(buttonRefresh, "If enabled you can manually refresh the dates");
 			buttonRefresh.UseVisualStyleBackColor = true;
 			buttonRefresh.Click += ButtonRefresh_Click;
-			buttonRefresh.Enter += ButtonRefresh_Enter;
-			buttonRefresh.Leave += ButtonRefresh_Leave;
-			buttonRefresh.MouseEnter += ButtonRefresh_MouseEnter;
-			buttonRefresh.MouseLeave += ButtonRefresh_MouseLeave;
+			buttonRefresh.Enter += SetStatusbar_Enter;
+			buttonRefresh.Leave += ClearStatusBar_Leave;
+			buttonRefresh.MouseEnter += SetStatusbar_Enter;
+			buttonRefresh.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// checkBoxAutomaticRefresh
 			// 
@@ -166,10 +166,10 @@
 			toolTip.SetToolTip(checkBoxAutomaticRefresh, "Enable/Disable to set the automatic refresh of the dates");
 			checkBoxAutomaticRefresh.UseVisualStyleBackColor = true;
 			checkBoxAutomaticRefresh.CheckedChanged += CheckBoxAutomaticRefresh_CheckedChanged;
-			checkBoxAutomaticRefresh.Enter += CheckBoxAutomaticRefresh_Enter;
-			checkBoxAutomaticRefresh.Leave += CheckBoxAutomaticRefresh_Leave;
-			checkBoxAutomaticRefresh.MouseEnter += CheckBoxAutomaticRefresh_MouseEnter;
-			checkBoxAutomaticRefresh.MouseLeave += CheckBoxAutomaticRefresh_MouseLeave;
+			checkBoxAutomaticRefresh.Enter += SetStatusbar_Enter;
+			checkBoxAutomaticRefresh.Leave += ClearStatusBar_Leave;
+			checkBoxAutomaticRefresh.MouseEnter += SetStatusbar_Enter;
+			checkBoxAutomaticRefresh.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelModifiedJulianDateText
 			// 
@@ -208,8 +208,8 @@
 			labelModifiedJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelModifiedJulianDate, "Double-click to copy into the clipboard");
 			labelModifiedJulianDate.DoubleClick += LabelModifiedJulianDate_DoubleClick;
-			labelModifiedJulianDate.Enter += LabelModifiedJulianDate_Enter;
-			labelModifiedJulianDate.Leave += LabelModifiedJulianDate_Leave;
+			labelModifiedJulianDate.Enter += SetStatusbar_Enter;
+			labelModifiedJulianDate.Leave += ClearStatusBar_Leave;
 			labelModifiedJulianDate.MouseEnter += LabelModifiedJulianDate_MouseEnter;
 			labelModifiedJulianDate.MouseLeave += LabelModifiedJulianDate_MouseLeave;
 			// 
@@ -229,8 +229,8 @@
 			labelReducedJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelReducedJulianDate, "Double-click to copy into the clipboard");
 			labelReducedJulianDate.DoubleClick += LabelReducedJulianDate_DoubleClick;
-			labelReducedJulianDate.Enter += LabelReducedJulianDate_Enter;
-			labelReducedJulianDate.Leave += LabelReducedJulianDate_Leave;
+			labelReducedJulianDate.Enter += SetStatusbar_Enter;
+			labelReducedJulianDate.Leave += ClearStatusBar_Leave;
 			labelReducedJulianDate.MouseEnter += LabelReducedJulianDate_MouseEnter;
 			labelReducedJulianDate.MouseLeave += LabelReducedJulianDate_MouseLeave;
 			// 
@@ -271,8 +271,8 @@
 			labelTruncatedJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelTruncatedJulianDate, "Double-click to copy into the clipboard");
 			labelTruncatedJulianDate.DoubleClick += LabelTruncatedJulianDate_DoubleClick;
-			labelTruncatedJulianDate.Enter += LabelTruncatedJulianDate_Enter;
-			labelTruncatedJulianDate.Leave += LabelTruncatedJulianDate_Leave;
+			labelTruncatedJulianDate.Enter += SetStatusbar_Enter;
+			labelTruncatedJulianDate.Leave += ClearStatusBar_Leave;
 			labelTruncatedJulianDate.MouseEnter += LabelTruncatedJulianDate_MouseEnter;
 			labelTruncatedJulianDate.MouseLeave += LabelTruncatedJulianDate_MouseLeave;
 			// 
@@ -313,8 +313,8 @@
 			labelDublinJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelDublinJulianDate, "Double-click to copy into the clipboard");
 			labelDublinJulianDate.DoubleClick += LabelDublinJulianDate_DoubleClick;
-			labelDublinJulianDate.Enter += LabelDublinJulianDate_Enter;
-			labelDublinJulianDate.Leave += LabelDublinJulianDate_Leave;
+			labelDublinJulianDate.Enter += SetStatusbar_Enter;
+			labelDublinJulianDate.Leave += ClearStatusBar_Leave;
 			labelDublinJulianDate.MouseEnter += LabelDublinJulianDate_MouseEnter;
 			labelDublinJulianDate.MouseLeave += LabelDublinJulianDate_MouseLeave;
 			// 
@@ -355,8 +355,8 @@
 			labelCnesJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelCnesJulianDate, "Double-click to copy into the clipboard");
 			labelCnesJulianDate.DoubleClick += LabelCnesJulianDate_DoubleClick;
-			labelCnesJulianDate.Enter += LabelCnesJulianDate_Enter;
-			labelCnesJulianDate.Leave += LabelCnesJulianDate_Leave;
+			labelCnesJulianDate.Enter += SetStatusbar_Enter;
+			labelCnesJulianDate.Leave += ClearStatusBar_Leave;
 			labelCnesJulianDate.MouseEnter += LabelCnesJulianDate_MouseEnter;
 			labelCnesJulianDate.MouseLeave += LabelCnesJulianDate_MouseLeave;
 			// 
@@ -397,8 +397,8 @@
 			labelCcsdsJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelCcsdsJulianDate, "Double-click to copy into the clipboard");
 			labelCcsdsJulianDate.DoubleClick += LabelCcsdsJulianDate_DoubleClick;
-			labelCcsdsJulianDate.Enter += LabelCcsdsJulianDate_Enter;
-			labelCcsdsJulianDate.Leave += LabelCcsdsJulianDate_Leave;
+			labelCcsdsJulianDate.Enter += SetStatusbar_Enter;
+			labelCcsdsJulianDate.Leave += ClearStatusBar_Leave;
 			labelCcsdsJulianDate.MouseEnter += LabelCcsdsJulianDate_MouseEnter;
 			labelCcsdsJulianDate.MouseLeave += LabelCcsdsJulianDate_MouseLeave;
 			// 
@@ -439,8 +439,8 @@
 			labelLopJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelLopJulianDate, "Double-click to copy into the clipboard");
 			labelLopJulianDate.DoubleClick += LabelLopJulianDate_DoubleClick;
-			labelLopJulianDate.Enter += LabelLopJulianDate_Enter;
-			labelLopJulianDate.Leave += LabelLopJulianDate_Leave;
+			labelLopJulianDate.Enter += SetStatusbar_Enter;
+			labelLopJulianDate.Leave += ClearStatusBar_Leave;
 			labelLopJulianDate.MouseEnter += LabelLopJulianDate_MouseEnter;
 			labelLopJulianDate.MouseLeave += LabelLopJulianDate_MouseLeave;
 			// 
@@ -481,8 +481,8 @@
 			labelMillenniumJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelMillenniumJulianDate, "Double-click to copy into the clipboard");
 			labelMillenniumJulianDate.DoubleClick += LabelMillenniumJulianDate_DoubleClick;
-			labelMillenniumJulianDate.Enter += LabelMillenniumJulianDate_Enter;
-			labelMillenniumJulianDate.Leave += LabelMillenniumJulianDate_Leave;
+			labelMillenniumJulianDate.Enter += SetStatusbar_Enter;
+			labelMillenniumJulianDate.Leave += ClearStatusBar_Leave;
 			labelMillenniumJulianDate.MouseEnter += LabelMillenniumJulianDate_MouseEnter;
 			labelMillenniumJulianDate.MouseLeave += LabelMillenniumJulianDate_MouseLeave;
 			// 
@@ -523,10 +523,10 @@
 			toolTip.SetToolTip(buttonInfo, "Show some information");
 			buttonInfo.UseVisualStyleBackColor = true;
 			buttonInfo.Click += ButtonInfo_Click;
-			buttonInfo.Enter += ButtonInfo_Enter;
-			buttonInfo.Leave += ButtonInfo_Leave;
-			buttonInfo.MouseEnter += ButtonInfo_MouseEnter;
-			buttonInfo.MouseLeave += ButtonInfo_MouseLeave;
+			buttonInfo.Enter += SetStatusbar_Enter;
+			buttonInfo.Leave += ClearStatusBar_Leave;
+			buttonInfo.MouseEnter += SetStatusbar_Enter;
+			buttonInfo.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// buttonMinimizeToTray
 			// 
@@ -544,10 +544,10 @@
 			toolTip.SetToolTip(buttonMinimizeToTray, "Minimize the application to the tray");
 			buttonMinimizeToTray.UseVisualStyleBackColor = true;
 			buttonMinimizeToTray.Click += ButtonMinimizeToTray_Click;
-			buttonMinimizeToTray.Enter += ButtonMinimizeToTray_Enter;
-			buttonMinimizeToTray.Leave += ButtonMinimizeToTray_Leave;
-			buttonMinimizeToTray.MouseEnter += ButtonMinimizeToTray_MouseEnter;
-			buttonMinimizeToTray.MouseLeave += ButtonMinimizeToTray_MouseLeave;
+			buttonMinimizeToTray.Enter += SetStatusbar_Enter;
+			buttonMinimizeToTray.Leave += ClearStatusBar_Leave;
+			buttonMinimizeToTray.MouseEnter += SetStatusbar_Enter;
+			buttonMinimizeToTray.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// checkBoxStayOnTop
 			// 
@@ -567,10 +567,10 @@
 			toolTip.SetToolTip(checkBoxStayOnTop, "Enable/Disable to set the application on top");
 			checkBoxStayOnTop.UseVisualStyleBackColor = true;
 			checkBoxStayOnTop.CheckedChanged += CheckBoxStayOnTop_CheckedChanged;
-			checkBoxStayOnTop.Enter += CheckBoxStayOnTop_Enter;
-			checkBoxStayOnTop.Leave += CheckBoxStayOnTop_Leave;
-			checkBoxStayOnTop.MouseEnter += CheckBoxStayOnTop_MouseEnter;
-			checkBoxStayOnTop.MouseLeave += CheckBoxStayOnTop_MouseLeave;
+			checkBoxStayOnTop.Enter += SetStatusbar_Enter;
+			checkBoxStayOnTop.Leave += ClearStatusBar_Leave;
+			checkBoxStayOnTop.MouseEnter += SetStatusbar_Enter;
+			checkBoxStayOnTop.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// checkBoxDarkLightMode
 			// 
@@ -590,10 +590,10 @@
 			toolTip.SetToolTip(checkBoxDarkLightMode, "Enable/Disable the dark mode");
 			checkBoxDarkLightMode.UseVisualStyleBackColor = true;
 			checkBoxDarkLightMode.CheckedChanged += CheckBoxDarkLightMode_CheckedChanged;
-			checkBoxDarkLightMode.Enter += CheckBoxDarkLightMode_Enter;
-			checkBoxDarkLightMode.Leave += CheckBoxDarkLightMode_Leave;
-			checkBoxDarkLightMode.MouseEnter += CheckBoxDarkLightMode_MouseEnter;
-			checkBoxDarkLightMode.MouseLeave += CheckBoxDarkLightMode_MouseLeave;
+			checkBoxDarkLightMode.Enter += SetStatusbar_Enter;
+			checkBoxDarkLightMode.Leave += ClearStatusBar_Leave;
+			checkBoxDarkLightMode.MouseEnter += SetStatusbar_Enter;
+			checkBoxDarkLightMode.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelLocalTimeText
 			// 
@@ -632,8 +632,8 @@
 			labelLocalTime.Text = "[your local time here]";
 			toolTip.SetToolTip(labelLocalTime, "Double-click to copy into the clipboard");
 			labelLocalTime.DoubleClick += LabelLocalTime_DoubleClick;
-			labelLocalTime.Enter += LabelLocalTime_Enter;
-			labelLocalTime.Leave += LabelLocalTime_Leave;
+			labelLocalTime.Enter += SetStatusbar_Enter;
+			labelLocalTime.Leave += ClearStatusBar_Leave;
 			labelLocalTime.MouseEnter += LabelLocalTime_MouseEnter;
 			labelLocalTime.MouseLeave += LabelLocalTime_MouseLeave;
 			// 
@@ -653,8 +653,8 @@
 			labelUtcTime.Text = "[your UTC time here]";
 			toolTip.SetToolTip(labelUtcTime, "Double-click to copy into the clipboard");
 			labelUtcTime.DoubleClick += LabelUtcTime_DoubleClick;
-			labelUtcTime.Enter += LabelUtcTime_Enter;
-			labelUtcTime.Leave += LabelUtcTime_Leave;
+			labelUtcTime.Enter += SetStatusbar_Enter;
+			labelUtcTime.Leave += ClearStatusBar_Leave;
 			labelUtcTime.MouseEnter += LabelUtcTime_MouseEnter;
 			labelUtcTime.MouseLeave += LabelUtcTime_MouseLeave;
 			// 
@@ -695,8 +695,8 @@
 			labelChronologicalJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelChronologicalJulianDate, "Double-click to copy into the clipboard");
 			labelChronologicalJulianDate.DoubleClick += LabelChronologicalJulianDate_DoubleClick;
-			labelChronologicalJulianDate.Enter += LabelChronologicalJulianDate_Enter;
-			labelChronologicalJulianDate.Leave += LabelChronologicalJulianDate_Leave;
+			labelChronologicalJulianDate.Enter += SetStatusbar_Enter;
+			labelChronologicalJulianDate.Leave += ClearStatusBar_Leave;
 			labelChronologicalJulianDate.MouseEnter += LabelChronologicalJulianDate_MouseEnter;
 			labelChronologicalJulianDate.MouseLeave += LabelChronologicalJulianDate_MouseLeave;
 			// 
@@ -737,8 +737,8 @@
 			labelChronologicalModifiedJulianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelChronologicalModifiedJulianDate, "Double-click to copy into the clipboard");
 			labelChronologicalModifiedJulianDate.DoubleClick += LabelChronologicalModifiedJulianDate_DoubleClick;
-			labelChronologicalModifiedJulianDate.Enter += LabelChronologicalModifiedJulianDate_Enter;
-			labelChronologicalModifiedJulianDate.Leave += LabelChronologicalModifiedJulianDate_Leave;
+			labelChronologicalModifiedJulianDate.Enter += SetStatusbar_Enter;
+			labelChronologicalModifiedJulianDate.Leave += ClearStatusBar_Leave;
 			labelChronologicalModifiedJulianDate.MouseEnter += LabelChronologicalModifiedJulianDate_MouseEnter;
 			labelChronologicalModifiedJulianDate.MouseLeave += LabelChronologicalModifiedJulianDate_MouseLeave;
 			// 
@@ -779,8 +779,8 @@
 			labelLilianDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelLilianDate, "Double-click to copy into the clipboard");
 			labelLilianDate.DoubleClick += LabelLilianDate_DoubleClick;
-			labelLilianDate.Enter += LabelLilianDate_Enter;
-			labelLilianDate.Leave += LabelLilianDate_Leave;
+			labelLilianDate.Enter += SetStatusbar_Enter;
+			labelLilianDate.Leave += ClearStatusBar_Leave;
 			labelLilianDate.MouseEnter += LabelLilianDate_MouseEnter;
 			labelLilianDate.MouseLeave += LabelLilianDate_MouseLeave;
 			// 
@@ -821,8 +821,8 @@
 			labelRataDie.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelRataDie, "Double-click to copy into the clipboard");
 			labelRataDie.DoubleClick += LabelRataDie_DoubleClick;
-			labelRataDie.Enter += LabelRataDie_Enter;
-			labelRataDie.Leave += LabelRataDie_Leave;
+			labelRataDie.Enter += SetStatusbar_Enter;
+			labelRataDie.Leave += ClearStatusBar_Leave;
 			labelRataDie.MouseEnter += LabelRataDie_MouseEnter;
 			labelRataDie.MouseLeave += LabelRataDie_MouseLeave;
 			// 
@@ -863,8 +863,8 @@
 			labelMarsSolDate.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelMarsSolDate, "Double-click to copy into the clipboard");
 			labelMarsSolDate.DoubleClick += LabelMarsSolDate_DoubleClick;
-			labelMarsSolDate.Enter += LabelMarsSolDate_Enter;
-			labelMarsSolDate.Leave += LabelMarsSolDate_Leave;
+			labelMarsSolDate.Enter += SetStatusbar_Enter;
+			labelMarsSolDate.Leave += ClearStatusBar_Leave;
 			labelMarsSolDate.MouseEnter += LabelMarsSolDate_MouseEnter;
 			labelMarsSolDate.MouseLeave += LabelMarsSolDate_MouseLeave;
 			// 
@@ -905,8 +905,8 @@
 			labelUnixtime.Text = "[your Julian date here]";
 			toolTip.SetToolTip(labelUnixtime, "Double-click to copy into the clipboard");
 			labelUnixtime.DoubleClick += LabelUnixtime_DoubleClick;
-			labelUnixtime.Enter += LabelUnixtime_Enter;
-			labelUnixtime.Leave += LabelUnixtime_Leave;
+			labelUnixtime.Enter += SetStatusbar_Enter;
+			labelUnixtime.Leave += ClearStatusBar_Leave;
 			labelUnixtime.MouseEnter += LabelUnixtime_MouseEnter;
 			labelUnixtime.MouseLeave += LabelUnixtime_MouseLeave;
 			// 
@@ -947,10 +947,10 @@
 			toolTip.SetToolTip(buttonOpenJulianDateCalculator, "Open the Julian Dates Calculator");
 			buttonOpenJulianDateCalculator.UseVisualStyleBackColor = true;
 			buttonOpenJulianDateCalculator.Click += ButtonOpenJulianDateCalculator_Click;
-			buttonOpenJulianDateCalculator.Enter += ButtonOpenJulianDateCalculator_Enter;
-			buttonOpenJulianDateCalculator.Leave += ButtonOpenJulianDateCalculator_Leave;
-			buttonOpenJulianDateCalculator.MouseEnter += ButtonOpenJulianDateCalculator_MouseEnter;
-			buttonOpenJulianDateCalculator.MouseLeave += ButtonOpenJulianDateCalculator_MouseLeave;
+			buttonOpenJulianDateCalculator.Enter += SetStatusbar_Enter;
+			buttonOpenJulianDateCalculator.Leave += ClearStatusBar_Leave;
+			buttonOpenJulianDateCalculator.MouseEnter += SetStatusbar_Enter;
+			buttonOpenJulianDateCalculator.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// buttonOpenJulianDateConverter
 			// 
@@ -969,10 +969,10 @@
 			buttonOpenJulianDateConverter.UseVisualStyleBackColor = true;
 			buttonOpenJulianDateConverter.Visible = false;
 			buttonOpenJulianDateConverter.Click += ButtonOpenJulianDateConverter_Click;
-			buttonOpenJulianDateConverter.Enter += ButtonOpenJulianDateConverter_Enter;
-			buttonOpenJulianDateConverter.Leave += ButtonOpenJulianDateConverter_Leave;
-			buttonOpenJulianDateConverter.MouseEnter += ButtonOpenJulianDateConverter_MouseEnter;
-			buttonOpenJulianDateConverter.MouseLeave += ButtonOpenJulianDateConverter_MouseLeave;
+			buttonOpenJulianDateConverter.Enter += SetStatusbar_Enter;
+			buttonOpenJulianDateConverter.Leave += ClearStatusBar_Leave;
+			buttonOpenJulianDateConverter.MouseEnter += SetStatusbar_Enter;
+			buttonOpenJulianDateConverter.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// numericUpDownRefreshRate
 			// 
@@ -992,8 +992,8 @@
 			toolTip.SetToolTip(numericUpDownRefreshRate, "Refresh rate in milliseconds");
 			numericUpDownRefreshRate.Value = new decimal(new int[] { 1, 0, 0, 0 });
 			numericUpDownRefreshRate.ValueChanged += NumericUpDownRefreshRate_ValueChanged;
-			numericUpDownRefreshRate.Enter += NumericUpDownRefreshRate_Enter;
-			numericUpDownRefreshRate.Leave += NumericUpDownRefreshRate_Leave;
+			numericUpDownRefreshRate.Enter += SetStatusbar_Enter;
+			numericUpDownRefreshRate.Leave += ClearStatusBar_Leave;
 			// 
 			// labelRefreshRateText
 			// 
@@ -1011,10 +1011,10 @@
 			labelRefreshRateText.Text = "refresh rate";
 			toolTip.SetToolTip(labelRefreshRateText, "Refresh rate in milliseconds");
 			labelRefreshRateText.DoubleClick += LabelRefreshRateText_DoubleClick;
-			labelRefreshRateText.Enter += LabelRefreshRateText_Enter;
-			labelRefreshRateText.Leave += LabelRefreshRateText_Leave;
-			labelRefreshRateText.MouseEnter += LabelRefreshRateText_MouseEnter;
-			labelRefreshRateText.MouseLeave += LabelRefreshRateText_MouseLeave;
+			labelRefreshRateText.Enter += SetStatusbar_Enter;
+			labelRefreshRateText.Leave += ClearStatusBar_Leave;
+			labelRefreshRateText.MouseEnter += SetStatusbar_Enter;
+			labelRefreshRateText.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// notifyIcon
 			// 
@@ -1045,6 +1045,10 @@
 			statusStrip.TabIndex = 44;
 			statusStrip.TabStop = true;
 			statusStrip.Text = "statusStrip";
+			statusStrip.Enter += SetStatusbar_Enter;
+			statusStrip.Leave += ClearStatusBar_Leave;
+			statusStrip.MouseEnter += SetStatusbar_Enter;
+			statusStrip.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// toolStripStatusLabelInformation
 			// 
@@ -1052,11 +1056,13 @@
 			toolStripStatusLabelInformation.AccessibleName = "Information Label";
 			toolStripStatusLabelInformation.AccessibleRole = AccessibleRole.StaticText;
 			toolStripStatusLabelInformation.AutoToolTip = true;
-			toolStripStatusLabelInformation.Image = Julian_and_his_dates.Properties.Resources.information;
+			toolStripStatusLabelInformation.Image = Properties.Resources.information;
 			toolStripStatusLabelInformation.Margin = new Padding(2, 3, 2, 3);
 			toolStripStatusLabelInformation.Name = "toolStripStatusLabelInformation";
 			toolStripStatusLabelInformation.Size = new Size(86, 16);
 			toolStripStatusLabelInformation.Text = "Information";
+			toolStripStatusLabelInformation.MouseEnter += SetStatusbar_Enter;
+			toolStripStatusLabelInformation.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// toolStripStatusLabelAlarm
 			// 
@@ -1064,13 +1070,15 @@
 			toolStripStatusLabelAlarm.AccessibleName = "Alarm Label";
 			toolStripStatusLabelAlarm.AccessibleRole = AccessibleRole.StaticText;
 			toolStripStatusLabelAlarm.AutoToolTip = true;
-			toolStripStatusLabelAlarm.Image = Julian_and_his_dates.Properties.Resources.sound;
+			toolStripStatusLabelAlarm.Image = Properties.Resources.sound;
 			toolStripStatusLabelAlarm.Margin = new Padding(2, 3, 2, 3);
 			toolStripStatusLabelAlarm.Name = "toolStripStatusLabelAlarm";
 			toolStripStatusLabelAlarm.Size = new Size(55, 16);
 			toolStripStatusLabelAlarm.Text = "Alarm";
 			toolStripStatusLabelAlarm.ToolTipText = "Click to set alarm on/off";
 			toolStripStatusLabelAlarm.Click += ToolStripStatusLabelAlarm_Click;
+			toolStripStatusLabelAlarm.MouseEnter += SetStatusbar_Enter;
+			toolStripStatusLabelAlarm.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// toolStripStatusLabelTakeScreenshot
 			// 
@@ -1078,13 +1086,15 @@
 			toolStripStatusLabelTakeScreenshot.AccessibleName = "Screeshot Label";
 			toolStripStatusLabelTakeScreenshot.AccessibleRole = AccessibleRole.StaticText;
 			toolStripStatusLabelTakeScreenshot.AutoToolTip = true;
-			toolStripStatusLabelTakeScreenshot.Image = Julian_and_his_dates.Properties.Resources.camera;
+			toolStripStatusLabelTakeScreenshot.Image = Properties.Resources.camera;
 			toolStripStatusLabelTakeScreenshot.Margin = new Padding(2, 3, 2, 3);
 			toolStripStatusLabelTakeScreenshot.Name = "toolStripStatusLabelTakeScreenshot";
 			toolStripStatusLabelTakeScreenshot.Size = new Size(81, 16);
 			toolStripStatusLabelTakeScreenshot.Text = "Screenshot";
 			toolStripStatusLabelTakeScreenshot.ToolTipText = "Click to take a screenshot";
 			toolStripStatusLabelTakeScreenshot.Click += ToolStripStatusLabelTakeScreenshot_Click;
+			toolStripStatusLabelTakeScreenshot.MouseEnter += SetStatusbar_Enter;
+			toolStripStatusLabelTakeScreenshot.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// JulianandhisdatesForm
 			// 
