@@ -1,11 +1,14 @@
-﻿namespace Julian_and_his_dates
+﻿using System.ComponentModel;
+using Julian_and_his_dates.Properties;
+
+namespace Julian_and_his_dates
 {
 	partial class JulianDateConverterForm
 	{
 		/// <summary>
 		/// Erforderliche Designervariable.
 		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+		private IContainer components = null;
 
 		/// <summary>
 		/// Verwendete Ressourcen bereinigen.
@@ -28,8 +31,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JulianDateConverterForm));
+			components = new Container();
+			ComponentResourceManager resources = new ComponentResourceManager(typeof(JulianDateConverterForm));
 			labelUnixtimeText = new Label();
 			labelMarsSolDateText = new Label();
 			labelRataDieText = new Label();
@@ -85,11 +88,11 @@
 			labelUnixtimeText.Size = new Size(63, 15);
 			labelUnixtimeText.TabIndex = 32;
 			labelUnixtimeText.Text = "Unix Time:";
-			labelUnixtimeText.Click += LabelUnixtimeText_Click;
-			labelUnixtimeText.Enter += LabelUnixtimeText_Enter;
-			labelUnixtimeText.Leave += LabelUnixtimeText_Leave;
-			labelUnixtimeText.MouseEnter += LabelUnixtimeText_MouseEnter;
-			labelUnixtimeText.MouseLeave += LabelUnixtimeText_MouseLeave;
+			labelUnixtimeText.Click += LabelUnixTimeText_Click;
+			labelUnixtimeText.Enter += LabelUnixTimeText_Enter;
+			labelUnixtimeText.Leave += LabelUnixTimeText_Leave;
+			labelUnixtimeText.MouseEnter += LabelUnixTimeText_MouseEnter;
+			labelUnixtimeText.MouseLeave += LabelUnixTimeText_MouseLeave;
 			// 
 			// labelMarsSolDateText
 			// 
@@ -726,12 +729,12 @@
 			textboxUnixtime.Size = new Size(118, 16);
 			textboxUnixtime.TabIndex = 33;
 			textboxUnixtime.Text = "[your Julian date here]";
-			textboxUnixtime.TextChanged += TextboxUnixtime_TextChanged;
-			textboxUnixtime.Enter += TextboxUnixtime_Enter;
+			textboxUnixtime.TextChanged += TextboxUnixTime_TextChanged;
+			textboxUnixtime.Enter += TextboxUnixTime_Enter;
 			textboxUnixtime.KeyPress += TextboxUnixTime_KeyPress;
-			textboxUnixtime.Leave += TextboxUnixtime_Leave;
-			textboxUnixtime.MouseEnter += TextboxUnixtime_MouseEnter;
-			textboxUnixtime.MouseLeave += TextboxUnixtime_MouseLeave;
+			textboxUnixtime.Leave += TextboxUnixTime_Leave;
+			textboxUnixtime.MouseEnter += TextboxUnixTime_MouseEnter;
+			textboxUnixtime.MouseLeave += TextboxUnixTime_MouseLeave;
 			// 
 			// statusStrip
 			// 
@@ -755,7 +758,7 @@
 			toolStripStatusLabelInformation.AccessibleName = "Information Label";
 			toolStripStatusLabelInformation.AccessibleRole = AccessibleRole.StaticText;
 			toolStripStatusLabelInformation.AutoToolTip = true;
-			toolStripStatusLabelInformation.Image = Julian_and_his_dates.Properties.Resources.information;
+			toolStripStatusLabelInformation.Image = Resources.information;
 			toolStripStatusLabelInformation.Margin = new Padding(2, 3, 2, 3);
 			toolStripStatusLabelInformation.Name = "toolStripStatusLabelInformation";
 			toolStripStatusLabelInformation.Size = new Size(86, 16);
@@ -767,7 +770,7 @@
 			toolStripStatusLabelTakeScreenshot.AccessibleName = "Screenshot Label";
 			toolStripStatusLabelTakeScreenshot.AccessibleRole = AccessibleRole.StaticText;
 			toolStripStatusLabelTakeScreenshot.AutoToolTip = true;
-			toolStripStatusLabelTakeScreenshot.Image = Julian_and_his_dates.Properties.Resources.camera;
+			toolStripStatusLabelTakeScreenshot.Image = Resources.camera;
 			toolStripStatusLabelTakeScreenshot.Margin = new Padding(2, 3, 2, 3);
 			toolStripStatusLabelTakeScreenshot.Name = "toolStripStatusLabelTakeScreenshot";
 			toolStripStatusLabelTakeScreenshot.Size = new Size(81, 16);
