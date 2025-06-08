@@ -1,11 +1,13 @@
-﻿namespace Julian_and_his_dates
+﻿using System.ComponentModel;
+
+namespace Julian_and_his_dates
 {
-  partial class AboutBoxForm
+	sealed partial class AboutBoxForm
   {
     /// <summary>
     /// Erforderliche Designervariable.
     /// </summary>
-    private System.ComponentModel.IContainer components = null;
+    private IContainer components = null;
 
     /// <summary>
     /// Verwendete Ressourcen bereinigen.
@@ -27,8 +29,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBoxForm));
+			components = new Container();
+			ComponentResourceManager resources = new ComponentResourceManager(typeof(AboutBoxForm));
 			toolTip = new ToolTip(components);
 			okButton = new Button();
 			textBoxDescription = new TextBox();
@@ -46,7 +48,7 @@
 			statusStrip = new StatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			toolStripContainer = new ToolStripContainer();
-			((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
+			((ISupportInitialize)logoPictureBox).BeginInit();
 			tableLayoutPanel.SuspendLayout();
 			statusStrip.SuspendLayout();
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -70,10 +72,10 @@
 			okButton.TabIndex = 5;
 			okButton.Text = "&OK";
 			toolTip.SetToolTip(okButton, "Just a button to close the window");
-			okButton.Enter += SetStatusbar_Enter;
-			okButton.Leave += ClearStatusbar_Leave;
-			okButton.MouseEnter += SetStatusbar_Enter;
-			okButton.MouseLeave += ClearStatusbar_Leave;
+			okButton.Enter += SetStatusBar_Enter;
+			okButton.Leave += ClearStatusBar_Leave;
+			okButton.MouseEnter += SetStatusBar_Enter;
+			okButton.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// textBoxDescription
 			// 
@@ -92,10 +94,10 @@
 			textBoxDescription.TabStop = false;
 			textBoxDescription.Text = "Description";
 			toolTip.SetToolTip(textBoxDescription, "This is a longer description of the application.");
-			textBoxDescription.Enter += SetStatusbar_Enter;
-			textBoxDescription.Leave += ClearStatusbar_Leave;
-			textBoxDescription.MouseEnter += SetStatusbar_Enter;
-			textBoxDescription.MouseLeave += ClearStatusbar_Leave;
+			textBoxDescription.Enter += SetStatusBar_Enter;
+			textBoxDescription.Leave += ClearStatusBar_Leave;
+			textBoxDescription.MouseEnter += SetStatusBar_Enter;
+			textBoxDescription.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelCompanyName
 			// 
@@ -114,10 +116,10 @@
 			labelCompanyName.Text = "Firm Name";
 			labelCompanyName.TextAlign = ContentAlignment.MiddleLeft;
 			toolTip.SetToolTip(labelCompanyName, "This is the firm name of the application.");
-			labelCompanyName.Enter += SetStatusbar_Enter;
-			labelCompanyName.Leave += ClearStatusbar_Leave;
-			labelCompanyName.MouseEnter += SetStatusbar_Enter;
-			labelCompanyName.MouseLeave += ClearStatusbar_Leave;
+			labelCompanyName.Enter += SetStatusBar_Enter;
+			labelCompanyName.Leave += ClearStatusBar_Leave;
+			labelCompanyName.MouseEnter += SetStatusBar_Enter;
+			labelCompanyName.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelCopyright
 			// 
@@ -136,10 +138,10 @@
 			labelCopyright.Text = "Copyright";
 			labelCopyright.TextAlign = ContentAlignment.MiddleLeft;
 			toolTip.SetToolTip(labelCopyright, "This is the copyright information of the application.");
-			labelCopyright.Enter += SetStatusbar_Enter;
-			labelCopyright.Leave += ClearStatusbar_Leave;
-			labelCopyright.MouseEnter += SetStatusbar_Enter;
-			labelCopyright.MouseLeave += ClearStatusbar_Leave;
+			labelCopyright.Enter += SetStatusBar_Enter;
+			labelCopyright.Leave += ClearStatusBar_Leave;
+			labelCopyright.MouseEnter += SetStatusBar_Enter;
+			labelCopyright.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelVersion
 			// 
@@ -158,10 +160,10 @@
 			labelVersion.Text = "Version";
 			labelVersion.TextAlign = ContentAlignment.MiddleLeft;
 			toolTip.SetToolTip(labelVersion, "This is the version of the application.");
-			labelVersion.Enter += SetStatusbar_Enter;
-			labelVersion.Leave += ClearStatusbar_Leave;
-			labelVersion.MouseEnter += SetStatusbar_Enter;
-			labelVersion.MouseLeave += ClearStatusbar_Leave;
+			labelVersion.Enter += SetStatusBar_Enter;
+			labelVersion.Leave += ClearStatusBar_Leave;
+			labelVersion.MouseEnter += SetStatusBar_Enter;
+			labelVersion.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelProductName
 			// 
@@ -180,10 +182,10 @@
 			labelProductName.Text = "Product Name";
 			labelProductName.TextAlign = ContentAlignment.MiddleLeft;
 			toolTip.SetToolTip(labelProductName, "This is the name of the application.");
-			labelProductName.Enter += SetStatusbar_Enter;
-			labelProductName.Leave += ClearStatusbar_Leave;
-			labelProductName.MouseEnter += SetStatusbar_Enter;
-			labelProductName.MouseLeave += ClearStatusbar_Leave;
+			labelProductName.Enter += SetStatusBar_Enter;
+			labelProductName.Leave += ClearStatusBar_Leave;
+			labelProductName.MouseEnter += SetStatusBar_Enter;
+			labelProductName.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// logoPictureBox
 			// 
@@ -202,8 +204,8 @@
 			logoPictureBox.TabStop = false;
 			toolTip.SetToolTip(logoPictureBox, "This is the logo of the application.");
 			logoPictureBox.Click += LogoPictureBox_Click;
-			logoPictureBox.MouseEnter += SetStatusbar_Enter;
-			logoPictureBox.MouseLeave += ClearStatusbar_Leave;
+			logoPictureBox.MouseEnter += SetStatusBar_Enter;
+			logoPictureBox.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// ContentPanel
 			// 
@@ -297,10 +299,10 @@
 			statusStrip.Size = new Size(304, 22);
 			statusStrip.TabIndex = 1;
 			statusStrip.Text = "Statusbar";
-			statusStrip.Enter += SetStatusbar_Enter;
-			statusStrip.Leave += ClearStatusbar_Leave;
-			statusStrip.MouseEnter += SetStatusbar_Enter;
-			statusStrip.MouseLeave += ClearStatusbar_Leave;
+			statusStrip.Enter += SetStatusBar_Enter;
+			statusStrip.Leave += ClearStatusBar_Leave;
+			statusStrip.MouseEnter += SetStatusBar_Enter;
+			statusStrip.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelInformation
 			// 
@@ -312,8 +314,8 @@
 			labelInformation.Size = new Size(56, 17);
 			labelInformation.Text = "Statusbar";
 			labelInformation.ToolTipText = "Statusbar";
-			labelInformation.MouseEnter += SetStatusbar_Enter;
-			labelInformation.MouseLeave += ClearStatusbar_Leave;
+			labelInformation.MouseEnter += SetStatusBar_Enter;
+			labelInformation.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// toolStripContainer
 			// 
@@ -357,7 +359,7 @@
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "About";
 			Load += AboutBoxForm_Load;
-			((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
+			((ISupportInitialize)logoPictureBox).EndInit();
 			tableLayoutPanel.ResumeLayout(false);
 			tableLayoutPanel.PerformLayout();
 			statusStrip.ResumeLayout(false);
@@ -372,7 +374,7 @@
 		}
 
 		#endregion
-		private System.Windows.Forms.ToolTip toolTip;
+		private ToolTip toolTip;
 		private ToolStripPanel BottomToolStripPanel;
 		private ToolStripPanel TopToolStripPanel;
 		private ToolStripPanel RightToolStripPanel;

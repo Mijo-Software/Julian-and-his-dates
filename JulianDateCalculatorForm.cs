@@ -17,26 +17,26 @@ namespace Julian_and_his_dates
 		/// JD dates
 		/// </summary>
 		private double
-			doubleJulianDate,
-			doubleModifiedJulianDate,
-			doubleReducedJulianDate,
-			doubleTruncatedJulianDate,
-			doubleDublinJulianDate,
-			doubleCnesJulianDate,
-			doubleCcsdsJulianDate,
-			doubleLopJulianDate,
-			doubleMillenniumJulianDate,
-			doubleLilianDate,
-			doubleChronologicalJulianDate,
-			doubleChronologicalModifiedJulianDate,
-			doubleRataDie,
-			doubleMarsSolDate,
-			doubleUnixtime;
+			_doubleJulianDate,
+			_doubleModifiedJulianDate,
+			_doubleReducedJulianDate,
+			_doubleTruncatedJulianDate,
+			_doubleDublinJulianDate,
+			_doubleCnesJulianDate,
+			_doubleCcsdsJulianDate,
+			_doubleLopJulianDate,
+			_doubleMillenniumJulianDate,
+			_doubleLilianDate,
+			_doubleChronologicalJulianDate,
+			_doubleChronologicalModifiedJulianDate,
+			_doubleRataDie,
+			_doubleMarsSolDate,
+			_doubleUnixTime;
 
 		/// <summary>
 		/// culture info for the date
 		/// </summary>
-		private readonly CultureInfo culture = CultureInfo.CurrentUICulture;
+		private readonly CultureInfo _culture = CultureInfo.CurrentUICulture;
 
 		/// <summary>
 		/// Logger instance for logging messages and exceptions.
@@ -58,7 +58,7 @@ namespace Julian_and_his_dates
 		{
 			Debug.WriteLine(value: ex);
 			Logger.Error(exception: ex, message: messageLogger);
-			_ = MessageBox.Show(text: messageBox, caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: messageBox, caption: @"Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -69,7 +69,7 @@ namespace Julian_and_his_dates
 		{
 			label.Cursor = Cursors.Hand;
 			label.Font = new Font(prototype: label.Font, newStyle: FontStyle.Underline);
-			SetStatusbar(text: label.AccessibleDescription ?? string.Empty);
+			SetStatusBar(text: label.AccessibleDescription ?? string.Empty);
 		}
 
 		/// <summary>
@@ -80,7 +80,7 @@ namespace Julian_and_his_dates
 		{
 			label.Cursor = Cursors.Default;
 			label.Font = new Font(prototype: label.Font, newStyle: FontStyle.Regular);
-			ResetStatusbar();
+			ResetStatusBar();
 		}
 
 		/// <summary>
@@ -116,7 +116,7 @@ namespace Julian_and_his_dates
 		/// Sets the status bar text.
 		/// </summary>
 		/// <param name="text">The text to display in the status bar.</param>
-		private void SetStatusbar(string text)
+		private void SetStatusBar(string text)
 		{
 			toolStripStatusLabelInformation.Visible = true;
 			toolStripStatusLabelInformation.Text = text;
@@ -126,7 +126,7 @@ namespace Julian_and_his_dates
 		/// <summary>
 		/// Resets the status bar to its default state.
 		/// </summary>
-		private void ResetStatusbar()
+		private void ResetStatusBar()
 		{
 			toolStripStatusLabelInformation.Visible = false;
 			toolStripStatusLabelInformation.Text = string.Empty;
@@ -166,23 +166,23 @@ namespace Julian_and_his_dates
 			bool truncate = checkBoxIgnoreDecimals.Checked;
 			foreach ((Label label, double value) in new[]
 			{
-				(labelJulianDate, doubleJulianDate),
-				(labelModifiedJulianDate, doubleModifiedJulianDate),
-				(labelReducedJulianDate, doubleReducedJulianDate),
-				(labelTruncatedJulianDate, doubleTruncatedJulianDate),
-				(labelDublinJulianDate, doubleDublinJulianDate),
-				(labelCnesJulianDate, doubleCnesJulianDate),
-				(labelCcsdsJulianDate, doubleCcsdsJulianDate),
-				(labelLopJulianDate, doubleLopJulianDate),
-				(labelMillenniumJulianDate, doubleMillenniumJulianDate),
-				(labelChronologicalJulianDate, doubleChronologicalJulianDate),
-				(labelChronologicalModifiedJulianDate, doubleChronologicalModifiedJulianDate),
-				(labelLilianDate, doubleLilianDate),
-				(labelRataDie, doubleRataDie),
-				(labelMarsSolDate, doubleMarsSolDate),
-				(labelUnixtime, doubleUnixtime)})
+				(labelJulianDate, _doubleJulianDate),
+				(labelModifiedJulianDate, _doubleModifiedJulianDate),
+				(labelReducedJulianDate, _doubleReducedJulianDate),
+				(labelTruncatedJulianDate, _doubleTruncatedJulianDate),
+				(labelDublinJulianDate, _doubleDublinJulianDate),
+				(labelCnesJulianDate, _doubleCnesJulianDate),
+				(labelCcsdsJulianDate, _doubleCcsdsJulianDate),
+				(labelLopJulianDate, _doubleLopJulianDate),
+				(labelMillenniumJulianDate, _doubleMillenniumJulianDate),
+				(labelChronologicalJulianDate, _doubleChronologicalJulianDate),
+				(labelChronologicalModifiedJulianDate, _doubleChronologicalModifiedJulianDate),
+				(labelLilianDate, _doubleLilianDate),
+				(labelRataDie, _doubleRataDie),
+				(labelMarsSolDate, _doubleMarsSolDate),
+				(labelUnixtime, _doubleUnixTime)})
 			{
-				label.Text = (truncate ? Math.Truncate(d: value) : value).ToString(provider: culture);
+				label.Text = (truncate ? Math.Truncate(d: value) : value).ToString(provider: _culture);
 			}
 		}
 
@@ -197,40 +197,40 @@ namespace Julian_and_his_dates
 		{
 			InitializeComponent();
 			Logger.Info(message: "JulianDateCalculatorForm initialized.");
-			this.KeyDown += new KeyEventHandler(JulianDateCalculatorForm_KeyDown);
-			this.KeyPreview = true; // Ensures the form receives key events before the controls
-			doubleJulianDate = JulianDates.CalculateJulianDate();
-			doubleModifiedJulianDate = JulianDates.CalculateModifiedJulianDate();
-			doubleReducedJulianDate = JulianDates.CalculateReducedJulianDate();
-			doubleTruncatedJulianDate = JulianDates.CalculateTruncatedJulianDate();
-			doubleDublinJulianDate = JulianDates.CalculateDublinJulianDate();
-			doubleCnesJulianDate = JulianDates.CalculateCnesJulianDate();
-			doubleCcsdsJulianDate = JulianDates.CalculateCcsdsJulianDate();
-			doubleLopJulianDate = JulianDates.CalculateLopJulianDate();
-			doubleMillenniumJulianDate = JulianDates.CalculateMillenniumJulianDate();
-			doubleChronologicalJulianDate = JulianDates.CalculateChronologicalJulianDate();
-			doubleChronologicalModifiedJulianDate = JulianDates.CalculateChronologicalModifiedJulianDate();
-			doubleLilianDate = JulianDates.CalculateLilianDate();
-			doubleRataDie = JulianDates.CalculateRataDie();
-			doubleMarsSolDate = JulianDates.CalculateMarsSolDate();
-			doubleUnixtime = JulianDates.CalculateUnixTime();
-			labelLocalTime.Text = DateTime.Now.ToString(provider: culture);
-			labelUtcTime.Text = DateTime.UtcNow.ToString(provider: culture);
-			labelJulianDate.Text = doubleJulianDate.ToString(provider: culture);
-			labelModifiedJulianDate.Text = doubleModifiedJulianDate.ToString(provider: culture);
-			labelReducedJulianDate.Text = doubleReducedJulianDate.ToString(provider: culture);
-			labelTruncatedJulianDate.Text = doubleTruncatedJulianDate.ToString(provider: culture);
-			labelDublinJulianDate.Text = doubleDublinJulianDate.ToString(provider: culture);
-			labelCnesJulianDate.Text = doubleCnesJulianDate.ToString(provider: culture);
-			labelCcsdsJulianDate.Text = doubleCcsdsJulianDate.ToString(provider: culture);
-			labelLopJulianDate.Text = doubleLopJulianDate.ToString(provider: culture);
-			labelMillenniumJulianDate.Text = doubleMillenniumJulianDate.ToString(provider: culture);
-			labelChronologicalJulianDate.Text = doubleChronologicalJulianDate.ToString(provider: culture);
-			labelChronologicalModifiedJulianDate.Text = doubleChronologicalModifiedJulianDate.ToString(provider: culture);
-			labelLilianDate.Text = doubleLilianDate.ToString(provider: culture);
-			labelRataDie.Text = doubleRataDie.ToString(provider: culture);
-			labelMarsSolDate.Text = doubleMarsSolDate.ToString(provider: culture);
-			labelUnixtime.Text = doubleUnixtime.ToString(provider: culture);
+			KeyDown += JulianDateCalculatorForm_KeyDown;
+			KeyPreview = true; // Ensures the form receives key events before the controls
+			_doubleJulianDate = JulianDates.CalculateJulianDate();
+			_doubleModifiedJulianDate = JulianDates.CalculateModifiedJulianDate();
+			_doubleReducedJulianDate = JulianDates.CalculateReducedJulianDate();
+			_doubleTruncatedJulianDate = JulianDates.CalculateTruncatedJulianDate();
+			_doubleDublinJulianDate = JulianDates.CalculateDublinJulianDate();
+			_doubleCnesJulianDate = JulianDates.CalculateCnesJulianDate();
+			_doubleCcsdsJulianDate = JulianDates.CalculateCcsdsJulianDate();
+			_doubleLopJulianDate = JulianDates.CalculateLopJulianDate();
+			_doubleMillenniumJulianDate = JulianDates.CalculateMillenniumJulianDate();
+			_doubleChronologicalJulianDate = JulianDates.CalculateChronologicalJulianDate();
+			_doubleChronologicalModifiedJulianDate = JulianDates.CalculateChronologicalModifiedJulianDate();
+			_doubleLilianDate = JulianDates.CalculateLilianDate();
+			_doubleRataDie = JulianDates.CalculateRataDie();
+			_doubleMarsSolDate = JulianDates.CalculateMarsSolDate();
+			_doubleUnixTime = JulianDates.CalculateUnixTime();
+			labelLocalTime.Text = DateTime.Now.ToString(provider: _culture);
+			labelUtcTime.Text = DateTime.UtcNow.ToString(provider: _culture);
+			labelJulianDate.Text = _doubleJulianDate.ToString(provider: _culture);
+			labelModifiedJulianDate.Text = _doubleModifiedJulianDate.ToString(provider: _culture);
+			labelReducedJulianDate.Text = _doubleReducedJulianDate.ToString(provider: _culture);
+			labelTruncatedJulianDate.Text = _doubleTruncatedJulianDate.ToString(provider: _culture);
+			labelDublinJulianDate.Text = _doubleDublinJulianDate.ToString(provider: _culture);
+			labelCnesJulianDate.Text = _doubleCnesJulianDate.ToString(provider: _culture);
+			labelCcsdsJulianDate.Text = _doubleCcsdsJulianDate.ToString(provider: _culture);
+			labelLopJulianDate.Text = _doubleLopJulianDate.ToString(provider: _culture);
+			labelMillenniumJulianDate.Text = _doubleMillenniumJulianDate.ToString(provider: _culture);
+			labelChronologicalJulianDate.Text = _doubleChronologicalJulianDate.ToString(provider: _culture);
+			labelChronologicalModifiedJulianDate.Text = _doubleChronologicalModifiedJulianDate.ToString(provider: _culture);
+			labelLilianDate.Text = _doubleLilianDate.ToString(provider: _culture);
+			labelRataDie.Text = _doubleRataDie.ToString(provider: _culture);
+			labelMarsSolDate.Text = _doubleMarsSolDate.ToString(provider: _culture);
+			labelUnixtime.Text = _doubleUnixTime.ToString(provider: _culture);
 		}
 
 		#endregion
@@ -266,11 +266,11 @@ namespace Julian_and_his_dates
 			sound.Play();
 			string
 				strPathToMyPictures = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyPictures) + "\\",
-				strFilenameWithExtension = JulianDates.CalculateJulianDate().ToString(provider: culture) + ".png",
-				strInfotext = Resources.strScreenshotSavedTo;
+				strFilenameWithExtension = JulianDates.CalculateJulianDate().ToString(provider: _culture) + ".png",
+				savedTo = Resources.strScreenshotSavedTo;
 			_ = MessageBox.Show(
-				text: strInfotext + "\n\n" + ScreenToPicture(location: strPathToMyPictures + strFilenameWithExtension),
-				caption: "Screenshot taken",
+				text: savedTo + "\n\n" + ScreenToPicture(location: strPathToMyPictures + strFilenameWithExtension),
+				caption: @"Screenshot taken",
 				buttons: MessageBoxButtons.OK,
 				icon: MessageBoxIcon.Information,
 				defaultButton: MessageBoxDefaultButton.Button1,
@@ -411,7 +411,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUnixtimeText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strUnixtimeText);
+		private void LabelUnixTimeText_Click(object sender, EventArgs e) => ShowInfoMessage(text: Resources.strUnixtimeText);
 
 		#endregion
 
@@ -551,7 +551,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUnixtime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelUnixtime.Text);
+		private void LabelUnixTime_DoubleClick(object sender, EventArgs e) => CopyToClipboard(text: labelUnixtime.Text);
 
 		#endregion
 
@@ -691,7 +691,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUnixtimeText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelUnixtimeText);
+		private void LabelUnixTimeText_Enter(object sender, EventArgs e) => UpdateLabelOnEnter(label: labelUnixtimeText);
 
 		/// <summary>
 		/// Handles the Enter event for the UTC time label.
@@ -699,7 +699,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUtcTime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelUtcTime.AccessibleDescription ?? string.Empty);
+		private void LabelUtcTime_Enter(object sender, EventArgs e) => SetStatusBar(text: labelUtcTime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the local time label.
@@ -707,7 +707,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLocalTime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLocalTime.AccessibleDescription ?? string.Empty);
+		private void LabelLocalTime_Enter(object sender, EventArgs e) => SetStatusBar(text: labelLocalTime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the Julian date label.
@@ -715,7 +715,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the modified Julian date label.
@@ -723,7 +723,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelModifiedJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelModifiedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the reduced Julian date label.
@@ -731,7 +731,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelReducedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelReducedJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelReducedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelReducedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the truncated Julian date label.
@@ -739,7 +739,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelTruncatedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelTruncatedJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelTruncatedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelTruncatedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the Dublin Julian date label.
@@ -747,7 +747,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelDublinJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelDublinJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelDublinJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelDublinJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the CNES Julian date label.
@@ -755,7 +755,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelCnesJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelCnesJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelCnesJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelCnesJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the CCSDS Julian date label.
@@ -763,7 +763,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelCcsdsJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelCcsdsJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelCcsdsJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelCcsdsJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the LOP Julian date label.
@@ -771,7 +771,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLopJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLopJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelLopJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelLopJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the Millennium Julian date label.
@@ -779,7 +779,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelMillenniumJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelMillenniumJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelMillenniumJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelMillenniumJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the chronological Julian date label.
@@ -787,7 +787,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelChronologicalJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelChronologicalJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelChronologicalJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the chronological modified Julian date label.
@@ -795,7 +795,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelChronologicalModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalModifiedJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelChronologicalModifiedJulianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelChronologicalModifiedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the Lilian date label.
@@ -803,7 +803,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLilianDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelLilianDate.AccessibleDescription ?? string.Empty);
+		private void LabelLilianDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelLilianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the Rata Die label.
@@ -811,7 +811,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelRataDie_Enter(object sender, EventArgs e) => SetStatusbar(text: labelRataDie.AccessibleDescription ?? string.Empty);
+		private void LabelRataDie_Enter(object sender, EventArgs e) => SetStatusBar(text: labelRataDie.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the Mars Sol date label.
@@ -819,7 +819,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelMarsSolDate_Enter(object sender, EventArgs e) => SetStatusbar(text: labelMarsSolDate.AccessibleDescription ?? string.Empty);
+		private void LabelMarsSolDate_Enter(object sender, EventArgs e) => SetStatusBar(text: labelMarsSolDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the Unix time label.
@@ -827,7 +827,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUnixtime_Enter(object sender, EventArgs e) => SetStatusbar(text: labelUnixtime.AccessibleDescription ?? string.Empty);
+		private void LabelUnixTime_Enter(object sender, EventArgs e) => SetStatusBar(text: labelUnixtime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the DateTimePicker.
@@ -835,7 +835,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void DateTimePicker_Enter(object sender, EventArgs e) => SetStatusbar(text: dateTimePicker.AccessibleDescription ?? string.Empty);
+		private void DateTimePicker_Enter(object sender, EventArgs e) => SetStatusBar(text: dateTimePicker.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the Enter event for the CheckBoxIgnoreDecimals.
@@ -843,7 +843,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void CheckBoxIgnoreDecimals_Enter(object sender, EventArgs e) => SetStatusbar(text: checkBoxIgnoreDecimals.AccessibleDescription ?? string.Empty);
+		private void CheckBoxIgnoreDecimals_Enter(object sender, EventArgs e) => SetStatusBar(text: checkBoxIgnoreDecimals.AccessibleDescription ?? string.Empty);
 
 		#endregion
 
@@ -983,7 +983,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUnixtimeText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelUnixtimeText);
+		private void LabelUnixTimeText_Leave(object sender, EventArgs e) => UpdateLabelOnLeave(label: labelUnixtimeText);
 
 		/// <summary>
 		/// Handles the Leave event for the UTC time label.
@@ -991,7 +991,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUtcTime_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelUtcTime_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the local time label.
@@ -999,7 +999,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLocalTime_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelLocalTime_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Julian date label.
@@ -1007,7 +1007,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the modified Julian date label.
@@ -1015,7 +1015,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelModifiedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelModifiedJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the reduced Julian date label.
@@ -1023,7 +1023,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelReducedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelReducedJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the truncated Julian date label.
@@ -1031,7 +1031,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelTruncatedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelTruncatedJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Dublin Julian date label.
@@ -1039,7 +1039,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelDublinJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelDublinJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the CNES Julian date label.
@@ -1047,7 +1047,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelCnesJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelCnesJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the CCSDS Julian date label.
@@ -1055,7 +1055,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelCcsdsJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelCcsdsJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the LOP Julian date label.
@@ -1063,7 +1063,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLopJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelLopJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Millennium Julian date label.
@@ -1071,7 +1071,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelMillenniumJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelMillenniumJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the chronological Julian date label.
@@ -1079,7 +1079,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelChronologicalJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelChronologicalJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the chronological modified Julian date label.
@@ -1087,7 +1087,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelChronologicalModifiedJulianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelChronologicalModifiedJulianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Lilian date label.
@@ -1095,7 +1095,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLilianDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelLilianDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Rata Die label.
@@ -1103,7 +1103,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelRataDie_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelRataDie_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Mars Sol date label.
@@ -1111,7 +1111,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelMarsSolDate_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelMarsSolDate_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Unix time label.
@@ -1119,7 +1119,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUnixtime_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelUnixTime_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the DateTimePicker.
@@ -1127,7 +1127,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void DateTimePicker_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void DateTimePicker_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the CheckBoxIgnoreDecimals.
@@ -1135,7 +1135,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void CheckBoxIgnoreDecimals_Leave(object sender, EventArgs e) => ResetStatusbar();
+		private void CheckBoxIgnoreDecimals_Leave(object sender, EventArgs e) => ResetStatusBar();
 
 		#endregion
 
@@ -1275,7 +1275,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUnixtimeText_MouseEnter(object sender, EventArgs e) => LabelUnixtimeText_Enter(sender: sender, e: e);
+		private void LabelUnixTimeText_MouseEnter(object sender, EventArgs e) => LabelUnixTimeText_Enter(sender: sender, e: e);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the UTC time label.
@@ -1283,7 +1283,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUtcTime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelUtcTime.AccessibleDescription ?? string.Empty);
+		private void LabelUtcTime_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelUtcTime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the local time label.
@@ -1291,7 +1291,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLocalTime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLocalTime.AccessibleDescription ?? string.Empty);
+		private void LabelLocalTime_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelLocalTime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the Julian date label.
@@ -1299,7 +1299,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the modified Julian date label.
@@ -1307,7 +1307,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelModifiedJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelModifiedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the reduced Julian date label.
@@ -1315,7 +1315,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelReducedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelReducedJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelReducedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelReducedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the truncated Julian date label.
@@ -1323,7 +1323,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelTruncatedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelTruncatedJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelTruncatedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelTruncatedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the Dublin Julian date label.
@@ -1331,7 +1331,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelDublinJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelDublinJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelDublinJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelDublinJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the CNES Julian date label.
@@ -1339,7 +1339,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelCnesJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelCnesJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelCnesJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelCnesJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the CCSDS Julian date label.
@@ -1347,7 +1347,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelCcsdsJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelCcsdsJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelCcsdsJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelCcsdsJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the LOP Julian date label.
@@ -1355,7 +1355,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLopJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLopJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelLopJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelLopJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the Millennium Julian date label.
@@ -1363,7 +1363,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelMillenniumJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelMillenniumJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelMillenniumJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelMillenniumJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the chronological Julian date label.
@@ -1371,7 +1371,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelChronologicalJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelChronologicalJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelChronologicalJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the chronological modified Julian date label.
@@ -1379,7 +1379,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelChronologicalModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelChronologicalModifiedJulianDate.AccessibleDescription ?? string.Empty);
+		private void LabelChronologicalModifiedJulianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelChronologicalModifiedJulianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the Lilian date label.
@@ -1387,7 +1387,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLilianDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelLilianDate.AccessibleDescription ?? string.Empty);
+		private void LabelLilianDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelLilianDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the Rata Die label.
@@ -1395,7 +1395,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelRataDie_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelRataDie.AccessibleDescription ?? string.Empty);
+		private void LabelRataDie_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelRataDie.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the Mars Sol date label.
@@ -1403,7 +1403,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelMarsSolDate_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelMarsSolDate.AccessibleDescription ?? string.Empty);
+		private void LabelMarsSolDate_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelMarsSolDate.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the Unix time label.
@@ -1411,7 +1411,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUnixtime_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: labelUnixtime.AccessibleDescription ?? string.Empty);
+		private void LabelUnixTime_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: labelUnixtime.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the DateTimePicker.
@@ -1419,7 +1419,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void DateTimePicker_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: dateTimePicker.AccessibleDescription ?? string.Empty);
+		private void DateTimePicker_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: dateTimePicker.AccessibleDescription ?? string.Empty);
 
 		/// <summary>
 		/// Handles the MouseEnter event for the CheckBoxIgnoreDecimals.
@@ -1427,7 +1427,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void CheckBoxIgnoreDecimals_MouseEnter(object sender, EventArgs e) => SetStatusbar(text: checkBoxIgnoreDecimals.AccessibleDescription ?? string.Empty);
+		private void CheckBoxIgnoreDecimals_MouseEnter(object sender, EventArgs e) => SetStatusBar(text: checkBoxIgnoreDecimals.AccessibleDescription ?? string.Empty);
 
 
 		#endregion
@@ -1568,7 +1568,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUnixtimeText_MouseLeave(object sender, EventArgs e) => LabelUnixtimeText_Leave(sender: sender, e: e);
+		private void LabelUnixTimeText_MouseLeave(object sender, EventArgs e) => LabelUnixTimeText_Leave(sender: sender, e: e);
 
 		/// <summary>
 		/// Handles the Leave event for the UTC time label.
@@ -1576,7 +1576,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUtcTime_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelUtcTime_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the local time label.
@@ -1584,7 +1584,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLocalTime_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelLocalTime_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Julian date label.
@@ -1592,7 +1592,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the modified Julian date label.
@@ -1600,7 +1600,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelModifiedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelModifiedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the reduced Julian date label.
@@ -1608,7 +1608,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelReducedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelReducedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the truncated Julian date label.
@@ -1616,7 +1616,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelTruncatedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelTruncatedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Dublin Julian date label.
@@ -1624,7 +1624,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelDublinJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelDublinJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the CNES Julian date label.
@@ -1632,7 +1632,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelCnesJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelCnesJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the CCSDS Julian date label.
@@ -1640,7 +1640,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelCcsdsJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelCcsdsJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the LOP Julian date label.
@@ -1648,7 +1648,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLopJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelLopJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Millennium Julian date label.
@@ -1656,7 +1656,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelMillenniumJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelMillenniumJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the chronological Julian date label.
@@ -1664,7 +1664,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelChronologicalJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelChronologicalJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the chronological modified Julian date label.
@@ -1672,7 +1672,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelChronologicalModifiedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelChronologicalModifiedJulianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Lilian date label.
@@ -1680,7 +1680,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelLilianDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelLilianDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Rata Die label.
@@ -1688,7 +1688,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelRataDie_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelRataDie_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Mars Sol date label.
@@ -1696,7 +1696,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelMarsSolDate_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelMarsSolDate_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the Unix time label.
@@ -1704,7 +1704,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void LabelUnixtime_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void LabelUnixTime_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the DateTime picker.
@@ -1712,7 +1712,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void DateTimePicker_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void DateTimePicker_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		/// <summary>
 		/// Handles the Leave event for the IngoreDecimals checkbox.
@@ -1720,7 +1720,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The event data.</param>
-		private void CheckBoxIgnoreDecimals_MouseLeave(object sender, EventArgs e) => ResetStatusbar();
+		private void CheckBoxIgnoreDecimals_MouseLeave(object sender, EventArgs e) => ResetStatusBar();
 
 		#endregion
 
@@ -1735,23 +1735,23 @@ namespace Julian_and_his_dates
 		private void DateTimePicker_ValueChanged(object sender, EventArgs e)
 		{
 			DateTime value = dateTimePicker.Value;
-			labelUtcTime.Text = value.ToUniversalTime().ToString(provider: culture);
-			labelLocalTime.Text = value.ToLocalTime().ToString(provider: culture);
-			doubleJulianDate = JulianDates.CalculateJulianDate(date: value);
-			doubleModifiedJulianDate = JulianDates.CalculateModifiedJulianDate(date: value);
-			doubleReducedJulianDate = JulianDates.CalculateReducedJulianDate(date: value);
-			doubleTruncatedJulianDate = JulianDates.CalculateTruncatedJulianDate(date: value);
-			doubleDublinJulianDate = JulianDates.CalculateDublinJulianDate(date: value);
-			doubleCnesJulianDate = JulianDates.CalculateCnesJulianDate(date: value);
-			doubleCcsdsJulianDate = JulianDates.CalculateCcsdsJulianDate(date: value);
-			doubleLopJulianDate = JulianDates.CalculateLopJulianDate(date: value);
-			doubleMillenniumJulianDate = JulianDates.CalculateMillenniumJulianDate(date: value);
-			doubleChronologicalJulianDate = JulianDates.CalculateChronologicalJulianDate(date: value);
-			doubleChronologicalModifiedJulianDate = JulianDates.CalculateChronologicalModifiedJulianDate(date: value);
-			doubleLilianDate = JulianDates.CalculateLilianDate(date: value);
-			doubleRataDie = JulianDates.CalculateRataDie(date: value);
-			doubleMarsSolDate = JulianDates.CalculateMarsSolDate(date: value);
-			doubleUnixtime = JulianDates.CalculateUnixTime(date: value);
+			labelUtcTime.Text = value.ToUniversalTime().ToString(provider: _culture);
+			labelLocalTime.Text = value.ToLocalTime().ToString(provider: _culture);
+			_doubleJulianDate = JulianDates.CalculateJulianDate(date: value);
+			_doubleModifiedJulianDate = JulianDates.CalculateModifiedJulianDate(date: value);
+			_doubleReducedJulianDate = JulianDates.CalculateReducedJulianDate(date: value);
+			_doubleTruncatedJulianDate = JulianDates.CalculateTruncatedJulianDate(date: value);
+			_doubleDublinJulianDate = JulianDates.CalculateDublinJulianDate(date: value);
+			_doubleCnesJulianDate = JulianDates.CalculateCnesJulianDate(date: value);
+			_doubleCcsdsJulianDate = JulianDates.CalculateCcsdsJulianDate(date: value);
+			_doubleLopJulianDate = JulianDates.CalculateLopJulianDate(date: value);
+			_doubleMillenniumJulianDate = JulianDates.CalculateMillenniumJulianDate(date: value);
+			_doubleChronologicalJulianDate = JulianDates.CalculateChronologicalJulianDate(date: value);
+			_doubleChronologicalModifiedJulianDate = JulianDates.CalculateChronologicalModifiedJulianDate(date: value);
+			_doubleLilianDate = JulianDates.CalculateLilianDate(date: value);
+			_doubleRataDie = JulianDates.CalculateRataDie(date: value);
+			_doubleMarsSolDate = JulianDates.CalculateMarsSolDate(date: value);
+			_doubleUnixTime = JulianDates.CalculateUnixTime(date: value);
 			CheckToTruncateDecimals();
 		}
 
@@ -1781,7 +1781,7 @@ namespace Julian_and_his_dates
 		{
 			if (e.KeyCode == Keys.Escape)
 			{
-				this.Close();
+				Close();
 			}
 		}
 

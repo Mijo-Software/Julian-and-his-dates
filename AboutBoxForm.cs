@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Media;
 using Julian_and_his_dates.Properties;
 using NLog;
 
@@ -9,7 +10,7 @@ namespace Julian_and_his_dates
 	/// </summary>
 	[DebuggerDisplay(value: $"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 
-	internal partial class AboutBoxForm : Form
+	internal sealed partial class AboutBoxForm : Form
 	{
 		/// <summary>
 		/// Logger instance for logging messages and exceptions.
@@ -19,12 +20,12 @@ namespace Julian_and_his_dates
 		/// <summary>
 		/// The color used for white font.
 		/// </summary>
-		private readonly Color colorWhiteFont = Color.WhiteSmoke;
+		private readonly Color _colorWhiteFont = Color.WhiteSmoke;
 
 		/// <summary>
 		/// The color used for the dark background.
 		/// </summary>
-		private readonly Color colorDarkBackground = Color.FromArgb(red: 29, green: 32, blue: 41);
+		private readonly Color _colorDarkBackground = Color.FromArgb(red: 29, green: 32, blue: 41);
 
 		/// <summary>
 		/// Returns a string that represents the current object for debugging purposes.
@@ -36,7 +37,7 @@ namespace Julian_and_his_dates
 		/// Sets a specific text to the status bar.
 		/// </summary>
 		/// <param name="text">The text with some information to display in the status bar.</param>
-		private void SetStatusbarText(string text)
+		private void SetStatusBarText(string text)
 		{
 			labelInformation.Enabled = !string.IsNullOrWhiteSpace(value: text);
 			labelInformation.Text = text;
@@ -55,7 +56,7 @@ namespace Julian_and_his_dates
 			Debug.WriteLine(value: msg);
 			Console.WriteLine(value: msg);
 			Logger.Error(exception: ex, message: msg);
-			_ = MessageBox.Show(text: message, caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: message, caption: @"Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -63,9 +64,9 @@ namespace Julian_and_his_dates
 		/// </summary>
 		public void SetDarkMode()
 		{
-			statusStrip.BackColor = colorDarkBackground;
-			labelInformation.BackColor = colorDarkBackground;
-			labelInformation.ForeColor = colorWhiteFont;
+			statusStrip.BackColor = _colorDarkBackground;
+			labelInformation.BackColor = _colorDarkBackground;
+			labelInformation.ForeColor = _colorWhiteFont;
 		}
 
 		/// <summary>
@@ -76,14 +77,14 @@ namespace Julian_and_his_dates
 		{
 			InitializeComponent();
 			Logger.Info(message: "AboutBoxForm initialized.");
-			Text = $"Info about {AssemblyInfo.AssemblyTitle}";
+			Text = $@"Info about {AssemblyInfo.AssemblyTitle}";
 			labelProductName.Text = AssemblyInfo.AssemblyProduct;
-			labelVersion.Text = $"Version {AssemblyInfo.AssemblyVersion}";
+			labelVersion.Text = $@"Version {AssemblyInfo.AssemblyVersion}";
 			labelCopyright.Text = AssemblyInfo.AssemblyCopyright;
 			labelCompanyName.Text = AssemblyInfo.AssemblyCompany;
 			textBoxDescription.Text = AssemblyInfo.AssemblyDescription;
-			this.KeyDown += new KeyEventHandler(AboutBoxForm_KeyDown);
-			this.KeyPreview = true; // Ensures the form receives key events before the controls
+			KeyDown += AboutBoxForm_KeyDown;
+			KeyPreview = true; // Ensures the form receives key events before the controls
 		}
 
 		/// <summary>
@@ -93,7 +94,7 @@ namespace Julian_and_his_dates
 		/// <param name="e"></param>
 		private void LogoPictureBox_Click(object sender, EventArgs e)
 		{
-			using System.Media.SoundPlayer sound = new(stream: Resources.wavBleep);
+			using SoundPlayer sound = new(stream: Resources.wavBleep);
 			sound.Play();
 		}
 
@@ -103,45 +104,26 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void AboutBoxForm_Load(object sender, EventArgs e) => SetStatusbarText(text: string.Empty);
+		private void AboutBoxForm_Load(object sender, EventArgs e) => SetStatusBarText(text: string.Empty);
 
 		/// <summary>
 		/// Detect the accessibility description to set as information text in the status bar
 		/// </summary>
 		/// <param name="sender">The event source</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data</param>
-		private void SetStatusbar_Enter(object sender, EventArgs e)
+		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
-			try
+			// Set the status bar text based on the sender's accessible description
+			switch (sender)
 			{
-				if (sender is Control { AccessibleDescription: { } } control)
-				{
-					SetStatusbarText(text: control.AccessibleDescription);
-				}
-				else if (sender is ToolStripMenuItem { AccessibleDescription: { } } control2)
-				{
-					SetStatusbarText(text: control2.AccessibleDescription);
-				}
-				else if (sender is ToolStripStatusLabel { AccessibleDescription: { } } control3)
-				{
-					SetStatusbarText(text: control3.AccessibleDescription);
-				}
-				else if (sender is ToolStripButton { AccessibleDescription: { } } control4)
-				{
-					SetStatusbarText(text: control4.AccessibleDescription);
-				}
-				else if (sender is ToolStripDropDownButton { AccessibleDescription: { } } control5)
-				{
-					SetStatusbarText(text: control5.AccessibleDescription);
-				}
-				else if (sender is ToolStripSplitButton { AccessibleDescription: { } } control6)
-				{
-					SetStatusbarText(text: control6.AccessibleDescription);
-				}
-			}
-			catch (Exception ex)
-			{
-				HandleException(ex: ex, message: "An error occurred while setting the status bar text.", sender: sender, e: e);
+				// If the sender is a control with an accessible description, set the status bar text
+				// If the sender is a ToolStripItem with an accessible description, set the status bar text
+				case Control { AccessibleDescription: not null } control:
+					SetStatusBarText(text: control.AccessibleDescription);
+					break;
+				case ToolStripItem { AccessibleDescription: not null } item:
+					SetStatusBarText(text: item.AccessibleDescription);
+					break;
 			}
 		}
 
@@ -150,7 +132,7 @@ namespace Julian_and_his_dates
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void ClearStatusbar_Leave(object sender, EventArgs e) => SetStatusbarText(text: string.Empty);
+		private void ClearStatusBar_Leave(object sender, EventArgs e) => SetStatusBarText(text: string.Empty);
 
 		/// <summary>
 		/// Handles the KeyDown event of the ExportDataSheetForm.
@@ -162,7 +144,7 @@ namespace Julian_and_his_dates
 		{
 			if (e.KeyCode == Keys.Escape)
 			{
-				this.Close();
+				Close();
 			}
 		}
 	}
